@@ -18,7 +18,8 @@ const SYNC_TYPE = {
   DELETE: 'delete',
   MOVE: 'move',
   REDO: 'redo',
-  UNDO: 'undo'
+  UNDO: 'undo',
+  MOVE_BY_PRESENTER: 'move_by_presenter'
 }
 let instance = null
 class Draw {
@@ -26,12 +27,21 @@ class Draw {
     this.current = 'choose'
     const container = document.querySelector('.canvas-container')
     this.container = container
+    this.isPresenter = false
+    this.presenterVp = {
+      x: 0,
+      y: 0
+    }
+    this.presenterZoom = 1
+    this.isFollowingMode = false
+    this.container = container
     this.layerDraw = new fabric.Canvas('layer-draw', {
       width: container.offsetWidth,
       height: container.offsetHeight,
       preserveObjectStacking: true,
       perPixelTargetFind: true,
       targetFindTolerance: 15
+      // skipTargetFind: false,
       // controlsAboveOverlay: true
     })
     this.zoomPercent = 1
@@ -42,6 +52,7 @@ class Draw {
     this.textEditing = false
     this.canvaswidth = container.offsetWidth
     this.canvasHeight = container.offsetHeight
+    this.baseWidth = this.canvaswidth
     instance = this
     window.canvas = this.layerDraw
     this.lastPosX = this.lastPosY = null
@@ -52,6 +63,7 @@ class Draw {
     this.initPan()
     this.initText()
     this.initZoom()
+    this.initFollow()
     this.registerEvents()
   }
   getInstance() {
@@ -91,10 +103,49 @@ class Draw {
       })
       // canvas.freeDrawingBrush.width = +width
     })
-    window.addEventListener('resize', () => {
-      canvas.setWidth(this.container.offsetWidth)
-      canvas.setHeight(this.container.offsetHeight)
+    this._vm.$nextTick(() => {
+      this.resizeCanvas()
     })
+    window.addEventListener('resize', () => {
+      this.resizeCanvas()
+    })
+    this.container.addEventListener('gesturestart', (ev) => {
+      if (this.current !== 'pan') return
+      this.lastPosX = ev.clientX
+      this.lastPosY = ev.clientY
+    }, false)
+    this.container.addEventListener('gesturechange', (ev) => {
+      this.changeZoom(ev)
+    }, false)
+  }
+  resizeCanvas() {
+    const canvas = this.layerDraw
+    const canvasWidth = this.container.offsetWidth
+    const canvasHeight = this.container.offsetHeight // 800 / 1080 * canvasWidth
+    if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+      canvas.setWidth(canvasWidth)
+      canvas.setHeight(canvasHeight)
+    }
+    if (this.isFollowingMode) {
+      this.setZoom(canvasWidth / this.baseWidth * this.presenterZoom)
+    }
+  }
+  changeZoom(ev) {
+    const canvas = this.layerDraw
+    if (this.current !== 'pan') return
+    let scale = event.scale
+    let zoom = canvas.getZoom()
+    if (scale > 1) {
+      zoom = Number(zoom) + Number((scale / 20).toFixed(1))
+    } else {
+      zoom -= ((scale / 30).toFixed(2))
+    }
+    if (zoom > 1.5) zoom = 1.5
+    if (zoom < 0.1) zoom = 0.1
+    this.zoomPercent = zoom
+    canvas.zoomToPoint({ x: this.lastPosX, y: this.lastPosY }, zoom)
+    ev.preventDefault()
+    ev.stopPropagation()
   }
   addImage(url) {
     const canvas = this.layerDraw
@@ -114,6 +165,7 @@ class Draw {
         img.set('btype', this.current)
         canvas.add(img)
         this._vm.sync('uploadImg', SYNC_TYPE.INSERT, img.toJSON(['id', 'btype']))
+        eventEmitter.emitEvent('imageRenderAfter')
       }, { crossOrigin: 'Anonymous' })
     })
   }
@@ -267,6 +319,7 @@ class Draw {
         this.lastPosY = e.e.touches[0].clientY
       }
     })
+
     canvas.on('mouse:move', (e) => {
       if (this.current !== 'pan') return
       if (!panning) return
@@ -278,9 +331,15 @@ class Draw {
         canvas.setViewportTransform(vpt)
         this.lastPosX = e.targetTouches[0].clientX
         this.lastPosY = e.targetTouches[0].clientY
+        if (this.isPresenter) {
+          this._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { x: vpt[4], y: vpt[5], isMobile: true })
+        }
       } else {
         var delta = new fabric.Point(e.e.movementX, e.e.movementY)
         canvas.relativePan(delta)
+        if (this.isPresenter) {
+          this._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { ...this.getVpPoint(), isMobile: false })
+        }
       }
     })
   }
@@ -308,6 +367,7 @@ class Draw {
         tmpState = ''
         isTmpChangeState = false
       }
+      // canvas.perPixelTargetFind = true
     })
   }
   initZoom() {
@@ -330,11 +390,33 @@ class Draw {
       opt.e.stopPropagation()
     })
   }
+  getVpPoint() {
+    var vpt = this.layerDraw.viewportTransform.slice(0)
+    return {
+      x: vpt[4],
+      y: vpt[5]
+    }
+  }
+  moveToPoint(x, y, isMobile) {
+    var vpt = this.layerDraw.viewportTransform.slice(0)
+    vpt[4] = x
+    vpt[5] = y
+    this.layerDraw.setViewportTransform(vpt)
+    // var delta = new fabric.Point(x, y)
+    // this.layerDraw.relativePan(delta)
+  }
   setZoom(zoom) {
     const canvas = this.layerDraw
-    const center = canvas.getCenter()
-    const transform = { x: center.left, y: center.top }
+    // const center = canvas.getCenter()
+    const transform = { x: 0, y: 0 }
     canvas.zoomToPoint(transform, zoom)
+    this.zoomPercent = zoom
+  }
+  initFollow() {
+    const canvas = this.layerDraw
+    canvas.on('mouse:move', (e) => {
+      // this._vm.sync('follow', SYNC_TYPE.FOLLOW, { x: e.e.movementX, y: e.e.movementY })
+    })
   }
   redo(opt) {
     // plugins[opt.key].redo.call(this.vm, opt, this.layerDraw)
@@ -345,6 +427,9 @@ class Draw {
   deleteSelected() {
     if (this.textEditing) return
     const canvas = this.layerDraw
+    // if (canvas.getActiveObject().type === 'group') {
+    //   canvas.getActiveObject().toActiveSelection()
+    // }
     const deleteIds = canvas.getActiveObjects().map(o => o.id)
     const activeObjects = canvas.getActiveObjects()
     canvas.discardActiveObject()
