@@ -8,7 +8,7 @@ var uuid = require('uuid');
 const resCode = require('../resCode')
 const db = require(CURRENT_PATH + '/db/mongo')
 const env = process.env.NODE_ENV || "development"
-const getOSSParams = require('./oss')
+const getUpyunParams = require('./oss')
 
 const createResult = function (ctx, code, msg = '', data = null) {
   ctx.body = {
@@ -25,7 +25,7 @@ const  parse = function (ctx) {
   return new Promise((resolve) => {
     form.parse(ctx.req, async function (err, fields, files) {
       resolve({ fields, files})
-      
+
     });
   })
 }
@@ -46,7 +46,7 @@ module.exports = {
     } catch(e) {
       createResult(ctx, resCode.SEARCH_NOT_EXIST, '')
     }
-    
+
   },
   'post#board/create': async ctx => {
     // 暂时写死画板ID
@@ -67,7 +67,7 @@ module.exports = {
   'get#image/sign': async ctx => {
     let dirpath = 'zukboard'
     const filename = `${Date.now()}`
-    createResult(ctx, resCode.OK, '', getOSSParams(dirpath, filename))
+    createResult(ctx, resCode.OK, '', getUpyunParams(dirpath, filename))
   },
   'post#image/upload': async ctx => {
     const { fields, files } = await parse(ctx)
@@ -85,7 +85,7 @@ module.exports = {
       fs.writeFile(path.resolve(dirpath, filename), data, function (err) {
       })
     })
-    
+
     createResult(ctx, resCode.OK, '', {
       url: path.join(env === 'development' ? '/dist/images' : '/images', filename)
     })
@@ -107,5 +107,5 @@ module.exports = {
     // GenerateScript()
     createResult(ctx, resCode.OK, '', model)
   }
-  
+
 }

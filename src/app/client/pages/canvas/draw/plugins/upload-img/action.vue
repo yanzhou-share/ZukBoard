@@ -1,6 +1,6 @@
 <template>
   <div class="action-upload-img" @click.stop>
-    <div class="drag-area" 
+    <div class="drag-area"
     :class="{'hover': isHover}"
     @drop="dragFile"
     @dragover="dragOver"
@@ -8,11 +8,11 @@
     @dragleave="hover(false)"
     @click="showUploadDialog">
       <template v-if="!src">
-        请拖拽或点击此处上传图片  
+        请拖拽或点击此处上传图片
       </template>
       <img :src="src" alt="" srcset="" v-else>
-      
-    </div> 
+
+    </div>
     <el-button class="drag-btn" @click="drawFile">插入该图片</el-button>
     <input type="file" @change="upload" :accept="imgTypes.join(',')" name="" style="display:none" ref="fileInput" id="">
     <div class="upload-loading" v-show="isUploading"><img src="../../../../../assets/50.gif"></div>
@@ -97,14 +97,11 @@ export default {
     },
     uploadImg: function (data, files) {
       const formData = new FormData()
-      formData.append('OSSAccessKeyId', data.OSSAccessKeyId)
       formData.append('policy', data.policy)
-      formData.append('signature', data.signature)
-      formData.append('success_action_status', 200)
-      formData.append('key', files.key)
+      formData.append('authorization', data.sign)
       formData.append('file', files.file)
-      this.$http.post(data.host, formData).then(res => {
-        const url = `${data.host}/${files.key}`
+      this.$http.post('https://v0.api.upyun.com/imclass', formData).then(res => {
+        const url = 'https://rc.imclass.cn' + res.body.url
         this.file = null
         this.src = ''
         this.config.showAction = false
@@ -114,7 +111,7 @@ export default {
     }
   }
 }
-</script> 
+</script>
 
 <style lang="scss">
   .action-upload-img {

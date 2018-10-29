@@ -16,10 +16,10 @@ export const getSystem = () => {
 export const LoadImageAsync = (url) => {
   return new Promise((resolve, reject) => {
     let img = new Image()
+    img.crossOrigin = 'anonymous'
     img.onload = function () {
       let width = this.width
       let height = this.height
-      img.setAttribute('crossOrigin', 'anonymous')
       resolve({ width: width, height: height })
     }
     img.onerror = function () {
