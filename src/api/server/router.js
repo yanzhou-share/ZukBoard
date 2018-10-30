@@ -46,7 +46,6 @@ module.exports = {
     } catch(e) {
       createResult(ctx, resCode.SEARCH_NOT_EXIST, '')
     }
-
   },
   'post#board/create': async ctx => {
     // 暂时写死画板ID
