@@ -58,6 +58,7 @@ class Draw {
     instance = this
     window.canvas = this.layerDraw
     this.lastPosX = this.lastPosY = 0
+    alert(1)
   }
   init() {
     this.initBrush()
