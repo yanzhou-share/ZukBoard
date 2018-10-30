@@ -59,14 +59,15 @@
 }
 
 .icons-move { background-image:url(images/ico/icon_24_move@2x.png);}
-.icons-choice { background-image:url(./images/ico/Group_18@2x.png);}
-.icons-brush { background-image:url(./images/ico/icon_24_pen@2x.png);}
+.icons-choice { background-image:url(./images/ico/icon_24_select.svg);}
+.icons-brush { background-image:url(./images/ico/icon_24_pen.svg);}
 .icons-rubber { background-image:url(./images/ico/icon_24_clean@2x.png);}
 .icons-write { background-image:url(./images/ico/icon_24_type@2x.png);}
 .icons-shape { background-image:url(./images/ico/icon_24_shape@2x.png);}
-.icons-documents { background-image:url(./images/ico/icon_24_ppt@2x.png);}
+.icons-documents { background-image:url(./images/ico/icon_24_pic.svg);}
 .icons-video { background-image:url(./images/ico/icon_24_player@2x.png);}
-.icons-eliminate { background-image:url(./images/ico/icon_24_delete@2x.png);}
+.icons-eliminate { background-image:url(./images/ico/icon_24_delete.svg);}
+.icons-eliminate.del{ background-image:url(./images/ico/icon_24_delete_disable.svg);}
 .icons-whole { background-image:url(./images/ico/icon_24_whole@2x.png);}
 
 .icons-add { background-image:url(./images/ico/icon_24_add@2x.png);}

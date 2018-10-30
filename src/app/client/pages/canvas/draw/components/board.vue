@@ -35,7 +35,7 @@
 
           <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
             <span class="tool-note">清除</span>
-            <i class="icons icons-eliminate"></i>
+            <i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>
           </div>
 
         </div>
@@ -173,6 +173,7 @@ export default {
       this.drawer = new Draw(this, '#canvas', 1000, 500)
       this.drawer.init()
       window.drawer = this.drawer
+      this.toggleFollowing()
     })
     document.body.addEventListener('click', () => {
       this.contextMenu.show = false
@@ -273,15 +274,15 @@ export default {
       this.focusPresenter(opt.pan)
     },
     toggleFollowing() {
-      if (this.drawer.isFollowingMode && !this.drawer.isPresenter) {
-        return
-      }
-      if (this.drawer.isFollowingMode) {
-        this.drawer.isPresenter = false
-        this.drawer.isFollowingMode = false
-        this.socket.emit('endFollow', null, this.board._id)
-        return
-      }
+      // if (this.drawer.isFollowingMode && !this.drawer.isPresenter) {
+      //   return
+      // }
+      // if (this.drawer.isFollowingMode) {
+      //   this.drawer.isPresenter = false
+      //   this.drawer.isFollowingMode = false
+      //   this.socket.emit('endFollow', null, this.board._id)
+      //   return
+      // }
       const { container } = this.drawer
       this.drawer.isPresenter = true
       this.drawer.isFollowingMode = true
