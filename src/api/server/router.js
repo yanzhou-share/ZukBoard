@@ -40,11 +40,38 @@ module.exports = {
   'get#board/get': async ctx => {
     try {
       let id = ctx.query.id
-      let model = await db.Board.findOne({_id: ObjectId(id)})
+      // let model = await db.Board.findOne({_id: ObjectId(id)})
+      let model = await db.Board.findOne({roomId: id})
+      if(!model){
+        const insertResult = await db.Board.collection.insertMany([{
+          name:  '画板',
+          roomId: id,
+          canvas: [],
+          follow: {
+            open: false,
+            config: {}
+          },
+          _id: ObjectId(id)
+        }])
+        model = insertResult.ops[0]
+      }
     // GenerateScript()
       createResult(ctx, resCode.OK, '', model)
     } catch(e) {
       createResult(ctx, resCode.SEARCH_NOT_EXIST, '')
+      // let id = ctx.query.id
+      // const insertResult = await db.Board.collection.insertMany([{
+      //   name:  '画板',
+      //   roomId: id,
+      //   canvas: [],
+      //   follow: {
+      //     open: false,
+      //     config: {}
+      //   },
+      //   _id: ObjectId(id)
+      // }])
+      // model = insertResult.ops[0]
+      // createResult(ctx, resCode.OK, '', model)
     }
   },
   'post#board/create': async ctx => {

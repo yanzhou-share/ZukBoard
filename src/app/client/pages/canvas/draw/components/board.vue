@@ -357,13 +357,14 @@ export default {
       }).then(res => {
         const { code, data } = res.data
         if (code !== 0 || !data) {
-          this.$alert('画板不存在', '提示', {
-            confirmButtonText: '创建画板',
-            showClose: false,
-            callback: action => {
-              this.createBoard()
-            }
-          })
+          // this.$alert('画板不存在', '提示', {
+          //   confirmButtonText: '创建画板',
+          //   showClose: false,
+          //   callback: action => {
+          //     this.createBoard()
+          //   }
+          // })
+          this.createBoard()
         }
         this.renderList = Object.assign([], data.canvas)
         this.$nextTick(() => {
@@ -398,7 +399,8 @@ export default {
       if (!noPush) {
         this.renderList.push(item)
       }
-      this.socket.emit('sync', type, item, this.board._id, this.board._id)
+      // this.socket.emit('sync', type, item, this.board._id, this.board._id)
+      this.socket.emit('sync', type, item, this.board.roomId, this.board.roomId)
     },
     toggleAction(item, flag) {
       item.showAction = flag
@@ -515,184 +517,3 @@ export default {
   }
 }
 </script>
-
-<!--<style lang='scss'>-->
-<!--.board {-->
-  <!--// position: relative;-->
-  <!--// margin: 20px;-->
-  <!--height: 100%;-->
-  <!-- -webkit-tap-highlight-color: rgba(0,0,0,0);-->
-
-  <!--ul.content-menu{-->
-    <!--width: 200px;-->
-    <!--background-color: #fff;-->
-    <!--position: absolute;-->
-    <!--padding: 0;-->
-    <!--box-sizing: border-box;-->
-    <!--box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.15), 0 8px 16px rgba(0, 0, 0, 0.15);-->
-    <!--// padding: 5px;-->
-    <!--li {-->
-      <!--i {-->
-        <!--margin-right: 10px;-->
-      <!--}-->
-      <!--padding: 15px;-->
-      <!--width: 100%;-->
-      <!--display: block;-->
-      <!--list-style-type: none;-->
-      <!--box-sizing: border-box;-->
-      <!--border-bottom: 1px solid #eee;-->
-      <!--&.disabled{-->
-        <!--color: #ccc;-->
-      <!--}-->
-    <!--}-->
-    <!--li:hover {-->
-      <!--background-color: rgba(1,1,1,.1);-->
-    <!--}-->
-  <!--}-->
-
-<!--}-->
-
-<!--.masker {-->
-  <!--position:absolute;-->
-  <!--z-index: 2;-->
-  <!--width: 100%;-->
-  <!--height: 100%;-->
-  <!--background-color: black;-->
-  <!--opacity: .6;-->
-  <!--top: 0;-->
-  <!--left: 0;-->
-  <!--right: 0;-->
-  <!--bottom: 0;-->
-
-  <!--span{-->
-    <!--text-align: center;-->
-    <!--left: 50%;-->
-    <!--top: 50%;-->
-    <!--position: absolute;-->
-    <!--color: #fff;-->
-    <!--font-size: 24px;-->
-    <!--margin-left: -50px;-->
-  <!--}-->
-<!--}-->
-
-<!--.actions {-->
-  <!--position: relative;-->
-  <!--width: 100%;-->
-  <!--border-top: 1px solid #eee;-->
-  <!--border-bottom: 1px solid #eee;-->
-  <!--background-color: #fff;-->
-  <!--display: flex;-->
-  <!--.tools {-->
-    <!--box-sizing: border-box;-->
-    <!--padding: 0 20px;-->
-    <!--border-right: 1px solid #ddd;-->
-    <!--ul {-->
-      <!--display: flex;-->
-      <!--margin: 0;-->
-      <!--padding: 0;-->
-      <!--li {-->
-        <!--&.zoom {-->
-          <!--display: flex;-->
-          <!--align-items: center;-->
-          <!--input.el-input__inner {-->
-            <!--width: 70px;-->
-            <!--height: 30px;-->
-            <!--line-height: 20px;-->
-            <!--margin: 0 5px;-->
-            <!--border-radius: 0;-->
-
-          <!--}-->
-        <!--}-->
-        <!--list-style-type: none;-->
-        <!--padding: 15px;-->
-        <!--height: 54px;-->
-        <!--.iconfont {-->
-          <!--font-size: 18px;-->
-        <!--}-->
-        <!--.following-mode{-->
-          <!--color: green;-->
-        <!--}-->
-        <!--text-align: center;-->
-        <!--box-sizing: border-box;-->
-        <!--cursor: pointer;-->
-        <!--position: relative;-->
-        <!--.plugin-tools-item-action {-->
-          <!--position: absolute;-->
-          <!--top: 40px;-->
-          <!--padding: 10px;-->
-          <!--top: 58px;-->
-          <!--background-color: #fff;-->
-          <!--border-radius: 4px;-->
-          <!--box-shadow: 0 0 0 1px rgba(0,0,0,.15), 0 8px 16px rgba(0,0,0,.15);-->
-          <!--z-index: 12;-->
-        <!--}-->
-        <!--&:hover {-->
-          <!--background-color: #eee;-->
-        <!--}-->
-        <!--&.no-hover:hover{-->
-          <!--background-color: #fff;-->
-        <!--}-->
-        <!--&.selected {-->
-          <!--background-color: #eee;-->
-        <!--}-->
-        <!--i {-->
-          <!--font-size: 16px;-->
-          <!--&.disabled{-->
-            <!--color: #ccc;-->
-          <!--}-->
-        <!--}-->
-      <!--}-->
-    <!--}-->
-    <!--&.props {-->
-      <!--ul {-->
-        <!--li {-->
-          <!--display: flex;-->
-          <!--align-items: center;-->
-           <!--&:hover {-->
-            <!--background-color: #fff;-->
-          <!--}-->
-          <!--&.selected {-->
-            <!--background-color: #fff;-->
-          <!--}-->
-          <!--.el-input&#45;&#45;suffix .el-input__inner {-->
-                <!--padding-right: 0 !important;-->
-            <!--}-->
-          <!--.el-input{-->
-            <!--width: 63px;-->
-            <!--.el-input__inner {-->
-              <!--border: 0;-->
-            <!--}-->
-          <!--}-->
-        <!--}-->
-      <!--}-->
-    <!--}-->
-  <!--}-->
-<!--}-->
-<!--.canvas-container{-->
-  <!--height: 100%;-->
-  <!--&.eraser {-->
-    <!--canvas {-->
-      <!--cursor: none !important;-->
-    <!--}-->
-
-  <!--}-->
-  <!--&.choose {-->
-    <!--canvas {-->
-      <!--cursor: initial;-->
-    <!--}-->
-
-  <!--}-->
-  <!--canvas {-->
-     <!--width: 500px;-->
-    <!--height: 600px;-->
-    <!--// width: 100%;-->
-    <!--// min-height: 800px;-->
-    <!--// cursor: crosshair;-->
-    <!--// background-color: #fff;-->
-  <!--}-->
-  <!--canvas#layer-draw {-->
-    <!--background-color: #fff;-->
-  <!--}-->
-<!--}-->
-<!--</style>-->
-
