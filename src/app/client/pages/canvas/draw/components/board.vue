@@ -88,6 +88,8 @@ import {} from '../plugins/events.js'
 import plugins from '../plugins/setting.js'
 import { settings, actions } from '../plugins'
 import SyncStatusNotify from './SyncStatusNotify'
+import { eventEmitter } from '../plugins/util'
+
 export default {
   data() {
     Object.keys(plugins).forEach(key => {
@@ -174,9 +176,6 @@ export default {
     })
     document.body.addEventListener('click', () => {
       this.contextMenu.show = false
-      Object.keys(this.plugins).forEach(key => {
-        plugins[key].showAction = false
-      })
       if (this.plugins['uploadImg'].active) {
         this.choose('choose')
       }
@@ -465,12 +464,17 @@ export default {
       this.drawer.setKey(chooseKey)
       Object.keys(this.plugins).forEach(key => {
         this.plugins[key].active = key === chooseKey
-        if(this.plugins[key].active){
-          // this.plugins[key].class += ' on'
-        }
       })
+      if (chooseKey === 'uploadImg') {
+        eventEmitter.emit('uploadBtnClick')
+        return false
+      }
       if (!hiddenAction) {
         this.toggleAction(this.plugins[chooseKey], !this.plugins[chooseKey].showAction)
+      }
+
+      if (chooseKey === 'uploadImg') {
+        eventEmitter.emit('uploadBtnClick')
       }
     },
     beforeCloseTab() {
