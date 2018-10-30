@@ -75,7 +75,7 @@
 .icons-setting { background-image:url(./images/ico/icon_24_setting@2x.png);}
 .icons-group { background-image:url(./images/ico/Group_12@2x.png); }
 .toolbar .icons.icons-group {background-position:center top;}
-.toolbar .icons.icons-group:hover { background-position:center bottom;  }
+.toolbar .icons.icons-group:hover { background-position:center bottom;}
 
 
 .top_bar { top:18px; left:50%; width:348px; margin-left:-174px;  z-index:101;}

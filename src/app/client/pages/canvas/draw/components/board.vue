@@ -205,6 +205,7 @@ export default {
       this.drawer.zoomPercent = percent / 100
     },
     registerSocket() {
+      var that = this
       this.socket.on('sync', (type, item) => {
         if (type === 'move_by_presenter') {
           this.focusPresenter(item.data)
@@ -218,10 +219,10 @@ export default {
           return
         }
 
-        if (this.drawer.isFollowingMode) {
-          this.drawer.resizeCanvas()
-          this.focusPresenter()
-        }
+        // if (this.drawer.isFollowingMode) {
+        that.drawer.resizeCanvas()
+        that.focusPresenter()
+        // }
 
         if (type === 'undo') {
           this.undo(item.opId)
@@ -324,8 +325,9 @@ export default {
       } else {
         this.drawer.presenterPan = point
       }
-
-      this.drawer.moveToPoint(point.x, point.y)
+      if(point){
+        this.drawer.moveToPoint(point.x, point.y)
+      }
     },
     createBoard() {
       this.$http.post('/api/board/create').then(res => {
