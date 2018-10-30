@@ -36,17 +36,21 @@ export default {
     eventEmitter.addListener('imageRenderAfter', () => {
       this.isUploading = false
     })
+    eventEmitter.addListener('uploadBtnClick', () => {
+      this.$refs.fileInput.click()
+    })
   },
   methods: {
     showUploadDialog() {
       this.$refs.fileInput.click()
     },
     hover(flag) {
-      this.isHover = flag
+      this.isHover = false
     },
     upload(ev) {
       const files = ev.target.files
       this.handleFile(files[0])
+      this.drawFile()
     },
     dragOver(ev) {
       ev.preventDefault()
