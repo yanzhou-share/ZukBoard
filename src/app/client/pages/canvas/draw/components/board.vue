@@ -325,7 +325,7 @@ export default {
       } else {
         this.drawer.presenterPan = point
       }
-      if(point){
+      if (point) {
         this.drawer.moveToPoint(point.x, point.y)
       }
     },
