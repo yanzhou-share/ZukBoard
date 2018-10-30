@@ -50,8 +50,7 @@ module.exports = {
           follow: {
             open: false,
             config: {}
-          },
-          _id: ObjectId(id)
+          }
         }])
         model = insertResult.ops[0]
       }
