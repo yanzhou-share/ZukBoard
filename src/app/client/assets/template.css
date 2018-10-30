@@ -12,7 +12,7 @@
 .drawingboard { position:absolute; left:0px; top:0px; right:0px; bottom:0px; }
 
 
-.toolbar { position:absolute; left:16px; top:100px;*+z-index:101; }
+.toolbar { position:absolute; left:16px; top:30%;*+z-index:101; }
 .toolbar .btn-tool { padding:0px 8px; position:relative; margin-top:22px; background:rgba(60,60,60,0.898); border-radius:8px;  }
 .lt9 .toolbar .btn-tool { background:#3c3c3c;}
 .toolbar .icons { width:36px; height:36px; cursor:pointer; border-radius:4px;  display:block; background-position:center center; background-repeat:no-repeat; }
