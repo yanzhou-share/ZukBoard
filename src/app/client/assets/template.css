@@ -44,7 +44,7 @@
 
 .btn-tool .tool-item .icons.on { background-color:#DB5144; }
 .btn-tool .tool-item:hover .tool-note {
-	display: block;
+	/*display: block;*/
 }
 .btn-tool .tool-item .tool-note:before{
 	position: absolute;

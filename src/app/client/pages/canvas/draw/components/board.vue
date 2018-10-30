@@ -517,7 +517,6 @@ export default {
     hideLoading() {
       this.isLoading = false
     }
-
   }
 }
 </script>
