@@ -1,113 +1,4 @@
 <template>
-  <!--<div class="board">-->
-    <!--<div class="actions" @click.stop>-->
-      <!--<div class="tools">-->
-        <!--<ul>-->
-          <!--<li @click="toggleFollowing" title="同步模式"><i class="iconfont" :class="{'following-mode': drawer.isFollowingMode}">&#xe6b3;</i></li>-->
-          <!--<li-->
-            <!--@click="() => { !notPresenter && refresh()}"-->
-            <!--title="清空画板"-->
-          <!--&gt;-->
-            <!--<i class="iconfont" :class="{'disabled': renderList.length === 0 || notPresenter}">&#xe6a4;</i>-->
-          <!--</li>-->
-          <!--<li @click="(e) => { !notPresenter && undo(e)}" title="撤销">-->
-            <!--<i class="iconfont" :class="{'disabled': renderList.length === 0 || notPresenter}">&#xe822;</i>-->
-          <!--</li>-->
-          <!--<li @click="(e) => { !notPresenter && redo(e)}" title="重做">-->
-            <!--<i class="iconfont" :class="{'disabled': redoList.length === 0 || notPresenter}">&#xe7cf;</i>-->
-          <!--</li>-->
-          <!--<li @click="(e) => { !notPresenter && deleteSelected(e)}" title="删除">-->
-            <!--<i class="iconfont" :class="{'disabled': !canDelete || notPresenter}">&#xe603;</i>-->
-          <!--</li>-->
-          <!--<li class="tools-item zoom no-hover">-->
-            <!--<i class="iconfont" @click="changeZoom(true)">&#xe85b;</i>-->
-            <!--<el-input-->
-              <!--disabled="disabled"-->
-              <!--@change="onZoomChange"-->
-              <!--:value="zoomPercent"-->
-              <!--@keyup="changeZoom"-->
-              <!--@keyup.up.native="changeZoom(true)"-->
-              <!--@keyup.down.native="changeZoom()"-->
-            <!--&gt;-->
-            <!--</el-input>-->
-            <!--<i class="iconfont" @click="changeZoom()">&#xe663;</i>-->
-          <!--</li>-->
-        <!--</ul>-->
-
-      <!--</div>-->
-      <!--<div class="tools">-->
-        <!--<ul>-->
-          <!--<li v-for="(plugin, key) in plugins"-->
-             <!--:key="plugin.name"-->
-             <!--@click="choose(key)"-->
-             <!--:class="{'selected': plugin.active}"-->
-             <!--class="plugin-tools-item"-->
-             <!--:title="plugin.title">-->
-            <!--<i class="iconfont" :class="{'disabled': !plugin.useInFollowing && notPresenter}" v-html="plugin.icon"></i>-->
-            <!--<template v-if="plugin.hasAction">-->
-              <!--<component-->
-              <!--v-show="plugin.showAction"-->
-              <!--:config="plugin"-->
-              <!--@change-current="choose"-->
-              <!--class="plugin-tools-item-action"-->
-              <!--@click.stop-->
-              <!--:is="key + '-action'" >-->
-              <!--</component>-->
-            <!--</template>-->
-
-          <!--</li>-->
-          <!--&lt;!&ndash; <li><i class="icon ion-md-brush"></i></li> &ndash;&gt;-->
-        <!--</ul>-->
-
-      <!--</div>-->
-      <!--<div class="tools props">-->
-        <!--<template v-for="(item, key) in plugins" >-->
-          <!--<component-->
-           <!--v-show="item.active"-->
-           <!--:config="item.setting"-->
-           <!--:is="key"-->
-           <!--:key="key">-->
-          <!--</component>-->
-        <!--</template>-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--<div class="masker" v-show="isLoading">-->
-      <!--<span>loading...</span>-->
-    <!--</div>-->
-    <!--<div class="canvas-container" id="canvas"  ref="canvas" :class="drawer.current">-->
-      <!--<canvas id="layer-draw"></canvas>-->
-    <!--</div>-->
-    <!--<ul class="content-menu" v-show="contextMenu.show" :style="'top:' + contextMenu.y + 'px;left:' + contextMenu.x  + 'px;'">-->
-        <!--<li-->
-          <!--@click="(e) => { !notPresenter && undo(e)}"-->
-          <!--title="撤销"-->
-          <!--:class="{'disabled': renderList.length === 0 || notPresenter}"-->
-        <!--&gt;-->
-          <!--<i class="iconfont" >&#xe822;</i>撤销-->
-        <!--</li>-->
-        <!--<li-->
-          <!--@click="(e) => { !notPresenter && redo(e)}"-->
-          <!--title="重做"-->
-          <!--:class="{'disabled': redoList.length === 0 || notPresenter}"-->
-        <!--&gt;-->
-          <!--<i class="iconfont">&#xe7cf;</i>重做-->
-        <!--</li>-->
-        <!--<li-->
-          <!--@click="(e) => { !notPresenter && refresh(e)}"-->
-          <!--title="清空画板"-->
-          <!--:class="{'disabled': renderList.length === 0 || notPresenter}">-->
-            <!--<i class="iconfont" >&#xe6a4;</i>清空画板-->
-        <!--</li>-->
-        <!--<li-->
-          <!--@click="(e) => { !notPresenter && undeleteSelecteddo(e)}"-->
-          <!--title="清空画板"-->
-          <!--:class="{'disabled': !canDelete || notPresenter}">-->
-            <!--<i class="iconfont" >&#xe603;</i>删除-->
-        <!--</li>-->
-    <!--</ul>-->
-    <!--<sync-status-notify :class="{'show': drawer.isFollowingMode}" ></sync-status-notify>-->
-  <!--</div>-->
-
   <div class="full-srceen">
     <div class="screen-content">
       <div id="canvas"  ref="canvas" class="canvas-container drawingboard mouse-eraser">
@@ -116,7 +7,7 @@
     </div>
 
     <!--左边导航 Begin-->
-    <aside class="toolbar">
+    <aside class="toolbar" @click.stop>
       <div class="toolbar-inner">
         <div class="btn-tool cf">
           <!--<div class="tool-item cf">-->
@@ -127,7 +18,6 @@
                v-for="(plugin, key) in plugins"
                :key="plugin.name"
                @click="choose(key)"
-               :title="plugin.title"
             >
             <span class="tool-note">{{plugin.title}}</span>
             <i :class="[{'on': plugin.active},plugin.class]"></i>
@@ -142,41 +32,6 @@
               </component>
             </template>
           </div>
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">选择</span>-->
-            <!--<i class="icons icons-choice"></i>-->
-          <!--</div>-->
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">画笔</span>-->
-            <!--<i class="icons icons-brush"></i>-->
-          <!--</div>-->
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">橡皮</span>-->
-            <!--<i class="icons icons-rubber"></i>-->
-          <!--</div>-->
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">书写</span>-->
-            <!--<i class="icons icons-write"></i>-->
-          <!--</div>-->
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">形状</span>-->
-            <!--<i class="icons icons-shape"></i>-->
-          <!--</div>-->
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note wd01">上传文档</span>-->
-            <!--<i class="icons icons-documents"></i>-->
-          <!--</div>-->
-
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">视频</span>-->
-            <!--<i class="icons icons-video"></i>-->
-          <!--</div>-->
 
           <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
             <span class="tool-note">清除</span>
@@ -536,7 +391,7 @@ export default {
         key,
         data,
         type,
-        // id: Array.isArray(data) ? data : data.id,
+        id: Array.isArray(data) ? data : data.id,
         opId: this.genKey(),
         time: new Date().getTime()
       }
