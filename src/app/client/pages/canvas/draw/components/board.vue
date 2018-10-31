@@ -57,8 +57,11 @@
           </li>
           <!-- <li><i class="icon ion-md-brush"></i></li> -->
         </ul>
-
-      </div>
+          <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
+            <span class="tool-note">清除</span>
+            <i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>
+          </div>
+        </div>
       <div class="tools props">
         <template v-for="(item, key) in plugins" >
           <component
@@ -77,32 +80,32 @@
       <canvas id="layer-draw"></canvas>
     </div>
     <ul class="content-menu" v-show="contextMenu.show" :style="'top:' + contextMenu.y + 'px;left:' + contextMenu.x  + 'px;'">
-        <li
-          @click="(e) => { !notPresenter && undo(e)}"
-          title="撤销"
-          :class="{'disabled': renderList.length === 0 || notPresenter}"
-        >
-          <i class="iconfont" >&#xe822;</i>撤销
-        </li>
-        <li
-          @click="(e) => { !notPresenter && redo(e)}"
-          title="重做"
-          :class="{'disabled': redoList.length === 0 || notPresenter}"
-        >
-          <i class="iconfont">&#xe7cf;</i>重做
-        </li>
-        <li
-          @click="(e) => { !notPresenter && refresh(e)}"
-          title="清空画板"
-          :class="{'disabled': renderList.length === 0 || notPresenter}">
-            <i class="iconfont" >&#xe6a4;</i>清空画板
-        </li>
-        <li
-          @click="(e) => { !notPresenter && deleteSelected(e)}"
-          title="清空画板"
-          :class="{'disabled': !canDelete || notPresenter}">
-            <i class="iconfont" >&#xe603;</i>删除
-        </li>
+    <li
+    @click="(e) => { !notPresenter && undo(e)}"
+    title="撤销"
+    :class="{'disabled': renderList.length === 0 || notPresenter}"
+    >
+    <i class="iconfont" >&#xe822;</i>撤销
+    </li>
+    <li
+    @click="(e) => { !notPresenter && redo(e)}"
+    title="重做"
+    :class="{'disabled': redoList.length === 0 || notPresenter}"
+    >
+    <i class="iconfont">&#xe7cf;</i>重做
+    </li>
+    <li
+    @click="(e) => { !notPresenter && refresh(e)}"
+    title="清空画板"
+    :class="{'disabled': renderList.length === 0 || notPresenter}">
+    <i class="iconfont" >&#xe6a4;</i>清空画板
+    </li>
+    <li
+    @click="(e) => { !notPresenter && undeleteSelecteddo(e)}"
+    title="清空画板"
+    :class="{'disabled': !canDelete || notPresenter}">
+    <i class="iconfont" >&#xe603;</i>删除
+    </li>
     </ul>
     <sync-status-notify :class="{'show': drawer.isFollowingMode}" ></sync-status-notify>
   </div>
@@ -419,7 +422,7 @@ export default {
         key,
         data,
         type,
-        id: data.id || '',
+        id: Array.isArray(data) ? data : data.id,
         opId: this.genKey(),
         time: new Date().getTime()
       }
@@ -482,9 +485,7 @@ export default {
       !opid && this.socket.emit('sync', 'undo', item, this.board._id, this.board._id)
     },
     deleteSelected() {
-      if (this.canDelete) {
-        this.drawer.deleteSelected()
-      }
+      this.drawer.deleteSelected()
     },
     choose(chooseKey, hiddenAction) {
       if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {

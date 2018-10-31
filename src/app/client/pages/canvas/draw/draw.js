@@ -382,9 +382,9 @@ class Draw {
     activeObject.cornerColor = 'rgba(102,153,255,1)'
   }
   setControlsVisibility(opt) {
-    this.layerDraw.forEachObject(function (o) {
-      o._controlsVisibility = opt
-    })
+    const canvas = this.layerDraw
+    let activeObject = canvas.getActiveObject()
+    activeObject._controlsVisibility = opt
   }
   initPan() {
     const canvas = this.layerDraw
@@ -570,7 +570,6 @@ class Draw {
       that.canDrag = true
       if (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress) {
         // window.spaceDown = true
-        console.warn('mouse:down')
         canvas.isDrawingMode = false
         this.toggleSelection(false)
       } else {
@@ -590,7 +589,6 @@ class Draw {
     canvas.on('mouse:move', (e) => {
       // console.log('开始' + !this.longpress)
       if (that.canDrag && (window.spaceDown || (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress))) {
-        console.warn('mouse:move')
         that.toggleSelection(false)
         canvas.defaultCursor = '-webkit-grab'
         if (browser.versions.ios || browser.versions.android) {
@@ -635,17 +633,6 @@ class Draw {
         that.setActiveObjControl(true)
       }
     })
-
-    // canvas.on('touch:longpress', (e) => {
-    //   if (that.current !== 'choose') return
-    //   if (this.longpress) return
-    //   console.warn('touch:longpress')
-    //   this.toggleSelection(true)
-    //   this.longpress = true
-    //   canvas.forEachObject(item => {
-    //     item.evented = false
-    //   })
-    // })
 
     this.touchEvent.on('press', (e) => {
       if (that.current !== 'choose') return
