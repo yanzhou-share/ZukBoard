@@ -18,6 +18,13 @@ class Draw {
   constructor(vm, selector, width, height) {
     this.current = 'choose'
     const container = document.querySelector('.canvas-container')
+    this.isPresenter = false
+    this.presenterVp = {
+      x: 0,
+      y: 0
+    }
+    this.presenterZoom = 1
+    this.isFollowingMode = false
     this.container = container
     this.isPresenter = false
     this.isMobile = !!(browser.versions.ios || browser.versions.android)
@@ -50,7 +57,7 @@ class Draw {
     this.baseWidth = this.canvaswidth
     instance = this
     window.canvas = this.layerDraw
-    this.lastPosX = this.lastPosY = null
+    this.lastPosX = this.lastPosY = 0
   }
   init() {
     this.initBrush()
@@ -69,15 +76,23 @@ class Draw {
   registerEvents() {
     const canvas = this.layerDraw
     canvas.on('path:created', (e) => {
-      if (e.path.id === undefined) {
-        e.path.set('id', genKey())
-        e.path.set('btype', this.current)
+      let pathObj = e.path || {}
+      if (typeof pathObj.id === 'undefined') {
+        pathObj.set('id', genKey())
+        pathObj.set('btype', this.current)
+        pathObj.hasControls = false
+        pathObj.hasBorders = false
+        pathObj.hasRotatingPoint = false
       }
       this._vm.sync(e.path.btype, SYNC_TYPE.INSERT, e.path.toJSON(['id', 'btype']))
     })
 
     canvas.on('object:moving', (e) => {
       if (canvas.isDrawingMode) return
+      if ('_objects' in e.target) {
+        this._vm.sync('', SYNC_TYPE.MOVE, this.getModifiedObjects(e.target), true)
+        return
+      }
       this._vm.sync(e.target.btype, SYNC_TYPE.MOVE, e.target.toJSON(['id', 'btype']), true)
     })
 
@@ -90,17 +105,16 @@ class Draw {
         e.target && (e.target.isMoved = true)
       }
     })
-
     canvas.on('object:modified', (e) => {
+      if ('_objects' in e.target) {
+        this._vm.sync('', SYNC_TYPE.UPDATE, this.getModifiedObjects(e.target))
+        return
+      }
       this._vm.sync(e.target.btype, SYNC_TYPE.UPDATE, e.target.toJSON(['id', 'btype']))
     })
 
     canvas.on('after:render', () => {
       this._vm.hideLoading()
-    })
-
-    canvas.on('object:selected', (e) => {
-
     })
 
     eventEmitter.addListener('on-brush-update', (width, color) => {
@@ -113,15 +127,9 @@ class Draw {
         o.setColor(color)
         canvas.renderAll()
       })
-      // canvas.freeDrawingBrush.width = +width
     })
     eventEmitter.addListener('set-cursor', (flag) => {
-      if (flag) {
-        canvas.defaultCursor = '-webkit-grab'
-      } else {
-        canvas.defaultCursor = 'default'
-      }
-      canvas.setCursor(canvas.defaultCursor)
+      this.setCursor(flag ? '-webkit-grab' : 'default')
     })
     this._vm.$nextTick(() => {
       this.resizeCanvas()
@@ -137,6 +145,15 @@ class Draw {
     this.container.addEventListener('gesturechange', (ev) => {
       this.changeZoom(ev)
     }, false)
+  }
+  getModifiedObjects(target) {
+    const jsons = this.layerDraw.toJSON(['id'])
+    return target._objects.map(obj => {
+      return jsons.objects.find(j => j.id === obj.id)
+    })
+  }
+  setCursor(cursor) {
+    this.layerDraw.setCursor(cursor)
   }
   resizeCanvas() {
     const canvas = this.layerDraw
@@ -188,6 +205,13 @@ class Draw {
     type === SYNC_TYPE.MOVE && this.handleSyncUpdate(data)
   }
   handleSyncUpdate(data) {
+    if (Array.isArray(data)) {
+      data.forEach(obj => this.handleSycnUpdateSingle(obj))
+      return
+    }
+    this.handleSycnUpdateSingle(data)
+  }
+  handleSycnUpdateSingle(data) {
     let obj = this.layerDraw.getObjectById(data.id)
     if (!obj) return
     obj.set(data)
@@ -242,7 +266,7 @@ class Draw {
       if (item.type !== SYNC_TYPE.DELETE) {
         return
       }
-      deleteIds = deleteIds.concat(item.id)
+      deleteIds = deleteIds.concat(item.data)
     })
     list.forEach(item => {
       if (item.data.type !== 'image' || item.type !== SYNC_TYPE.INSERT) {
@@ -550,8 +574,14 @@ class Draw {
         window.spaceDown = false
       }
       if (browser.versions.ios || browser.versions.android) {
-        that.lastPosX = e && e.e && e.e.touches ? e.e.touches[0].clientX : 0
-        that.lastPosY = e && e.e && e.e.touches ? e.e.touches[0].clientY : 0
+        if (e && e.e && e.e.touches) {
+          let clientParam = e.e.touches[0]
+          that.lastPosX = clientParam.clientX
+          that.lastPosY = clientParam.clientY
+        } else {
+          that.lastPosX = 0
+          that.lastPosY = 0
+        }
       }
     })
     canvas.on('mouse:move', (e) => {
@@ -596,6 +626,7 @@ class Draw {
         canvas.defaultCursor = 'default'
       } else {
         that.toggleSelection(true)
+        that.setActiveObjControl(true)
       }
     })
     canvas.on('touch:longpress', (e) => {
