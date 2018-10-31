@@ -67,7 +67,7 @@
     <i class="iconfont" >&#xe6a4;</i>清空画板
     </li>
     <li
-    @click="(e) => { !notPresenter && deleteSelected(e)}"
+    @click="(e) => { !notPresenter && undeleteSelecteddo(e)}"
     title="清空画板"
     :class="{'disabled': !canDelete || notPresenter}">
     <i class="iconfont" >&#xe603;</i>删除
