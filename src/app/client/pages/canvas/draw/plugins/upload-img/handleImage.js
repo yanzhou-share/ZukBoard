@@ -38,7 +38,7 @@ class HandleImage {
         canvas.add(img)
         this.globalCanvas._vm.sync('uploadImg', SYNC_TYPE.INSERT, img.toJSON(['id', 'btype']))
         eventEmitter.emitEvent('imageRenderAfter')
-      }, { crossOrigin: 'anonymous' })
+      }, { crossOrigin: 'Anonymous' })
     })
   }
   log() {

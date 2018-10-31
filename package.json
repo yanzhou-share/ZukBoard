@@ -1,6 +1,6 @@
 {
   "name": "zukboard",
-  "port": "4099",
+  "port": "4089",
   "version": "0.0.1",
   "description": "drawing board by canvas",
   "browserslist": "cover 99.5%",
