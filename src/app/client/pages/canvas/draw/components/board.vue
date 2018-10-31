@@ -325,9 +325,10 @@ export default {
       } else {
         this.drawer.presenterPan = point
       }
-      if (point) {
-        this.drawer.moveToPoint(point.x, point.y)
+      if (!point) {
+        console.log(1)
       }
+      this.drawer.moveToPoint(point.x, point.y)
     },
     createBoard() {
       this.$http.post('/api/board/create').then(res => {
