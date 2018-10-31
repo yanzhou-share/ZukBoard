@@ -39,6 +39,7 @@
           </div>
 
         </div>
+
       </div>
 
     </aside>
@@ -393,7 +394,7 @@ export default {
         key,
         data,
         type,
-        id: data.id || '',
+        id: Array.isArray(data) ? data : data.id,
         opId: this.genKey(),
         time: new Date().getTime()
       }
@@ -457,9 +458,7 @@ export default {
       !opid && this.socket.emit('sync', 'undo', item, this.board._id, this.board._id)
     },
     deleteSelected() {
-      if (this.canDelete) {
-        this.drawer.deleteSelected()
-      }
+      this.drawer.deleteSelected()
     },
     choose(chooseKey, hiddenAction) {
       if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {

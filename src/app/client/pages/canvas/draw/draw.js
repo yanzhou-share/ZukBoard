@@ -391,9 +391,6 @@ class Draw {
     activeObject.cornerColor = 'rgba(102,153,255,1)'
   }
   setControlsVisibility(opt) {
-    // this.layerDraw.forEachObject(function (o) {
-    //   o._controlsVisibility = opt
-    // })
     const canvas = this.layerDraw
     let activeObject = canvas.getActiveObject()
     activeObject._controlsVisibility = opt
@@ -599,6 +596,7 @@ class Draw {
       }
     })
     canvas.on('mouse:move', (e) => {
+      // console.log('开始' + !this.longpress)
       if (that.canDrag && (window.spaceDown || (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress))) {
         that.toggleSelection(false)
         canvas.defaultCursor = '-webkit-grab'
@@ -625,6 +623,7 @@ class Draw {
     canvas.on('mouse:up', (e) => {
       that.canDrag = false
       that.longpress = false
+      console.log('抬起' + that.longpress)
       canvas.forEachObject(item => {
         item.evented = true
       })
