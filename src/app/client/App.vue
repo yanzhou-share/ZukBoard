@@ -28,13 +28,10 @@ html,body {
   height: 100%;
   background: #fff;
 }
-.echarts {
-  height: 400px;
-}
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
   color: #2c3e51;
   width: 100%;
   height: 100%;
