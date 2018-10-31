@@ -1,4 +1,5 @@
 import { fabric } from 'fabric'
+import * as Hammer from 'hammerjs'
 import { plugins } from './plugins'
 import {} from './plugins/fabricOverriding'
 import HandleImage from './plugins/upload-img/handleImage'
@@ -33,7 +34,7 @@ class Draw {
       height: container.offsetHeight,
       preserveObjectStacking: true,
       perPixelTargetFind: true,
-      targetFindTolerance: this.isMobile ? 45 : 15,
+      targetFindTolerance: this.isMobile ? 20 : 15,
       selectionFullyContained: true,
       interactive: false,
       skipTargetFind: false
@@ -51,6 +52,7 @@ class Draw {
     instance = this
     window.canvas = this.layerDraw
     this.lastPosX = this.lastPosY = null
+    this.touchEvent = new Hammer(this.layerDraw.upperCanvasEl)
   }
   init() {
     this.initBrush()
@@ -544,6 +546,7 @@ class Draw {
       that.canDrag = true
       if (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress) {
         // window.spaceDown = true
+        console.warn('mouse:down')
         canvas.isDrawingMode = false
         this.toggleSelection(false)
       } else {
@@ -555,7 +558,9 @@ class Draw {
       }
     })
     canvas.on('mouse:move', (e) => {
+      // console.log('开始' + !this.longpress)
       if (that.canDrag && (window.spaceDown || (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress))) {
+        console.warn('mouse:move')
         that.toggleSelection(false)
         canvas.defaultCursor = '-webkit-grab'
         if (browser.versions.ios || browser.versions.android) {
@@ -581,6 +586,7 @@ class Draw {
     canvas.on('mouse:up', (e) => {
       that.canDrag = false
       that.longpress = false
+      console.log('抬起' + that.longpress)
       canvas.forEachObject(item => {
         item.evented = true
       })
@@ -598,8 +604,21 @@ class Draw {
         that.toggleSelection(true)
       }
     })
-    canvas.on('touch:longpress', (e) => {
+
+    // canvas.on('touch:longpress', (e) => {
+    //   if (that.current !== 'choose') return
+    //   if (this.longpress) return
+    //   console.warn('touch:longpress')
+    //   this.toggleSelection(true)
+    //   this.longpress = true
+    //   canvas.forEachObject(item => {
+    //     item.evented = false
+    //   })
+    // })
+
+    this.touchEvent.on('press', (e) => {
       if (that.current !== 'choose') return
+      // if (this.longpress) return
       this.toggleSelection(true)
       this.longpress = true
       canvas.forEachObject(item => {
