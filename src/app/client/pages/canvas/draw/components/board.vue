@@ -33,6 +33,7 @@
             <i class="iconfont" @click="changeZoom()">&#xe663;</i>
           </li>
         </ul>
+
       </div>
       <div class="tools">
         <ul>
@@ -42,7 +43,6 @@
              :class="{'selected': plugin.active}"
              class="plugin-tools-item"
              :title="plugin.title">
-
             <i class="iconfont" :class="{'disabled': !plugin.useInFollowing && notPresenter}" v-html="plugin.icon"></i>
             <template v-if="plugin.hasAction">
               <component
@@ -54,6 +54,7 @@
               :is="key + '-action'" >
               </component>
             </template>
+
           </li>
           <!-- <li><i class="icon ion-md-brush"></i></li> -->
         </ul>
@@ -471,9 +472,7 @@ export default {
       !opid && this.socket.emit('sync', 'undo', item, this.board._id, this.board._id)
     },
     deleteSelected() {
-      if (this.canDelete) {
-        this.drawer.deleteSelected()
-      }
+      this.drawer.deleteSelected()
     },
     choose(chooseKey, hiddenAction) {
       if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {
