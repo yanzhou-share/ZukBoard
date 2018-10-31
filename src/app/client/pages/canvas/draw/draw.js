@@ -1,5 +1,4 @@
 import { fabric } from 'fabric'
-import * as Hammer from 'hammerjs'
 import { plugins } from './plugins'
 import {} from './plugins/fabricOverriding'
 import HandleImage from './plugins/upload-img/handleImage'
@@ -41,7 +40,7 @@ class Draw {
       height: container.offsetHeight,
       preserveObjectStacking: true,
       perPixelTargetFind: true,
-      targetFindTolerance: this.isMobile ? 20 : 15,
+      targetFindTolerance: this.isMobile ? 45 : 15,
       selectionFullyContained: true,
       interactive: false,
       skipTargetFind: false
@@ -58,8 +57,7 @@ class Draw {
     this.baseWidth = this.canvaswidth
     instance = this
     window.canvas = this.layerDraw
-    this.lastPosX = this.lastPosY = null
-    this.touchEvent = new Hammer(this.layerDraw.upperCanvasEl)
+    this.lastPosX = this.lastPosY = 0
   }
   init() {
     this.initBrush()
@@ -268,7 +266,7 @@ class Draw {
       if (item.type !== SYNC_TYPE.DELETE) {
         return
       }
-      deleteIds = deleteIds.concat(item.data)
+      deleteIds = deleteIds.concat(item.id)
     })
     list.forEach(item => {
       if (item.data.type !== 'image' || item.type !== SYNC_TYPE.INSERT) {
@@ -304,19 +302,28 @@ class Draw {
       // this._vm.canDelete = true
       // Specify style of control, 'rect' or 'circle'
       this.setCornerStyle()
-      // this.setControlsVisibility({ tl: true,
-      //   tr: true,
-      //   br: true,
-      //   bl: true,
-      //   ml: false,
-      //   mt: false,
-      //   mr: false,
-      //   mb: false,
-      //   mtr: true })
+      this.setControlsVisibility({ tl: true,
+        tr: true,
+        br: true,
+        bl: true,
+        ml: false,
+        mt: false,
+        mr: false,
+        mb: false,
+        mtr: true })
     })
 
     canvas.on('selection:updated', (e) => {
       this.setCornerStyle()
+      this.setControlsVisibility({ tl: true,
+        tr: true,
+        br: true,
+        bl: true,
+        ml: false,
+        mt: false,
+        mr: false,
+        mb: false,
+        mtr: true })
       this.setActiveObjControl(false, e.deselected, e.target)
       if (e.target && !e.target.hasControls) {
         this._vm.canDelete = false
@@ -382,6 +389,9 @@ class Draw {
     activeObject.cornerColor = 'rgba(102,153,255,1)'
   }
   setControlsVisibility(opt) {
+    // this.layerDraw.forEachObject(function (o) {
+    //   o._controlsVisibility = opt
+    // })
     const canvas = this.layerDraw
     let activeObject = canvas.getActiveObject()
     activeObject._controlsVisibility = opt
@@ -587,7 +597,6 @@ class Draw {
       }
     })
     canvas.on('mouse:move', (e) => {
-      // console.log('开始' + !this.longpress)
       if (that.canDrag && (window.spaceDown || (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress))) {
         that.toggleSelection(false)
         canvas.defaultCursor = '-webkit-grab'
@@ -614,7 +623,6 @@ class Draw {
     canvas.on('mouse:up', (e) => {
       that.canDrag = false
       that.longpress = false
-      console.log('抬起' + that.longpress)
       canvas.forEachObject(item => {
         item.evented = true
       })
@@ -633,10 +641,8 @@ class Draw {
         that.setActiveObjControl(true)
       }
     })
-
-    this.touchEvent.on('press', (e) => {
+    canvas.on('touch:longpress', (e) => {
       if (that.current !== 'choose') return
-      // if (this.longpress) return
       this.toggleSelection(true)
       this.longpress = true
       canvas.forEachObject(item => {

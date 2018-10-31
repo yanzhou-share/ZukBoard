@@ -1,6 +1,6 @@
 const CURRENT_PATH = process.cwd()
 const db = require(CURRENT_PATH + '/db/mongo')
-const { ObjectId } = require(CURRENT_PATH + '/src/api/server/util')
+// const { ObjectId } = require(CURRENT_PATH + '/src/api/server/util')
 const { SYNC_TYPE } = require('./constant')
 
 const methods = {
@@ -50,14 +50,16 @@ const methods = {
   },
   get: async (id) => {
     return await db.Board.findOne({
-      _id: ObjectId(id)
+      // _id: ObjectId(id)
+      roomId: id
     })
   }
 }
 
 async function update(id, op, config) {
   await db.Board.updateOne({
-    _id: ObjectId(id)
+    // _id: ObjectId(id)
+    roomId: id
   }, {
     [op]: config
   })

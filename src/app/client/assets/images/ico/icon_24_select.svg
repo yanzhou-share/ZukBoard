@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.2 (67145) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_24_select</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主界面0928" transform="translate(-30.000000, -268.000000)">
+            <g id="bar_left-side" transform="translate(16.000000, 201.000000)">
+                <g id="Group-18" transform="translate(13.000000, 66.000000)">
+                    <g id="Group-24" transform="translate(13.000000, 13.000000) rotate(-45.000000) translate(-13.000000, -13.000000) translate(6.000000, 2.000000)">
+                        <path d="M6,7 L8,7 C8.55228475,7 9,7.44771525 9,8 L9,21 C9,21.5522847 8.55228475,22 8,22 L6,22 C5.44771525,22 5,21.5522847 5,21 L5,8 C5,7.44771525 5.44771525,7 6,7 Z" id="Rectangle-65" fill="#A7A7A7"></path>
+                        <path d="M7.89358601,0.520963144 L13.8930006,12.2895074 C14.1438336,12.7815452 13.9482984,13.3837611 13.4562606,13.634594 C13.2122441,13.7589897 12.9278845,13.777853 12.6695747,13.6867795 L7.0457589,11.7039654 L1.32710179,13.698688 C0.805629955,13.8805824 0.235438969,13.6053005 0.0535445789,13.0838287 C-0.0362788447,12.8263145 -0.0170273043,12.5432855 0.106839506,12.3003064 L6.11175929,0.520963144 C6.36259228,0.0289252836 6.96480809,-0.166609899 7.45684595,0.08422309 C7.64486345,0.180071388 7.79773771,0.332945644 7.89358601,0.520963144 Z" id="Triangle-10" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
