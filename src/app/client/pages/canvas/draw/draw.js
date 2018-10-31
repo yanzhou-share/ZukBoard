@@ -304,28 +304,19 @@ class Draw {
       // this._vm.canDelete = true
       // Specify style of control, 'rect' or 'circle'
       this.setCornerStyle()
-      this.setControlsVisibility({ tl: true,
-        tr: true,
-        br: true,
-        bl: true,
-        ml: false,
-        mt: false,
-        mr: false,
-        mb: false,
-        mtr: true })
+      // this.setControlsVisibility({ tl: true,
+      //   tr: true,
+      //   br: true,
+      //   bl: true,
+      //   ml: false,
+      //   mt: false,
+      //   mr: false,
+      //   mb: false,
+      //   mtr: true })
     })
 
     canvas.on('selection:updated', (e) => {
       this.setCornerStyle()
-      this.setControlsVisibility({ tl: true,
-        tr: true,
-        br: true,
-        bl: true,
-        ml: false,
-        mt: false,
-        mr: false,
-        mb: false,
-        mtr: true })
       this.setActiveObjControl(false, e.deselected, e.target)
       if (e.target && !e.target.hasControls) {
         this._vm.canDelete = false
