@@ -7,6 +7,7 @@ const config = require(CURRENT_PATH + '/config').webpackConfig
 const utils = require(CURRENT_PATH + '/build/utils')
 const baseWebpackConfig = require(CURRENT_PATH + '/build/webpack.base.conf')
 const GetBundleHash = require(CURRENT_PATH + '/build/getBundleHash')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
   output: {
@@ -21,6 +22,13 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   optimization: {
+    minimizer: [
+      new UglifyJsPlugin({
+        uglifyOptions: {
+          safari10: true
+        }
+      })
+    ],
     runtimeChunk: {
       name: 'manifest'
     },
