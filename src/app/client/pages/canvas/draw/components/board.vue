@@ -112,8 +112,8 @@ export default {
       zindex: 0,
       wPercent: 1,
       hPercent: 1,
-      baseWidth: 1080,
-      baseHeight: 720,
+      baseWidth: 1600,
+      baseHeight: 1200,
       uid: '', // temp uid
       renderList: [],
       redoList: [],
@@ -266,35 +266,26 @@ export default {
       })
     },
     initFollower(opt) {
-      this.drawer.isPresenter = false
+      this.drawer.isPresenter = true
       this.drawer.isFollowingMode = true
       this.drawer.presenterZoom = opt.zoom
-      this.drawer.baseWidth = opt.width
+      // this.drawer.baseWidth = opt.width
+      this.drawer.baseWidth = this.baseWidth
       this.choose('choose')
       this.drawer.resizeCanvas()
       this.focusPresenter(opt.pan)
     },
     toggleFollowing() {
-      // if (this.drawer.isFollowingMode && !this.drawer.isPresenter) {
-      //   return
-      // }
-      // if (this.drawer.isFollowingMode) {
-      //   this.drawer.isPresenter = false
-      //   this.drawer.isFollowingMode = false
-      //   this.socket.emit('endFollow', null, this.board._id)
-      //   return
-      // }
       const { container } = this.drawer
-      this.drawer.isPresenter = true
-      this.drawer.isFollowingMode = true
-      this.socket.emit('startFollow', {
+      const opt = {
         width: container.offsetWidth,
         height: container.offsetHeight,
         zoom: this.drawer.zoomPercent,
         pan: {
           ...this.drawer.getVpPoint()
         }
-      }, this.board._id)
+      }
+      this.initFollower(opt)
     },
     changeZoom(isUp) {
       let filterArr = this.steps.filter((item) => {
@@ -303,13 +294,11 @@ export default {
       if (filterArr.length === 0) return
       this.pIndex = isUp ? this.steps.indexOf(filterArr[0]) - 1 : this.steps.indexOf(filterArr[filterArr.length - 1]) + 1
       if ((isUp && (this.pIndex === this.steps.length - 1)) || (!isUp && (this.pIndex === 0))) return
-
       if (isUp) {
         this.pIndex++
       } else {
         this.pIndex--
       }
-
       this.drawer.zoomPercent = this.steps[this.pIndex] / 100
       if (this.drawer.isPresenter) {
         this.socket.emit('sync', 'zoom', {
@@ -359,21 +348,11 @@ export default {
       }).then(res => {
         const { code, data } = res.data
         if (code !== 0 || !data) {
-          // this.$alert('画板不存在', '提示', {
-          //   confirmButtonText: '创建画板',
-          //   showClose: false,
-          //   callback: action => {
-          //     this.createBoard()
-          //   }
-          // })
           this.createBoard()
         }
         this.renderList = Object.assign([], data.canvas)
         this.$nextTick(() => {
           this.initBoard()
-          if (data.follow && data.follow.open) {
-            this.initFollower(data.follow.config)
-          }
         })
         delete data.canvas
         this.board = data

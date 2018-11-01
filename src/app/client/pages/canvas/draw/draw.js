@@ -1,4 +1,5 @@
 import { fabric } from 'fabric'
+import * as Hammer from 'hammerjs'
 import { plugins } from './plugins'
 import {} from './plugins/fabricOverriding'
 import HandleImage from './plugins/upload-img/handleImage'
@@ -32,9 +33,6 @@ class Draw {
       x: 0,
       y: 0
     }
-    this.presenterZoom = 1
-    this.isFollowingMode = false
-    this.container = container
     this.layerDraw = new fabric.Canvas('layer-draw', {
       width: container.offsetWidth,
       height: container.offsetHeight,
@@ -58,6 +56,7 @@ class Draw {
     instance = this
     window.canvas = this.layerDraw
     this.lastPosX = this.lastPosY = 0
+    this.touchEvent = new Hammer(this.layerDraw.upperCanvasEl)
   }
   init() {
     this.initBrush()
@@ -389,9 +388,6 @@ class Draw {
     activeObject.cornerColor = 'rgba(102,153,255,1)'
   }
   setControlsVisibility(opt) {
-    // this.layerDraw.forEachObject(function (o) {
-    //   o._controlsVisibility = opt
-    // })
     const canvas = this.layerDraw
     let activeObject = canvas.getActiveObject()
     activeObject._controlsVisibility = opt
@@ -641,8 +637,9 @@ class Draw {
         that.setActiveObjControl(true)
       }
     })
-    canvas.on('touch:longpress', (e) => {
+    this.touchEvent.on('press', (e) => {
       if (that.current !== 'choose') return
+      // if (this.longpress) return
       this.toggleSelection(true)
       this.longpress = true
       canvas.forEachObject(item => {
