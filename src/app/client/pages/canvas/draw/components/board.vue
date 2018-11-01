@@ -6,7 +6,7 @@
       </div>
       <div class="image-loading" v-show="isUploading">
         <span class="icons-loading"></span>
-        <span class="loading-text">loading...</span>
+        <span class="loading-text">上传中...</span>
       </div>
     </div>
 
