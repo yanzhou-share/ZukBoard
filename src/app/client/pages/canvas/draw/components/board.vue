@@ -7,7 +7,7 @@
     </div>
 
     <!--左边导航 Begin-->
-    <aside class="toolbar" @click.stop>
+    <aside class="toolbar" v-show="role ? false : true" @click.stop>
       <div class="toolbar-inner">
         <div class="btn-tool cf">
           <!--<div class="tool-item cf">-->
@@ -132,7 +132,8 @@ export default {
       drawer: {},
       isLoading: true,
       pIndex: 6,
-      steps: [10, 15, 20, 33, 50, 75, 100, 125, 150]
+      steps: [10, 15, 20, 33, 50, 75, 100, 125, 150],
+      role: null
     }
   },
   watch: {
@@ -160,6 +161,7 @@ export default {
   },
   created() {
     let id = this.$route.params.id
+    this.role = this.$route.query.role
     this.registerSocket()
     if (id) {
       this.socket.emit('joinRoom', id)
