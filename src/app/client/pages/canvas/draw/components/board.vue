@@ -4,6 +4,10 @@
       <div id="canvas"  ref="canvas" class="canvas-container drawingboard mouse-eraser">
         <canvas id="layer-draw"></canvas>
       </div>
+      <div class="image-loading" v-show="isUploading">
+        <span class="icons-loading"></span>
+        <span class="loading-text">上传中...</span>
+      </div>
     </div>
 
     <!--左边导航 Begin-->
@@ -133,7 +137,8 @@ export default {
       isLoading: true,
       pIndex: 6,
       steps: [10, 15, 20, 33, 50, 75, 100, 125, 150],
-      role: null
+      role: null,
+      isUploading: false
     }
   },
   watch: {
@@ -199,6 +204,9 @@ export default {
     })
     window.addEventListener('resize', () => {
 
+    })
+    eventEmitter.addListener('toggleLoading', (flag) => {
+      this.isUploading = flag
     })
   },
   methods: {

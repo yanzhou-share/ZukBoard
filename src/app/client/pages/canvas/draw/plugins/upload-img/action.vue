@@ -33,9 +33,6 @@ export default {
     }
   },
   mounted() {
-    eventEmitter.addListener('imageRenderAfter', () => {
-      this.isUploading = false
-    })
     eventEmitter.addListener('uploadBtnClick', () => {
       this.$refs.fileInput.click()
     })
@@ -76,7 +73,8 @@ export default {
     drawFile() {
       var that = this
       if (!this.file) return
-      this.isUploading = true
+      // this.isUploading = true
+      eventEmitter.emit('toggleLoading', true)
       this.$http.get('/api/image/sign').then(res => {
         const { code, msg, data } = res.data
         if (code !== 0) {
