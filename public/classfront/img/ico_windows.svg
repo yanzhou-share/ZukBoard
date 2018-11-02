@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_windows</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="设计稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="技术支持" transform="translate(-671.000000, -368.000000)" fill-rule="nonzero">
+            <g id="Windows版本" transform="translate(464.000000, 328.000000)">
+                <g id="Group-4" transform="translate(120.000000, 40.000000)">
+                    <g id="windows" transform="translate(87.000000, 0.000000)">
+                        <rect id="Rectangle-path" fill="#000000" opacity="0" x="0" y="0" width="72" height="72"></rect>
+                        <path d="M31.1070769,37.1741731 L31.1070769,57.3225577 L10,54.4128077 L10,37.1741731 L31.1070769,37.1741731 Z M31.1070769,14.1774423 L31.1070769,34.5734231 L10,34.5734231 L10,17.0871923 L31.1070769,14.1774423 Z M61.5,37.1741731 L61.5,61.5 L33.4285385,57.6315577 L33.4285385,37.1741731 L61.5,37.1741731 Z M61.5,10 L61.5,34.5734231 L33.4285385,34.5734231 L33.4285385,13.8684423 L61.5,10 Z" id="Shape" fill="#D95043"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

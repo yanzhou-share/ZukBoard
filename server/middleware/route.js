@@ -31,7 +31,6 @@ const defaultRoute = async (ctx, info, method) => {
     let match = false
     const action = info.splice(2).join('/') || '/'
     await addRenderBundle(ctx, page)
-
     debug('page =>' + page)
     if (page === '' || page === 'ping') {
       debug('which page =>' + page)

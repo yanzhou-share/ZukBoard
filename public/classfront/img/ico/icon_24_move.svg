@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_24_move</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主界面-激活态" transform="translate(-30.000000, -136.000000)">
+            <g id="bar_left-side" transform="translate(16.000000, 122.000000)">
+                <g id="icon_24_move" transform="translate(14.000000, 14.000000)">
+                    <rect id="Rectangle-12" fill="#A7A7A7" x="2" y="10.5" width="19" height="3" rx="1"></rect>
+                    <rect id="Rectangle-12-Copy" fill="#A7A7A7" x="3" y="11" width="6" height="2" rx="1"></rect>
+                    <rect id="Rectangle-12-Copy-2" fill="#A7A7A7" transform="translate(12.000000, 11.500000) rotate(-270.000000) translate(-12.000000, -11.500000) " x="3.5" y="10" width="17" height="3" rx="1"></rect>
+                    <rect id="Rectangle-12-Copy-3" fill="#A7A7A7" transform="translate(12.000000, 18.000000) rotate(-270.000000) translate(-12.000000, -18.000000) " x="9" y="17" width="6" height="2" rx="1"></rect>
+                    <path d="M15.4142136,5 L18,5 C18.5522847,5 19,5.44771525 19,6 L19,8.58578644 M19,15.4142136 L19,18 C19,18.5522847 18.5522847,19 18,19 L15.4142136,19 M8.58578644,19 L6,19 C5.44771525,19 5,18.5522847 5,18 L5,15.4142136 M5,8.58578644 L5,6 C5,5.44771525 5.44771525,5 6,5 L8.58578644,5" id="Rectangle-11" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round" transform="translate(12.000000, 12.000000) rotate(-315.000000) translate(-12.000000, -12.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

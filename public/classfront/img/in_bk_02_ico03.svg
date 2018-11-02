@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_文档</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="设计稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ImClass官网--功能概述" transform="translate(-1026.000000, -1996.000000)" fill-rule="nonzero">
+            <g id="实时视频授课" transform="translate(360.000000, 1700.000000)">
+                <g id="文档互动演示" transform="translate(650.000000, 268.000000)">
+                    <g id="ico_文档" transform="translate(16.000000, 28.000000)">
+                        <rect id="Rectangle-7-Copy-2" x="0" y="0" width="24" height="24"></rect>
+                        <path d="M6,3 C5.44771525,3 5,3.44771525 5,4 L5,20 C5,20.5522847 5.44771525,21 6,21 L18,21 C18.5522847,21 19,20.5522847 19,20 L19,4 C19,3.44771525 18.5522847,3 18,3 L6,3 Z" id="Rectangle-4" stroke="#333333" stroke-width="2"></path>
+                        <path d="M19,16 L15,16 C14.4477153,16 14,16.4477153 14,17 L14,21 L18,21 C18.5522847,21 19,20.5522847 19,20 L19,16 Z" id="Combined-Shape" stroke="#333333" stroke-width="2"></path>
+                        <rect id="Rectangle-17" fill="#333333" x="7" y="7" width="10" height="2" rx="1"></rect>
+                        <rect id="Rectangle-17-Copy" fill="#333333" x="7" y="11" width="10" height="2" rx="1"></rect>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

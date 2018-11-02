@@ -40,5 +40,17 @@ module.exports = {
         biUrl: ctx.state.biUrl
       }))
     })
+  },
+  'get#test': async ctx => {
+    // if (!ctx.session.user) {
+    //   return ctx.redirect('/login')
+    // }
+    await ctx.render('imclass/service.html', {
+      title: '',
+      dataset: encodeURIComponent(JSON.stringify({
+        user: ctx.session.user,
+        biUrl: ctx.state.biUrl
+      }))
+    })
   }
 }

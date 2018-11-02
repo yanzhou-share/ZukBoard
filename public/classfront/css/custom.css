@@ -1,0 +1,147 @@
+/* Calendar Widget
+=================================================================== */
+.calendar {
+    background: white;
+    padding: 1px;
+}
+.calendar .calendar-small {
+    margin: -21px;
+}
+.calendar .fc td,
+.calendar .fc th {
+    border: 0;
+    vertical-align: middle !important;
+    font-weight: normal;
+}
+.calendar .fc {
+    padding: 20px;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+}
+.calendar .fc-header {
+    color: #484848;
+    background: #f5f5f5;
+    border-bottom: 1px solid #d4d4d4;
+    -webkit-box-shadow: inset 0 0 1px 1px #ffffff;
+    -moz-box-shadow: inset 0 0 1px 1px #ffffff;
+    box-shadow: inset 0 0 1px 1px #ffffff;
+    height: 40px;
+    padding: 0;
+}
+.calendar .fc-header-title h2 {
+    color: #333333;
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 40px;
+    height: 40px;
+    margin: 5px 0 0 0;
+}
+.calendar .fc-widget-header {
+    padding: 15px 0 20px 0;
+    color: #333333;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600 !important;
+}
+.calendar .fc-widget-header,
+.calendar .fc-widget-content {
+    border-color: #d4d4d4;
+}
+.calendar .fc-state-default {
+    background: white;
+    border: none;
+    text-shadow: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    margin: 10px;
+    color: #484848;
+}
+.calendar .fc-state-hover,
+.calendar .fc-state-down,
+.calendar .fc-state-active,
+.calendar .fc-state-disabled {
+    color: #484848;
+    background: white;
+}
+.calendar .fc-day-number {
+    line-height: 35px;
+    width: 40px;
+    height: 40px;
+    font-size: 12px;
+    -webkit-border-radius: 50em;
+    -moz-border-radius: 50em;
+    border-radius: 50em;
+    border: 2px solid transparent;
+}
+.calendar .fc-state-highlight {
+    background: transparent;
+}
+.calendar .fc-state-highlight .fc-day-number {
+    color: #ec6c6c;
+    font-weight: 700;
+    border: 2px solid #ec6c6c !important;
+}
+.calendar .event {
+    background: #20a8d8;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    color: white;
+}
+.calendar .fc-grid td {
+    padding-top: 10px;
+    vertical-align: top !important;
+}
+.calendar .fc-grid .fc-day-number {
+    float: none;
+    text-align: center;
+    margin: 0 auto;
+}
+.calendar .fc-grid .fc-other-month .fc-day-number {
+    opacity: 1;
+    filter: alpha(opacity=1);
+    color: #eeeeee;
+}
+.calendar .fc-event {
+    font-size: 0px;
+    border-color: #f5f5f5;
+}
+.calendar .fc-button {
+    background: transparent !important;
+}
+.calendar .list {
+    margin: 0 15px 15px 15px;
+    padding-top: 15px;
+    border-top: 3px double #d4d4d4;
+}
+.calendar .list ul {
+    list-style: none;
+}
+.calendar .list ul li {
+    position: relative;
+    padding-top: 15px;
+    border-bottom: 1px solid #d4d4d4;
+}
+.calendar .list ul li .custom-checkbox-item {
+    margin-left: -40px;
+    margin-bottom: -1px;
+}
+.calendar .list ul li .custom-checkbox:checked ~ .custom-checkbox-desc {
+    color: #d4d4d4;
+    text-decoration: line-through;
+}
+.calendar .list ul li .custom-checkbox:checked ~ i {
+    color: #f5f5f5;
+}
+.calendar .list ul li i {
+    position: absolute;
+    right: 0;
+    top: 16px;
+    font-size: 18px;
+    color: #d4d4d4;
+}
+
+

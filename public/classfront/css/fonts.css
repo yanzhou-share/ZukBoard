@@ -1,0 +1,196 @@
+@font-face {
+  font-family: 'tt-icons';
+  src:url('../fonts/tt-icons.eot?_v=VERSION');
+  src:url('../fonts/tt-icons.eot?_v=VERSION') format('embedded-opentype'),
+    url('../fonts/tt-icons.ttf?_v=VERSION') format('truetype'),
+    url('../fonts/tt-icons.woff?_v=VERSION') format('woff'),
+    url('../fonts/tt-icons.svg?_v=VERSION') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+.icons { 
+  font-family:'tt-icons'; 
+  font-weight: normal;
+  font-weight:400; 
+  font-style: normal;
+  speak: none;
+  text-decoration: none;
+  text-transform: none;  
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 24px;
+}
+.icons:after:hover {
+  text-decoration:none
+}
+.icons-enlarge:before { content:"\e000";}
+.icons-company:before { content:"\e003";}
+.icons-addMediaImage:before { content:"\e00a";}
+.icons-narrow:before { content:"\e00b";}
+.icons-calendar:before{ content:"\e052";}
+.icons-histogram:before{ content:"\e097";}
+.icons-download:before { content:"\e0bb";}
+.icons-face:before{ content:"\e0d8";}
+.icons-check:before { content:"\e0fb";}
+.icons-table:before{ content:"\e14b";}
+.icons-checked:before { content:"\e602";}
+.icons-weixin:before { content:"\e603";}
+.icons-close:before { content:"\e609";}
+.icons-qq:before { content:"\e615";}
+.icons-weibo:before { content:"\e616";}
+.icons-cloudseeding:before { content:"\e900";}
+.icons-talk:before { content:"\e901";}
+.icons-camera:before { content:"\e902";}
+.icons-file:before { content:"\e903";}
+.icons-arrowright:before{ content:"\e904";}
+.icons-duty:before { content:"\e905";}
+.icons-upload:before { content:"\e906";}
+.icons-shape:before { content:"\e907";}
+.icons-character:before { content:"\e908";}
+.icons-line:before { content:"\e909";}
+.icons-service:before { content:"\e90a";}
+.icons-draw:before { content:"\e90b";}
+.icons-color:before { content:"\e90c";}
+.icons-microphone:before { content:"\e90d";}
+.btn-close .icons-shot:before { content:"\e90e";}
+.icons-shot:before { content:"\e90f";}
+.btn-close .icons-microphone:before { content:"\e910";}
+.icons-user:before { content:"\e911";}
+.icons-key:before { content:"\e912";}
+.icons-square:before { content:"\e913";}
+.icons-circle:before { content:"\e914";}
+.icons-exit:before { content:"\e915";}
+.icons-video:before { content:"\e916";}
+.icons-ppt:before { content:"\e917";}
+.icons-cameranew:before { content:"\e918";}
+.icons-videonew:before { content:"\e919";}
+.icons-mouse:before { content:"\e91a";}
+.icons-onStage:before { content:"\e91b";}
+.btn-close .icons-onStage:before { content:"\e91c";}
+.icons-photoMenu:before{ content:"\e91d";}
+.icons-filepic:before{ content:"\e91e";}
+.icons-focus:before{ content:"\e91f";}
+.icons-nofocus:before{ content:"\e920";}
+.icons-draft:before{ content:"\e921";}
+.icons-major:before{ content:"\e922";}
+.icons-kickout:before{ content:"\e923";}
+.icons-desktopmac:before{ content:"\e924";}
+.icons-leaveroom:before{ content:"\e925";}
+.icons-share:before{ content:"\e926";}
+.icons-not-interested:before{ content:"\e927";}
+.icons-addperson:before{ content:"\e928";}
+.icons-film:before{ content:"\e929";}
+.icons-ppt:before{ content:"\e92a";}
+.icons-record-video:before{ content:"\e92b";}
+.btn-stop .icons-record-video:before{ content:"\e92c";}
+.icons-unlock:before{ content:"\e92d";}
+.icons-lock:before,
+.btn-locked .icons-unlock:before{ content:"\e92e";}
+.icons-code:before{ content:"\e92f";}
+.icons-addroom:before{ content:"\e930";}
+.icons-note:before{ content:"\e931";}
+.icons-addUser:before{ content:"\e932";}
+.icons-left-arrow:before{ content:"\e933";}
+.icons-right-arrow:before{ 
+  content:"\e933";
+  display: inline-block;  
+  -webkit-transform: rotate(180deg);
+     -moz-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);  
+}
+.icons-down-arrow:before{ 
+  content:"\e933";
+  display: inline-block;  
+  -webkit-transform: rotate(-90deg);
+     -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);  
+}
+.icons-inRoom:before{ content:"\e934";}
+.icons-person:before{ content:"\e935";}
+.icons-class:before{ content:"\e936";}
+.icons-cancle:before{ content:"\e937";}
+.icons-cloud:before{ content:"\e938";}
+.btn-close .icons-shot-new:before{ content:"\e939";}
+.icons-shot-new:before{ content:"\e93a";}
+.icons-chrome:before { content:"\e93b";}
+.icons-addFile:before { content:"\e93c";}
+.icons-clock:before{ content:"\e93d";}
+.icons-phone:before{ content:"\e93e";}
+.icons-homePage:before{ content:"\e93f";}
+.icons-addressList:before{ content:"\e940";}
+.icons-obs:before { content:"\e941";}
+.icons-cutScreen:before { content:"\e942";}
+.icons-goOut:before{ content:"\e943";}
+.icons-screenShare-new:before { content:"\e944";}
+.icons-rotate:before { content:"\e945";}
+.icons-save:before { content:"\e946";}
+.icons-setup:before { content:"\e947";}
+.icons-apple:before { content:"\e948";}
+.icons-handup:before { content:"\e949";}
+.icons-windows:before { content:"\e94a";}
+.icons-sharevideo:before{ content:"\e94b";}
+.icons-on-video:before { content:"\e94c";}
+.icons-college:before { content:"\e94d";}
+.icons-member:before { content:"\e94e";}
+.icons-laserPointer:before { content:"\e94f";}
+.icons-go-back:before{ content:"\e95c";}
+.icons-vote:before{ content:"\e95d";}
+.icons-group:before{ content:"\e95e";}
+.icons-brush:before{ content:"\e95f";}
+.icons-clear:before { content:"\e960";}
+.icons-delete:before{ content:"\e961";}
+.icons-text:before { content:"\e962";}
+.icons-msg:before{ content:"\e963";}
+.icons-fileNew:before{ content:"\e964";}
+.icons-eraser:before { content:"\e965";}
+.icons-select:before { content:"\e966";}
+.icons-control:before{ content:"\e967";}
+.btn-close .icons-authorization:before { content:"\e974";}
+.icons-authorization:before { content:"\e975";}
+.icons-search:before{ content: "\f002";}
+.icons-pic:before{ content:"\f03e";}
+.icons-closeNew:before{ content: "\f057";}
+.icons-screenShot:before { 
+  content:"\f0c4";
+  display: inline-block;  
+  -webkit-transform: rotate(-90deg);
+     -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);
+}
+.icons-prepage:before { content:"\f0d9";}
+.icons-nextpage:before,
+.icons-closeDown:before { 
+  content:"\f0d9";
+  display: inline-block;  
+  -webkit-transform: rotate(180deg);
+     -moz-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);   
+}
+.open .icons-closeDown:before{ 
+  content:"\f0d9";
+  display: inline-block;  
+  -webkit-transform: rotate(-90deg);
+     -moz-transform: rotate(-90deg);
+      -ms-transform: rotate(-90deg);
+          transform: rotate(-90deg);   
+}
+.icons-arrowDown:before { content:"\f107";}
+.icons-exclamationMark:before { content:"\f06a";}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

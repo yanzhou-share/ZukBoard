@@ -48,7 +48,15 @@ module.exports = {
       autoOpenBrowser: false,
       assetsSubDirectory: 'dist',
       entries: join(CURRENT_PATH, '/src/**/client/main.js'),
-      proxyTable: {},
+      proxyTable: {
+        // '/server': {
+        //   target: 'https://dev.hoozha.com:8999/server/',
+        //   changeOrigin: true,
+        //   pathRewrite: {
+        //     '^/server': ''
+        //   }
+        // }
+      },
       cssSourceMap: false
     }
   }

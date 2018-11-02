@@ -52,7 +52,7 @@ class Draw {
     this.textEditing = false
     this.canvaswidth = container.offsetWidth
     this.canvasHeight = container.offsetHeight
-    this.baseWidth = this.canvaswidth
+    this.baseWidth = 1600
     instance = this
     window.canvas = this.layerDraw
     this.lastPosX = this.lastPosY = 0
