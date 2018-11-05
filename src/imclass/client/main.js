@@ -7,6 +7,7 @@ import router from './router'
 import store from './store'
 import './assets/css/common.css'
 import './assets/css/style.css'
+import Toast from './components/thirdparty/toast'
 
 const id = process.env.GA_ID
 
@@ -16,6 +17,7 @@ if (process.env.NODE_ENV !== 'development') {
 }
 Vue.config.productionTip = false
 Vue.use(VueResource)
+Vue.use(Toast)
 
 // If GA_ID exists, then enable Google Analytics
 if (id !== undefined) {

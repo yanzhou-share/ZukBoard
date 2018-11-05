@@ -13,17 +13,17 @@
            <h1 class="f-28 txt_color_666 center"><a href="index.html"><img src="../../assets/images/logo_imclass_mini.svg" /></a></h1>
            <ul class="cf txt_color_b4 f-14">
             <li>
-              <div class="num txt_color_blue center"><span>+86<label></label></span></div>
-                <div class="inp"><input name="" class="txt_color_666 f-14" v-model="mobile" placeholder="请输入手机号" type="text" maxlength="11"></div>
+              <!--div class="num txt_color_blue center"><span>+86<label></label></span></div-->
+              <div class="inp"><input name="" class="txt_color_666 f-14" v-model="mobile" placeholder="请输入手机号" type="text" maxlength="11"></div>
             </li>
             <li>
                 <div v-show="sendAuthCode" class="code txt_color_blue" @click="getCaptcha"><span>获取验证码</span></div>
-                <div v-show="!sendAuthCode" class="code txt_color_blue"><span>{{auth_time}} </span><span>s重新发送</span></div>
+                <div v-show="!sendAuthCode" class="code txt_color_blue"><span>{{auth_time}} </span><span>s后可再次获取</span></div>
                 <div class="inp"><input name="" class="txt_color_666 f-14" v-model="verifyCode" placeholder="请输入验证码" type="text" maxlength="6"></div>
             </li>
             <li class="bg_none txt_color_666">
-              <div class="check_group">
-                 <div class="checkbox"><input name="" class="check" type="checkbox" value=""></div>
+              <div class="check_group" @click="selectPracy">
+                 <div class="checkbox" :class="[ {checkbox02: selectPracyStatue} ]"><input class="check" type="checkbox"></div>
                   <label>同意并遵守</label>
                </div>
                <a href="privacy.html" class="agreement">《ImClass服务条款》</a>
@@ -44,18 +44,20 @@ export default {
   data() {
     return {
       verifyCode: '',
-      mobile: '111',
+      mobile: '',
       sendAuthCode: true,
-      auth_time: 60
+      auth_time: 60,
+      selectPracyStatue: true
     }
   },
   computed: {
     greenBtnStatus: function () {
-      return (this.mobile.length > 0) && (this.verifyCode.length === 6)
+      return (this.mobile.length === 11) && (this.verifyCode.length === 6) && this.selectPracyStatue
     }
   },
   methods: {
     login: function () {
+      if (!(this.greenBtnStatus && this.checkMobile() && this.checkCaptcha())) return
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/user/loginUser',
         params: { mobile: this.mobile, code: '', userType: '1' }
@@ -64,19 +66,22 @@ export default {
         const { userToken } = data.userInfo
         if (code) {
           console.log(userToken)
+        } else {
+          this.$toast('手机号或验证码不正确')
         }
       }, err => {
-        console.log(err)
+        this.$toast('手机号或验证码不正确')
       })
     },
     getCaptcha: function () {
+      if (!this.checkMobile()) return
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode',
         params: { mobile: this.mobile }
       }).then(res => {
         const { code, data } = res.data.data
         console.log(code, data)
-        if (code !== '0') {
+        if (code === '0') {
           this.sendAuthCode = false
           var authTimetimer = setInterval(() => {
             this.auth_time--
@@ -86,9 +91,24 @@ export default {
             }
           }, 1000)
         } else {
-          alert('发送验证码失败')
+          this.$toast('验证码发送失败')
         }
       })
+    },
+    checkMobile: function () {
+      let reg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[4-9]{1})|(18[0-9]{1})|(199))+\d{8})$/
+      if (reg.test(this.mobile)) {
+        return true
+      } else {
+        this.$toast('请输入正确的手机号')
+        return false
+      }
+    },
+    checkCaptcha: function () {
+
+    },
+    selectPracy: function () {
+      this.selectPracyStatue = !this.selectPracyStatue
     }
   }
 }
@@ -98,5 +118,8 @@ export default {
 .miniclass_login_wrap .big_form ul li.btn input.greenBtn {
   color: white;
   background: #D95043;
+}
+.disabled {
+  background: #D3D3D3
 }
 </style>
