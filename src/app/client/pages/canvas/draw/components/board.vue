@@ -116,7 +116,7 @@ export default {
       zindex: 0,
       wPercent: 1,
       hPercent: 1,
-      baseWidth: 1600,
+      baseWidth: 1024,
       baseHeight: 1200,
       uid: '', // temp uid
       renderList: [],
