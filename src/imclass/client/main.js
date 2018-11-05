@@ -1,11 +1,12 @@
 import '@babel/polyfill'
 import Vue from 'vue'
-import ElementUI from 'element-ui'
 import VueResource from 'vue-resource'
 import VueAnalytics from 'vue-analytics'
 import App from './App'
 import router from './router'
 import store from './store'
+import './assets/css/common.css'
+import './assets/css/style.css'
 
 const id = process.env.GA_ID
 
@@ -13,7 +14,6 @@ if (process.env.NODE_ENV !== 'development') {
   // eslint-disable-next-line
   __webpack_public_path__ = window.staticBaseUrl
 }
-Vue.use(ElementUI)
 Vue.config.productionTip = false
 Vue.use(VueResource)
 
