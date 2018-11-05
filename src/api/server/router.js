@@ -157,7 +157,14 @@ module.exports = {
       // key: key_opts.key,
       // ca : key_opts.ca,
       method: type,
-      headers: {'content-type':'application/json'},
+      headers: {
+        'content-type':'application/json',
+        'channel': '0000',
+        'imei': uuid.v4(),
+        'platform': 4,
+        'requestTime': new Date().getTime(),
+        'token': '',
+      },
       rejectUnauthorized : false
     };
 

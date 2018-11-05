@@ -298,21 +298,27 @@ export default {
     },
 
     initToken() {
-      const that = this
-      this.ajax(
-        '/api/twlotoken',
-        {},
-        function (res) {
-          if (!!res && res.code === 0 && !!res.data) {
-            that.token = res.data.token
-            that.identity = res.data.identity
-            that.joinRoom()
-          }
-        },
-        function (err) {
-          console.log(err)
-        }
-      )
+      this.$http.post('/api/httpForward', {
+        url: 'https://dev.hoozha.com:8999/server/ip', params: { id: '123' }
+      }).then(res => {
+        console.warn('-----', res)
+        const { code, data } = res.data
+        console.warn(code, data)
+      })
+      // this.ajax(
+      //   '/api/twlotoken',
+      //   {},
+      //   function (res) {
+      //     if (!!res && res.code === 0 && !!res.data) {
+      //       that.token = res.data.token
+      //       that.identity = res.data.identity
+      //       that.joinRoom()
+      //     }
+      //   },
+      //   function (err) {
+      //     console.log(err)
+      //   }
+      // )
     }
   },
 
