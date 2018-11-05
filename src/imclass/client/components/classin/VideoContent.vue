@@ -298,13 +298,14 @@ export default {
     },
 
     initToken() {
-      this.$http.post('/api/httpForward', {
-        url: 'https://dev.hoozha.com:8999/server/ip', params: { id: '123' }
-      }).then(res => {
-        console.warn('-----', res)
-        const { code, data } = res.data
-        console.warn(code, data)
-      })
+      // this.$http.post('/api/httpForward', {
+      //   url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode', params: { mobile: '13051952703' }
+      // }).then(res => {
+      //   console.warn('-----', res)
+      //   const { code, data } = res.data
+      //   console.warn(code, data)
+      // })
+
       // this.ajax(
       //   '/api/twlotoken',
       //   {},

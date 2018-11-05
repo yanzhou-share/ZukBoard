@@ -164,6 +164,9 @@ module.exports = {
         'platform': 4,
         'requestTime': new Date().getTime(),
         'token': '',
+        'txcode': 0,
+        'txversion': 0,
+        'version': '1.0.0'
       },
       rejectUnauthorized : false
     };
