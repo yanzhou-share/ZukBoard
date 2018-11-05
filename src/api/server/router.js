@@ -163,7 +163,7 @@ module.exports = {
         'imei': uuid.v4(),
         'platform': 4,
         'requestTime': new Date().getTime(),
-        'token': '',
+        'token': '517ded73560e41b293198d46c5426e7c',
         'txcode': 0,
         'txversion': 0,
         'version': '1.0.0'

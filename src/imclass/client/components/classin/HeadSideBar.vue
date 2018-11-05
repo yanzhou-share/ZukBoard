@@ -17,12 +17,22 @@
 
                     <div class="tool-item cf">
                         <span class="tool-note">设置</span>
-                        <i class="icons icons-setting"></i>
+                        <i class="icons icons-setting" @click="createRoom"></i>
                     </div>
 
                     <div class="tool-item cf">
                         <span class="tool-note">结束</span>
                         <i class="icons icons-group"></i>
+                    </div>
+
+                    <!--<div class="tool-item cf">-->
+                        <!--<span class="tool-note">验证码</span>-->
+                        <!--<i class="icons icons-group" @click="sendCode"></i>-->
+                    <!--</div>-->
+
+                    <div class="tool-item cf">
+                        <span class="tool-note">登录</span>
+                        <i class="icons icons-group" @click="login"></i>
                     </div>
                 </div>
             </div>
@@ -74,6 +84,34 @@ export default {
     },
     closeInviting() {
       this.invitingShow = false
+    },
+    sendCode() {
+      this.$http.post('/api/httpForward', {
+        url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode', params: { mobile: '13051952703' }
+      }).then(res => {
+        console.warn('-----', res)
+        const { code, data } = res.data
+        console.warn(code, data)
+        alert('已下发验证码')
+      })
+    },
+    login() {
+      this.$http.post('/api/httpForward', {
+        url: 'http://devmini.imclass.cn:80/majorserverm/user/loginUser', params: { mobile: '13051952703', code: '', userType: '1' }
+      }).then(res => {
+        console.warn('-----', res)
+        const { code, data } = res.data
+        console.warn(code, data)
+      })
+    },
+    createRoom() {
+      this.$http.post('/api/httpForward', {
+        url: 'http://devmini.imclass.cn:80/majorserverm/room/createRoom', params: {}
+      }).then(res => {
+        console.warn('-----', res)
+        const { code, data } = res.data
+        console.warn(code, data)
+      })
     }
   }
 }
