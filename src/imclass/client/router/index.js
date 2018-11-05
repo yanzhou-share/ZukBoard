@@ -23,7 +23,7 @@ export default new Router({
     ]
   },
   {
-    path: '/imclass/classin',
+    path: '/imclass/classin/:id',
     name: 'front',
     // redirect: '/app/canvas',
     component: loadPage('classin/index')

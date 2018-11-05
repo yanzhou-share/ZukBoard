@@ -378,7 +378,6 @@ export default {
         console.warn(code, data)
       })
     },
-
     initBoard() {
       this.drawer.initBoard(this.renderList)
     },

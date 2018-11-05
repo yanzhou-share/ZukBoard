@@ -111,6 +111,10 @@ export default {
         console.warn('-----', res)
         const { code, data } = res.data
         console.warn(code, data)
+        const twilioToken = data.data.twilioToken
+        const roomId = data.data.roomInfo.roomNumber
+        console.warn(twilioToken, roomId)
+        window.history.replaceState({}, '', `/imclass/classin/${roomId}`)
       })
     }
   }

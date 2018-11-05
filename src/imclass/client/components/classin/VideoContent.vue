@@ -24,6 +24,7 @@
 
 <script>
 import { mapState } from 'vuex'
+// import uuid from 'uuid'
 import VideoItem from './modules/VideoItem.vue'
 // const Video = Twilio.Video
 const Video = require('twilio-video')
@@ -298,12 +299,19 @@ export default {
     },
 
     initToken() {
+      const that = this
+      this.roomName = this.$route.params.id
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom', params: { roomNumber: this.roomName, userType: 1 }
       }).then(res => {
         console.warn('-----', res)
         const { code, data } = res.data
         console.warn(code, data)
+        if (code === 0 && data) {
+          that.token = data.data.twilioToken
+          // that.identity = uuid.v4()
+          that.joinRoom()
+        }
       })
 
       // this.ajax(

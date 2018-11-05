@@ -36,6 +36,7 @@ class HandleImage {
         img.set('id', genKey())
         img.set('btype', this.globalCanvas.current)
         canvas.add(img)
+        this.globalCanvas.klassSetting(false)
         this.globalCanvas._vm.sync('uploadImg', SYNC_TYPE.INSERT, img.toJSON(['id', 'btype']))
         eventEmitter.emitEvent('toggleLoading', false)
       }, { crossOrigin: 'anonymous' })
