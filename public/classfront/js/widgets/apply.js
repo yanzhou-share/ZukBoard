@@ -114,14 +114,34 @@ var APPLY = (function() {
       this.$applyBtn.addClass("disabled");
 
       //TODO 跨域问题，暂时成功处理
-      this.$applyBox.show();
-      setTimeout(function() {
-        that.$applyBox.hide();
-        window.location.href = "/web/index";
-      }, 1000);
+      // this.$applyBox.show();
+      // setTimeout(function() {
+      //   that.$applyBox.hide();
+      //   window.location.href = "/web/index";
+      // }, 1000);
 
-      //提交申请
-      // Tool.ajax("https://www.imclass.cn/page/web/classfront/addPersonTrial",{linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}, function (res) {
+      // 提交申请
+      this.ajax("/api/httpForward", {url: "https://dev.hoozha.com:8999/server/ip", params: {linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}}).then(res=>{
+        if(!!res.code && res.code == 0) {
+          console.log(res);
+          //alert("提交成功");
+          that.$applyBox.show();
+          setTimeout(function () {
+            that.$applyBox.hide();
+            window.location.href = "/";
+          }, 1000);
+        } else {
+          console.log(res);
+          alert("申请失败, 服务异常");
+        }
+        that.$applyBtn.removeClass('disabled');
+      }).catch(error=>{
+        console.log(error);
+        that.$applyBtn.removeClass('disabled');
+        alert("申请失败, 服务异常");
+      })
+
+      // this.ajax("/api/httpForward", {url: "https://dev.hoozha.com:8999/server/ip", params: {linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}}, function (res) {
       //     if(!!res.code && res.code == 0) {
       //         console.log(res);
       //         //alert("提交成功");
@@ -140,6 +160,23 @@ var APPLY = (function() {
       //     that.$applyBtn.removeClass('disabled');
       //     alert("申请失败, 服务异常");
       // });
+    },
+
+    ajax: function(a, d, c, e, b, f){
+      return new Promise(function(resolve, reject){
+        $.ajax({
+          url: a,
+          type: !!b ? b : "post",
+          data: d || {},
+          dataType: "json",
+          success: function(data){
+            resolve(data);
+          },
+          error: function(error){
+            reject(error)
+          }
+        });
+      });
     },
 
     _hideALLError: function() {

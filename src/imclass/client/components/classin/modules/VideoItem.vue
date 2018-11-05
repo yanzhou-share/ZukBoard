@@ -1,0 +1,106 @@
+<template>
+    <div>
+        <div :class="itemClass" @mouseover="overClass" @mouseout="outClass">
+            <div class="img" ref='videoItem' :id="identity"></div>
+            <div class="close" @click="kickOut"></div>
+            <div class="pic-item-option">
+                <span :class="videoMutedState ? 'ico_camera_off' : 'ico_camera'" v-on:click="videoMuted"></span>
+                <span :class="audioMutedState ? 'ico_mic_off' : 'ico_mic'" v-on:click="audioMuted"></span>
+            </div>
+            <div class="title ellipsis f-14 txt_color_white">{{identity}}</div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+  // props:{"index": String, "localItem": Object, "item": Object, "localName": String},
+  props: ['index', 'localItem', 'item', 'localName'],
+  data() {
+    return {
+      itemClass: 'pic-item',
+      videoMutedState: false,
+      audioMutedState: false
+    }
+  },
+  computed: {
+    identity: function () {
+      if (!this.localItem && !this.item) {
+        return ''
+      }
+      const identity =
+        this.localItem && this.localItem.identity
+          ? this.localItem.identity
+          : this.item.identity
+      return identity
+    }
+  },
+  watch: {
+    localItem: {
+      handler(newV, oldV) {
+        if (newV !== oldV) {
+          let container = this.$refs.videoItem
+          var tracks = Array.from(this.localItem.tracks.values())
+          this.attachTracks(tracks, container)
+        }
+      },
+      deep: true
+    }
+  },
+  methods: {
+    attachTracks(tracks, container) {
+      tracks.forEach(function (track) {
+        container.appendChild(track.attach())
+      })
+    },
+    videoMuted() {
+      this.videoMutedState = !this.videoMutedState
+      let item = this.localName ? this.localItem : this.item
+      this.$emit('videoMuted', {
+        identity: item.identity,
+        videoTracks: item.videoTracks,
+        videoMutedState: this.videoMutedState
+      })
+    },
+    audioMuted() {
+      this.audioMutedState = !this.audioMutedState
+      let item = this.localName ? this.localItem : this.item
+      this.$emit('audioMuted', {
+        identity: item.identity,
+        audioTracks: item.audioTracks,
+        audioMutedState: this.audioMutedState
+      })
+    },
+    overClass() {
+      this.itemClass = 'pic-item close_off'
+    },
+    outClass() {
+      this.itemClass = 'pic-item'
+    },
+    kickOut() {
+      // todo 踢出成员
+      alert(this.item.identity + '被踢出')
+    }
+  },
+
+  // created() {
+  //   `       `
+  // },
+
+  mounted() {
+    if (this.item) {
+      let container = this.$refs.videoItem
+      var tracks = Array.from(this.item.tracks.values())
+      this.attachTracks(tracks, container)
+    }
+  },
+
+  updated() {
+    //        if(!!this.item){
+    //            let container = this.$refs.remoteVideo;
+    //            var tracks = Array.from(this.item.tracks.values());
+    //            this.attachTracks(tracks, container);
+    //        }
+  }
+}
+</script>

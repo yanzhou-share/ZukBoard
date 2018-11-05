@@ -9,6 +9,8 @@ const resCode = require('../resCode')
 const db = require(CURRENT_PATH + '/db/mongo')
 const env = process.env.NODE_ENV || "development"
 const getUpyunParams = require('./oss')
+const extend = require('node.extend');
+const request = require('request')
 
 const createResult = function (ctx, code, msg = '', data = null) {
   ctx.body = {
@@ -131,6 +133,72 @@ module.exports = {
     }})
     // GenerateScript()
     createResult(ctx, resCode.OK, '', model)
+  },
+
+  'post#httpForward': async ctx => {
+    // 暂时写死画板ID
+    const url = ctx.request.body.url
+    if (!url) {
+      return createResult(ctx, resCode.NO_PARAM, 'NO_PARAM')
+    }
+    const  params = ctx.request.body.params
+    if (!params) {
+      return createResult(ctx, resCode.NO_PARAM, 'NO_PARAM')
+    }
+    let option = {}
+    const type = ctx.request.body.type || 'post'
+    if(type === 'post'){
+      option = {form:params}
+    }
+
+    let options = {
+      url: url,
+      // cert: key_opts.cert,
+      // key: key_opts.key,
+      // ca : key_opts.ca,
+      method: type,
+      headers: {'content-type':'application/json'},
+      rejectUnauthorized : false
+    };
+
+    options = !!option && extend(options,option)
+
+    await new Promise(function (resolve, reject) {
+      request(options, (error, response, body) =>{
+        if(!error){
+          resolve(body)
+        }else{
+          reject(error)
+        }
+      })
+    }).then((body)=>{
+      try{
+        body = JSON.parse(body)
+        if(body){
+          return createResult(ctx, body.code, '', body)
+        }else{
+          return createResult(ctx, 9, '请求异常')
+        }
+      }catch (e) {
+        return createResult(ctx, 9, '请求异常', error)
+      }
+    }).catch(function(err){
+      return createResult(ctx, 9, '请求异常', err)
+    })
+
+    //  request(options, (error, response, body) => {
+    //   try{
+    //     body = JSON.parse(body)
+    //     if(!error && body){
+    //       return ctx.body = {code: resCode.NO_PARAM, msg: 'NO_PARAM', data: body}
+    //       // return createResult(ctx, resCode.NO_PARAM, 'NO_PARAM')
+    //     }else{
+    //       return createResult(ctx, 9, '请求异常', error)
+    //     }
+    //   }catch (e) {
+    //     return createResult(ctx, 9, '请求异常', error)
+    //   }
+    // });
   }
 
 }

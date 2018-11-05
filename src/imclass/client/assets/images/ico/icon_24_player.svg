@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_24_player</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主界面-激活态" transform="translate(-30.000000, -500.000000)">
+            <g id="bar_left-side" transform="translate(16.000000, 122.000000)">
+                <g id="icon_24_player" transform="translate(14.000000, 378.000000)">
+                    <circle id="Oval-4" fill="#FFFFFF" cx="12" cy="12" r="10"></circle>
+                    <path d="M16.615569,12.8272197 L10.5618787,16.9391134 C10.1050178,17.2494304 9.48309734,17.1306332 9.17278033,16.6737724 C9.06019483,16.5080196 9,16.3122671 9,16.1118937 L9,7.88810628 C9,7.33582153 9.44771525,6.88810628 10,6.88810628 C10.2003733,6.88810628 10.3961259,6.94830111 10.5618787,7.06088661 L16.615569,11.1727803 C17.0724298,11.4830973 17.191227,12.1050178 16.88091,12.5618787 C16.8099989,12.6662767 16.7199671,12.7563086 16.615569,12.8272197 Z" id="Triangle" fill="#A7A7A7"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

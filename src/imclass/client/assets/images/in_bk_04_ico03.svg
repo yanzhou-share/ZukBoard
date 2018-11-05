@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_公告管理</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="设计稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ImClass官网--功能概述" transform="translate(-1026.000000, -3125.000000)">
+            <g id="智能教务管理" transform="translate(360.000000, 2832.000000)">
+                <g id="公告管理系统" transform="translate(650.000000, 268.000000)">
+                    <g id="ico_公告管理" transform="translate(16.000000, 25.000000)">
+                        <rect id="Rectangle-7-Copy-2" fill-rule="nonzero" x="0" y="0" width="24" height="24"></rect>
+                        <g id="Group-16" transform="translate(1.000000, 2.000000)">
+                            <rect id="Rectangle-9" fill="#333333" x="1" y="9" width="20" height="2"></rect>
+                            <path d="M2.94600389,1 C2.3428371,1 1.84290485,1.46752375 1.80253957,2.06933835 L1.08433043,12.7772713 C1.08261812,12.8028006 1.08176124,12.8283799 1.08176124,12.8539665 C1.08176124,13.4869033 1.59485792,14 2.22779474,14 L19.7721692,14 C19.7977557,14 19.8233351,13.9991431 19.8488643,13.9974308 C20.4803822,13.9550733 20.957991,13.4087893 20.9156335,12.7772713 L20.1974243,2.06933835 C20.157059,1.46752375 19.6571268,1 19.05396,1 L2.94600389,1 Z" id="Rectangle-4" stroke="#333333" stroke-width="2"></path>
+                            <rect id="Rectangle-6" fill="#333333" x="10" y="15" width="2" height="5"></rect>
+                            <rect id="Rectangle-7" fill="#333333" x="5" y="18" width="12" height="2" rx="1"></rect>
+                            <path d="M4,14 L6,14 L6,16 C6,16.5522847 5.55228475,17 5,17 L5,17 C4.44771525,17 4,16.5522847 4,16 L4,14 Z" id="Rectangle-8" fill="#333333"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_启动失败</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="弹窗" transform="translate(-354.000000, -959.000000)">
+            <g id="直播弹窗" transform="translate(213.000000, 855.000000)">
+                <g id="pop_live-ready-2-">
+                    <g id="label" transform="translate(141.000000, 104.000000)">
+                        <g id="icon">
+                            <circle id="Oval-11" fill="#D95043" cx="12" cy="18" r="2"></circle>
+                            <circle id="Oval" stroke="#D95043" stroke-width="2" cx="12" cy="12" r="11"></circle>
+                            <path d="M12,4 C13.1378549,4 14.0328706,4.55964406 13.9990735,5.25 L13.6319034,12.75 C13.5981063,13.4403559 12.8674783,14 12,14 C11.1325217,14 10.4018937,13.4403559 10.3680966,12.75 L10.0009265,5.25 C9.96712944,4.55964406 10.8621451,4 12,4 Z" id="Rectangle-51" fill="#D95043"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

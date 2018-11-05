@@ -169,6 +169,7 @@ export default {
     this.role = this.$route.query.role
     this.registerSocket()
     if (id) {
+      // this.test(id)
       this.socket.emit('joinRoom', id)
       this.getBoard(id)
       return
@@ -368,6 +369,16 @@ export default {
         this.board = data
       })
     },
+    test(id) {
+      this.$http.post('/api/httpForward', {
+        url: 'https://dev.hoozha.com:8999/server/ip', params: { id: id }
+      }).then(res => {
+        console.warn('-----', res)
+        const { code, data } = res.data
+        console.warn(code, data)
+      })
+    },
+
     initBoard() {
       this.drawer.initBoard(this.renderList)
     },
