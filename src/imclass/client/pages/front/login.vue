@@ -105,7 +105,7 @@ export default {
       }
     },
     checkCaptcha: function () {
-
+      return true
     },
     selectPracy: function () {
       this.selectPracyStatue = !this.selectPracyStatue
