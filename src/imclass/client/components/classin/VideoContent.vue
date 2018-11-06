@@ -11,13 +11,14 @@
             <!--<div class="title ellipsis f-14 txt_color_white">{{identity}}</div>-->
             <!--</div>-->
 
-            <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
+            <video-item v-if="localParticipant" v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
                         v-bind:localItem="localParticipant">
             </video-item>
 
             <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants"
                         v-bind:index="index" v-bind:item="item">
             </video-item>
+
         </div>
     </div>
 </template>
@@ -26,7 +27,6 @@
 import { mapState } from 'vuex'
 // import uuid from 'uuid'
 import VideoItem from './modules/VideoItem.vue'
-// const Video = Twilio.Video
 const Video = require('twilio-video')
 export default {
   name: 'Video',
@@ -40,7 +40,8 @@ export default {
       localName: 'localName',
       room: undefined,
       previewTracks: undefined,
-      activeRoom: undefined
+      activeRoom: undefined,
+      leaveRoomShow: false
     }
   },
   props: ['fatherComponent'],
@@ -136,6 +137,9 @@ export default {
         connectOptions
       ).then(this.roomJoined, function (error) {
         console.log('Could not connect to Twilio: ' + error.message)
+        if (error.name === 'NotAllowedError') {
+          // todo 无权限
+        }
       })
     },
 
@@ -307,7 +311,7 @@ export default {
         console.warn('-----', res)
         const { code, data } = res.data
         console.warn(code, data)
-        if (code === 0 && data) {
+        if (code === '0' && data) {
           that.token = data.data.twilioToken
           // that.identity = uuid.v4()
           that.joinRoom()

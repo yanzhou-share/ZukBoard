@@ -83,14 +83,15 @@ export default {
     }
   },
 
-  // created() {
-  //   `       `
-  // },
+  created() {
+
+  },
 
   mounted() {
-    if (this.item) {
+    let item = this.localName ? this.localItem : this.item
+    if (item) {
       let container = this.$refs.videoItem
-      var tracks = Array.from(this.item.tracks.values())
+      var tracks = Array.from(item.tracks.values())
       this.attachTracks(tracks, container)
     }
   },

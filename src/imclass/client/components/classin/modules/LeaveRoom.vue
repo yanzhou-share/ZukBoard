@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div class="layer_02 layer_04 f-16 txt_color_white" v-show="isShow" :style="styleMode">
-            <h2 class="f-20">邀请成员<div class="close" @click="closeComp"></div></h2>
+        <div class="layer_02 f-16 txt_color_white" v-show="isShow" :style="styleMode">
+            <h2 class="f-20">请学生离开<div class="close" @click="closeComp"></div></h2>
             <div class="con center cf">
-                <!--<div class="code"><img src="../../../assets/images/layer_codeimg02.jpg" onerror=""></div>-->
-                <p>直播地址：http://www.imclass.cn/789896 <span>复制</span></p>
-                <p class="f-14 txt_color_999">复制粘贴上面地址，或者用微信扫描二维码进行分享</p>
+                <p>确定让该学生离开教室吗？</p>
+                <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="actionComp">确认</a><a href="javascript:void(0);" class="layer_btn2 f-20" @click="closeComp">取消</a></div>
             </div>
         </div>
     </div>
@@ -50,15 +49,19 @@ export default {
     },
     closeComp() {
       this.isShow = false
-      this.$emit('closeInviting', {})
+      this.$emit('closeLeaveRoom', {})
+    },
+    actionComp() {
+      this.isShow = false
+      this.$emit('actionLeaveRoom', {})
     }
   },
 
   mounted() {
     let point = this.getclientPoint()
     this.styleMode = {
-      left: (point.width - 488) / 2 + 'px',
-      top: (point.height - 202) / 2 + 'px'
+      left: (point.width - 422) / 2 + 'px',
+      top: (point.height - 244) / 2 + 'px'
     }
   }
 }

@@ -2,7 +2,7 @@
     <div id="headsidebar">
         <aside class="toolbar top_bar">
             <div class="toolbar-inner cf">
-                <div class="class_logo"><a href="index.html"><img src="images/logo_miniclass_top@2x.png"></a></div>
+                <div class="class_logo"><a href="index.html"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>
 
                 <div class="btn-tool cf">
                     <div class="tool-item cf">
@@ -22,7 +22,7 @@
 
                     <div class="tool-item cf">
                         <span class="tool-note">结束</span>
-                        <i class="icons icons-group"></i>
+                        <i class="icons icons-group" @click="leaveRoom"></i>
                     </div>
 
                     <!--<div class="tool-item cf">-->
@@ -53,24 +53,36 @@
                     :is="'inviting'" >
             </component>
         </template>
+
+        <template v-if="leaveRoomShow">
+            <component
+                    v-show="'startLiveShow'"
+                    v-on:closeLeaveRoom="closeLeaveRoom"
+                    v-on:actionLeaveRoom="actionLeaveRoom"
+                    :is="'leaveRoom'" >
+            </component>
+        </template>
     </div>
 </template>
 
 <script>
 import startLive from './modules/StartLive.vue'
 import inviting from './modules/Inviting.vue'
+import leaveRoom from './modules/LeaveRoom.vue'
 export default {
   name: 'headsidebar',
   data() {
     return {
       startLiveShow: false,
-      invitingShow: false
+      invitingShow: false,
+      leaveRoomShow: false
     }
   },
   props: [],
   components: {
     startLive: startLive,
-    inviting: inviting
+    inviting: inviting,
+    leaveRoom: leaveRoom
   },
   methods: {
     startLiveAction() {
@@ -116,6 +128,14 @@ export default {
         console.warn(twilioToken, roomId)
         window.history.replaceState({}, '', `/imclass/classin/${roomId}`)
       })
+    },
+    leaveRoom() {
+      this.leaveRoomShow = !this.leaveRoomShow
+    },
+    actionLeaveRoom() {
+      // todo 回到首页
+      this.$router.push('/')
+      // window.history.replaceState({}, '', `/`)
     }
   }
 }

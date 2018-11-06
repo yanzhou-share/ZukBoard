@@ -1,12 +1,11 @@
 <template>
     <div>
-        <div class="layer_02 layer_04 f-16 txt_color_white" v-show="isShow" :style="styleMode">
-            <h2 class="f-20">邀请成员<div class="close" @click="closeComp"></div></h2>
-            <div class="con center cf">
-                <!--<div class="code"><img src="../../../assets/images/layer_codeimg02.jpg" onerror=""></div>-->
-                <p>直播地址：http://www.imclass.cn/789896 <span>复制</span></p>
-                <p class="f-14 txt_color_999">复制粘贴上面地址，或者用微信扫描二维码进行分享</p>
+        <div class="layer_01 center f-16 txt_color_white" v-show="isShow" :style="styleMode">
+            <div class="con cf">
+                <p><span>「摄像头」</span>和<span>「麦克风」</span>被禁用，请手动设置开启<br>点击地址栏右侧摄像头图标，选择“始终允许使用摄像头和麦克风”，设置完成后并刷新</p>
+                <p><img src="../../../assets/images/pic_shiyitu@2x.png"></p>
             </div>
+            <div class="close" @click="closeComp"></div>
         </div>
     </div>
 </template>
@@ -57,8 +56,8 @@ export default {
   mounted() {
     let point = this.getclientPoint()
     this.styleMode = {
-      left: (point.width - 488) / 2 + 'px',
-      top: (point.height - 202) / 2 + 'px'
+      left: (point.width - 660) / 2 + 'px',
+      top: (point.height - 180) / 2 + 'px'
     }
   }
 }
