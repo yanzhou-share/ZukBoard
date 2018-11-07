@@ -19,6 +19,11 @@ export default new Router({
         path: 'login/',
         name: 'login',
         component: loadPage('front/login')
+      },
+      {
+        path: 'create/',
+        name: 'createlesson',
+        component: loadPage('front/create')
       }
     ]
   },

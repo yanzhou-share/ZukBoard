@@ -147,8 +147,8 @@ module.exports = {
     }
     let option = {}
     const type = ctx.request.body.type || 'post'
-    if(type === 'post'){
-      option = {form:params}
+    if (type === 'post') {
+      option = { form: params }
     }
 
     let options = {
@@ -158,7 +158,7 @@ module.exports = {
       // ca : key_opts.ca,
       method: type,
       headers: {
-        'content-type':'application/json',
+        'content-type': 'application/json',
         'channel': '0000',
         'imei': ctx.cookies.get('USER_SESSION_ID'),
         'platform': 4,
@@ -168,51 +168,39 @@ module.exports = {
         'txversion': 0,
         'version': '1.0.0'
       },
-      rejectUnauthorized : false
+      rejectUnauthorized: false
     };
 
-    options = !!option && extend(options,option)
+    options = !!option && extend(options, option)
 
     await new Promise(function (resolve, reject) {
       request(options, (error, response, body) =>{
-        if(!error){
+        if (!error) {
           resolve(body)
-        }else{
+        } else {
           reject(error)
         }
       })
-    }).then((body)=>{
-      try{
+    }).then((body) => {
+      try {
         body = JSON.parse(body)
-        if(body){
-          if(ctx.request.body.url.indexOf('loginUser') !== -1){
+        if (body) {
+          if (ctx.request.body.url.indexOf('loginUser') !== -1) {
+              if (body.code !== '0') {
+                return createResult(ctx, body.code, body.msg)
+              }
               ctx.session.userInfo = body.data.userInfo
               ctx.session.token = body.data.userInfo.userToken
           }
           return createResult(ctx, body.code, '', body)
-        }else{
+        } else {
           return createResult(ctx, 9, '请求异常')
         }
-      }catch (e) {
+      } catch (e) {
         return createResult(ctx, 9, '请求异常', error)
       }
-    }).catch(function(err){
+    }).catch(function(err) {
       return createResult(ctx, 9, '请求异常', err)
     })
-
-    //  request(options, (error, response, body) => {
-    //   try{
-    //     body = JSON.parse(body)
-    //     if(!error && body){
-    //       return ctx.body = {code: resCode.NO_PARAM, msg: 'NO_PARAM', data: body}
-    //       // return createResult(ctx, resCode.NO_PARAM, 'NO_PARAM')
-    //     }else{
-    //       return createResult(ctx, 9, '请求异常', error)
-    //     }
-    //   }catch (e) {
-    //     return createResult(ctx, 9, '请求异常', error)
-    //   }
-    // });
   }
-
 }

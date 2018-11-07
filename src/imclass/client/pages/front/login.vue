@@ -62,10 +62,9 @@ export default {
         url: 'http://devmini.imclass.cn:80/majorserverm/user/loginUser',
         params: { mobile: this.mobile, code: this.verifyCode, userType: '1' }
       }).then(res => {
-        const { code, data } = res.data.data
-        const { userToken } = data.userInfo
-        if (code) {
-          console.log(userToken)
+        const { code } = res.data
+        if (code === '0') {
+          window.location.href = '/imclass/front/create'
         } else {
           this.$toast('手机号或验证码不正确')
         }
@@ -80,8 +79,7 @@ export default {
         url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode',
         params: { mobile: this.mobile }
       }).then(res => {
-        const { code, data } = res.data.data
-        console.log(code, data)
+        const { code } = res.data.data
         if (code === '0') {
           this.sendAuthCode = false
           var authTimetimer = setInterval(() => {
