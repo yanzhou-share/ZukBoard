@@ -56,7 +56,7 @@
 
         <template v-if="leaveRoomShow">
             <component
-                    v-show="'startLiveShow'"
+                    v-show="'leaveRoomShow'"
                     v-on:closeLeaveRoom="closeLeaveRoom"
                     v-on:actionLeaveRoom="actionLeaveRoom"
                     :is="'leaveRoom'" >
@@ -97,6 +97,10 @@ export default {
     closeInviting() {
       this.invitingShow = false
     },
+    closeLeaveRoom() {
+      this.leaveRoomShow = false
+    },
+
     sendCode() {
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode', params: { mobile: '13051952703' }
@@ -126,7 +130,8 @@ export default {
         const twilioToken = data.data.twilioToken
         const roomId = data.data.roomInfo.roomNumber
         console.warn(twilioToken, roomId)
-        window.history.replaceState({}, '', `/imclass/classin/${roomId}`)
+        // window.history.replaceState({}, '', `/imclass/classin/${roomId}`)
+        this.$router.push(`/imclass/classin/${roomId}`)
       })
     },
     leaveRoom() {

@@ -9,6 +9,7 @@ import './assets/css/common.css'
 import './assets/css/style.css'
 import Toast from './components/thirdparty/toast'
 import VueClipboard from 'vue-clipboard2'
+import ElementUI from 'element-ui'
 
 const id = process.env.GA_ID
 
@@ -16,7 +17,9 @@ if (process.env.NODE_ENV !== 'development') {
   // eslint-disable-next-line
   __webpack_public_path__ = window.staticBaseUrl
 }
+
 Vue.config.productionTip = false
+Vue.use(ElementUI)
 Vue.use(VueResource)
 Vue.use(Toast)
 Vue.use(VueClipboard)

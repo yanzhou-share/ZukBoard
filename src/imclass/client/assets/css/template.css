@@ -63,8 +63,10 @@
 .icons-write { background-image:url(../images/ico/icon_24_type.svg);}
 .icons-shape { background-image:url(../images/ico/icon_24_shape.svg);}
 .icons-documents { background-image:url(../images/ico/icon_24_ppt.svg);}
+.icons-eliminate.del{ background-image:url(../images/ico/icon_24_delete_disable.svg);}
 .icons-video { background-image:url(../images/ico/icon_24_player.svg);}
 .icons-eliminate { background-image:url(../images/ico/icon_24_delete.svg);}
+
 .icons-whole { background-image:url(../images/ico/icon_24_whole.svg);}
 
 .icons-add { background-image:url(../images/ico/icon_24_add.svg);}

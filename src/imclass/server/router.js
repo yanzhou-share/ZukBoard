@@ -6,6 +6,7 @@ module.exports = {
     // if (!ctx.session.user) {
     //   return ctx.redirect('/login')
     // }
+    ctx.session.originalUrl = ctx.originalUrl
     await ctx.render('layout/index.html', {
       title: '',
       dataset: encodeURIComponent(JSON.stringify({

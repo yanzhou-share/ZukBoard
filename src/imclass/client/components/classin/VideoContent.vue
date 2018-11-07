@@ -6,7 +6,7 @@
             </video-item>
 
             <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants"
-                        v-bind:index="index" v-bind:item="item">
+                        v-bind:index="index" v-bind:item="item" v-bind:tracks="item.tracks">
             </video-item>
         </div>
     </div>
@@ -287,12 +287,16 @@ export default {
     },
 
     participantAddTrack(participant, track) {
+      var that = this
       if (participant && track) {
-        this.participants.forEach(function (item) {
+        this.participants.forEach(function (item, index) {
           if (item.identity === participant.identity) {
-            item.traks = participant.traks
+            // item.tracks = participant.tracks
+            that.$set(that.participants[index], 'trackId', track.id)
           }
         })
+
+        // this.$set(this.participants, this.participants)
 
         // var index = this.participants.indexOf(participant)
         // if (index > -1) {

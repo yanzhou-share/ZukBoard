@@ -15,7 +15,7 @@
 <script>
 export default {
   // props:{"index": String, "localItem": Object, "item": Object, "localName": String},
-  props: ['index', 'localItem', 'item', 'localName'],
+  props: ['index', 'localItem', 'item', 'localName', 'tracks'],
   data() {
     return {
       itemClass: 'pic-item',
@@ -47,7 +47,18 @@ export default {
       },
       deep: true
     },
-    'item.tracks': {
+    item: {
+      handler(newV, oldV) {
+        if (newV !== oldV) {
+          let container = this.$refs.videoItem
+          var tracks = Array.from(this.item.tracks.values())
+          this.attachTracks(tracks, container)
+        }
+      },
+      // immediate: true,
+      deep: true
+    },
+    tracks: {
       handler(newV, oldV) {
         if (newV !== oldV) {
           let container = this.$refs.videoItem

@@ -31,7 +31,7 @@ app.keys = ['some secret hurr']
 app.use(session({
   key: 'USER_SESSION_ID',
   cookie: {
-    maxAge: Date.now() + 1000 * 60 * 60 * 24
+    maxAge: Date.now() + 1000 * 60 * 60 * 24 * 30
   }
 }, app))
 
