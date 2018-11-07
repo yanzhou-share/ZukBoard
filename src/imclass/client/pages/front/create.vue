@@ -64,6 +64,8 @@ export default {
       }).then(res => {
         const { code } = res.data.data
         if (code === '0') {
+          const roomInfo = JSON.stringify(res.data.data.data.roomInfo)
+          window.sessionStorage.setItem('roomInfo', roomInfo)
           window.location.href = '/imclass/classin/' + this.roomId
         } else if (code === '') {
           this.$toast('房间已关闭')
