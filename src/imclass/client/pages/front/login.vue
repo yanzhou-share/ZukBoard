@@ -64,6 +64,8 @@ export default {
       }).then(res => {
         const { code } = res.data
         if (code === '0') {
+          const userInfo = JSON.stringify(res.data.data.data.userInfo)
+          window.localStorage.setItem('userInfo', userInfo)
           window.location.href = '/imclass/front/create'
         } else {
           this.$toast('手机号或验证码不正确')
