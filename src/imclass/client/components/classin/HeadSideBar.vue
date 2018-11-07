@@ -1,24 +1,24 @@
 <template>
     <div id="headsidebar">
-        <aside class="toolbar top_bar">
+        <aside class="toolbar top_bar" :class="{'noCreator': !getCreator}">
             <div class="toolbar-inner cf">
                 <div class="class_logo"><a href="index.html"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>
 
                 <div class="btn-tool cf">
-                    <div class="tool-item cf" v-if="">
+                    <div class="tool-item cf" v-if="getCreator">
                         <span class="tool-note wd01">邀请成员</span>
                         <i class="icons icons-add" @click="invitingAction"></i>
                     </div>
 
-                    <div class="tool-item cf">
+                    <div class="tool-item cf" v-if="getCreator">
                         <span class="tool-note">直播</span>
                         <i class="icons icons-live" @click="startLiveAction"></i>
                     </div>
 
-                    <div class="tool-item cf">
-                        <span class="tool-note">设置</span>
-                        <i class="icons icons-setting" @click="createRoom"></i>
-                    </div>
+                    <!--<div class="tool-item cf">-->
+                        <!--<span class="tool-note">设置</span>-->
+                        <!--<i class="icons icons-setting" @click="createRoom"></i>-->
+                    <!--</div>-->
 
                     <div class="tool-item cf">
                         <span class="tool-note">结束</span>
@@ -69,13 +69,16 @@
 import startLive from './modules/StartLive.vue'
 import inviting from './modules/Inviting.vue'
 import leaveRoom from './modules/LeaveRoom.vue'
+import { eventEmitter } from '../util'
 export default {
   name: 'headsidebar',
   data() {
     return {
       startLiveShow: false,
       invitingShow: false,
-      leaveRoomShow: false
+      leaveRoomShow: false,
+      roomInfo: undefined,
+      userInfo: undefined
     }
   },
   props: [],
@@ -84,12 +87,17 @@ export default {
     inviting: inviting,
     leaveRoom: leaveRoom
   },
+  computed: {
+    getCreator: function () {
+      return !!(this.roomInfo && this.userInfo && this.roomInfo.createUser === this.userInfo.userId)
+    }
+  },
   methods: {
     startLiveAction() {
-      this.startLiveShow = !this.startLiveShow
+      this.startLiveShow = true
     },
     invitingAction() {
-      this.invitingShow = !this.invitingShow
+      this.invitingShow = true
     },
     closeStartLive() {
       this.startLiveShow = false
@@ -101,25 +109,6 @@ export default {
       this.leaveRoomShow = false
     },
 
-    sendCode() {
-      this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode', params: { mobile: '13051952703' }
-      }).then(res => {
-        console.warn('-----', res)
-        const { code, data } = res.data
-        console.warn(code, data)
-        alert('已下发验证码')
-      })
-    },
-    login() {
-      this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/user/loginUser', params: { mobile: '13051952703', code: '', userType: '1' }
-      }).then(res => {
-        console.warn('-----', res)
-        const { code, data } = res.data
-        console.warn(code, data)
-      })
-    },
     createRoom() {
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/room/createRoom', params: {}
@@ -139,12 +128,45 @@ export default {
     },
     actionLeaveRoom() {
       // todo 回到首页
-      this.$router.push('/')
+      // this.$router.push('/')
       // window.history.replaceState({}, '', `/`)
+      window.location.href = '/imclass/front/create/'
+    },
+    getRoomInfo() {
+      return JSON.parse(sessionStorage.getItem('roomInfo'))
+    },
+    getUserInfo() {
+      try {
+        this.userInfo = JSON.parse(localStorage.getItem('userInfo'))
+      } catch (e) {
+        console.error(e)
+      }
     }
+  },
+  mounted() {
+    this.$nextTick(() => {
+      eventEmitter.addListener('setRoomInfo', (roomInfo) => {
+        this.roomInfo = roomInfo
+      })
+      this.getUserInfo()
+    })
   }
 }
 </script>
 
 <style scoped>
+    .noCreator{
+        top: 18px;
+        left: 50%;
+        width: 180px;
+        margin-left: -90px;
+        z-index: 101;
+    }
+    .creator{
+        top: 18px;
+        left: 50%;
+        width: 300px;
+        margin-left: -150px;
+        z-index: 101;
+    }
 </style>

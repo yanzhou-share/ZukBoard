@@ -16,6 +16,7 @@
 import { mapState } from 'vuex'
 // import uuid from 'uuid'
 import VideoItem from './modules/VideoItem.vue'
+import { eventEmitter } from '../util'
 const Video = require('twilio-video')
 export default {
   name: 'Video',
@@ -30,7 +31,8 @@ export default {
       room: undefined,
       previewTracks: undefined,
       activeRoom: undefined,
-      leaveRoomShow: false
+      leaveRoomShow: false,
+      roomInfo: undefined
     }
   },
   props: ['fatherComponent'],
@@ -315,6 +317,13 @@ export default {
       }
     },
 
+    setRoomInfo(roomInfo) {
+      if (roomInfo) {
+        sessionStorage.setItem('roomInfo', JSON.stringify(roomInfo))
+        eventEmitter.emit('setRoomInfo', roomInfo)
+      }
+    },
+
     initToken() {
       const that = this
       this.roomName = this.$route.params.id
@@ -326,7 +335,8 @@ export default {
         console.warn(code, data)
         if (code === '0' && data) {
           that.token = data.data.twilioToken
-          // that.identity = uuid.v4()
+          that.roomInfo = data.data.roomInfo
+          that.setRoomInfo(that.roomInfo)
           that.joinRoom()
         } else if (code === '3001') {
           that.$toast('创建twilio房间错误')
@@ -342,21 +352,6 @@ export default {
           that.$toast('加入房间异常')
         }
       })
-
-      // this.ajax(
-      //   '/api/twlotoken',
-      //   {},
-      //   function (res) {
-      //     if (!!res && res.code === 0 && !!res.data) {
-      //       that.token = res.data.token
-      //       that.identity = res.data.identity
-      //       that.joinRoom()
-      //     }
-      //   },
-      //   function (err) {
-      //     console.log(err)
-      //   }
-      // )
     }
   },
 
