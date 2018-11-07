@@ -25,7 +25,7 @@
    <!--big_class_login_wrap End-->
    <!--miniclass_setup_member Begin-->
    <div class="miniclass_setup_member">
-     <div class="mem_ico"><img src="../../assets/images/images.svg" /></div>
+     <div class="mem_ico"><img src="../../assets/images/images.svg" class="img"/><span v-text="mobile" class="mobile"></span></div>
    </div>
    <!--miniclass_setup_member End-->
 </div>
@@ -35,6 +35,13 @@ export default {
   data() {
     return {
       roomId: ''
+    }
+  },
+  computed: {
+    mobile: function () {
+      const userInfo = window.localStorage.getItem('userInfo')
+      const info = JSON.parse(userInfo)
+      return info.mobile
     }
   },
   methods: {
@@ -79,3 +86,12 @@ export default {
   }
 }
 </script>
+<style lang="scss" scoped>
+.img {
+  vertical-align: middle;
+}
+.mobile {
+  font-size: 14px;
+  margin-left: 5px;
+}
+</style>
