@@ -160,10 +160,10 @@ module.exports = {
       headers: {
         'content-type':'application/json',
         'channel': '0000',
-        'imei': uuid.v4(),
+        'imei': ctx.cookies.get('USER_SESSION_ID'),
         'platform': 4,
         'requestTime': new Date().getTime(),
-        'token': '4c78a94d31d644128cc141389edc0b30',
+        'token': ctx.session.token,
         'txcode': 0,
         'txversion': 0,
         'version': '1.0.0'
@@ -185,6 +185,10 @@ module.exports = {
       try{
         body = JSON.parse(body)
         if(body){
+          if(ctx.request.body.url.indexOf('loginUser') !== -1){
+              ctx.session.userInfo = body.data.userInfo
+              ctx.session.token = body.data.userInfo.userToken
+          }
           return createResult(ctx, body.code, '', body)
         }else{
           return createResult(ctx, 9, '请求异常')

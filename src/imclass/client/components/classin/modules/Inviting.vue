@@ -4,10 +4,13 @@
             <h2 class="f-20">邀请成员<div class="close" @click="closeComp"></div></h2>
             <div class="con center cf">
                 <!--<div class="code"><img src="../../../assets/images/layer_codeimg02.jpg" onerror=""></div>-->
-                <p>直播地址：http://www.imclass.cn/789896 <span>复制</span></p>
+                <p>直播地址：{{ copyUrl }} <span v-clipboard:copy="copyUrl"
+                                            　　v-clipboard:success="onCopy"
+                                            　　v-clipboard:error="onError" >复制</span></p>
                 <p class="f-14 txt_color_999">复制粘贴上面地址，或者用微信扫描二维码进行分享</p>
             </div>
         </div>
+        <div class="masker" id="masker"></div>
     </div>
 </template>
 
@@ -19,7 +22,8 @@ export default {
       styleMode: {
         left: 0,
         top: 0
-      }
+      },
+      copyUrl: ''
     }
   },
   computed: {},
@@ -51,7 +55,18 @@ export default {
     closeComp() {
       this.isShow = false
       this.$emit('closeInviting', {})
+    },
+
+    onCopy(e) {
+      console.log(e)
+      this.$toast('复制成功')
+    },
+
+    onError(e) {
+      console.error(e)
+      this.$toast('复制失败')
     }
+
   },
 
   mounted() {
@@ -60,6 +75,7 @@ export default {
       left: (point.width - 488) / 2 + 'px',
       top: (point.height - 202) / 2 + 'px'
     }
+    this.copyUrl = window.baseUrl + this.$route.path
   }
 }
 </script>
@@ -67,5 +83,15 @@ export default {
 <style scoped>
     .layer_02 {
         position: absolute;
+        z-index: 103;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
     }
 </style>

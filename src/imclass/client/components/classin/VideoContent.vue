@@ -1,16 +1,6 @@
 <template>
     <div id="videoContent">
         <div class="pic_wrap">
-            <!--<div class="pic-item">-->
-            <!--<div class="img" id="local-media"></div>-->
-            <!--<div class="close"></div>-->
-            <!--<div class="pic-item-option">-->
-            <!--<span class="ico_camera" v-on:click="videoMuted"></span>-->
-            <!--<span class="ico_mic" v-on:click="audioMuted"></span>-->
-            <!--</div>-->
-            <!--<div class="title ellipsis f-14 txt_color_white">{{identity}}</div>-->
-            <!--</div>-->
-
             <video-item v-if="localParticipant" v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
                         v-bind:localItem="localParticipant">
             </video-item>
@@ -18,7 +8,6 @@
             <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants"
                         v-bind:index="index" v-bind:item="item">
             </video-item>
-
         </div>
     </div>
 </template>
@@ -124,11 +113,16 @@ export default {
         dominantSpeaker: true
       }
 
+      // Video.createLocalTracks({
+      //   audio: { name: 'microphone' },
+      //   video: { name: 'camera' }
+      // }).then(function (localTracks) {
+      //   that.previewTracks = localTracks
+      // })
+
       if (this.previewTracks) {
         connectOptions.tracks = this.previewTracks
       }
-
-      console.log('正在加入房间：' + connectOptions.name)
 
       // Join the Room with the token from the server and the
       // LocalParticipant's Tracks.
@@ -160,7 +154,7 @@ export default {
     },
 
     roomJoined(room) {
-      var that = this
+      const that = this
       this.room = this.activeRoom = room
 
       console.log("Joined as '" + this.identity + "'")
@@ -172,6 +166,8 @@ export default {
       //            }
 
       this.localParticipant = room.localParticipant
+
+      this.participants = Array.from(room.participants.values())
 
       // 加载远端视频 Attach the Tracks of the Room's Participants.
       //            room.participants.forEach(function(participant) {
@@ -188,17 +184,22 @@ export default {
       // When a Participant adds a Track, attach it to the DOM.
       room.on('trackAdded', function (track, participant) {
         console.warn(participant.identity + ' added track: ' + track.kind)
-        if (!that.findUser(participant)) {
-          that.participants.push(participant)
-        }
-        // var previewContainer = document.getElementById('remote-media');
-        // that.attachTracks([track], previewContainer);
+        that.participantAddTrack(participant, track)
+        console.log(that.participants.tracks)
       })
 
       // When a Participant removes a Track, detach it from the DOM.
       room.on('trackRemoved', function (track, participant) {
         console.log(participant.identity + ' removed track: ' + track.kind)
         that.detachTracks([track])
+      })
+
+      //
+      room.on('participantConnected', function (participant) {
+        console.log(participant.identity + ' joined the Room')
+        if (!that.findUser(participant)) {
+          that.participants.push(participant)
+        }
       })
 
       // When a Participant leaves the Room, detach its Tracks.
@@ -283,6 +284,26 @@ export default {
         Num += Math.floor(Math.random() * 10)
       }
       return Num
+    },
+
+    participantAddTrack(participant, track) {
+      if (participant && track) {
+        this.participants.forEach(function (item) {
+          if (item.identity === participant.identity) {
+            item.traks = participant.traks
+          }
+        })
+
+        // var index = this.participants.indexOf(participant)
+        // if (index > -1) {
+        //   this.participants.splice(index, 1, participant)
+        // }
+
+        // this.removeUser(participant)
+        // if (!this.findUser(participant)) {
+        //   this.participants.push(participant)
+        // }
+      }
     },
 
     findUser(participant) {

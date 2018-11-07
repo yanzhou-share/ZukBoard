@@ -8,6 +8,7 @@ import store from './store'
 import './assets/css/common.css'
 import './assets/css/style.css'
 import Toast from './components/thirdparty/toast'
+import VueClipboard from 'vue-clipboard2'
 
 const id = process.env.GA_ID
 
@@ -18,6 +19,7 @@ if (process.env.NODE_ENV !== 'development') {
 Vue.config.productionTip = false
 Vue.use(VueResource)
 Vue.use(Toast)
+Vue.use(VueClipboard)
 
 // If GA_ID exists, then enable Google Analytics
 if (id !== undefined) {

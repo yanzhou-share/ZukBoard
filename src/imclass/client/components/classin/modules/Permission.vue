@@ -7,6 +7,7 @@
             </div>
             <div class="close" @click="closeComp"></div>
         </div>
+        <div class="masker" id="masker"></div>
     </div>
 </template>
 
@@ -66,5 +67,15 @@ export default {
 <style scoped>
     .layer_02 {
         position: absolute;
+        z-index: 103;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
     }
 </style>

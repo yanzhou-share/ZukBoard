@@ -7,7 +7,7 @@
                 <span :class="videoMutedState ? 'ico_camera_off' : 'ico_camera'" v-on:click="videoMuted"></span>
                 <span :class="audioMutedState ? 'ico_mic_off' : 'ico_mic'" v-on:click="audioMuted"></span>
             </div>
-            <div class="title ellipsis f-14 txt_color_white">{{identity}}</div>
+            <div class="title ellipsis f-14 txt_color_white">{{ userInfo ? userInfo.name : '' }}</div>
         </div>
     </div>
 </template>
@@ -20,7 +20,8 @@ export default {
     return {
       itemClass: 'pic-item',
       videoMutedState: false,
-      audioMutedState: false
+      audioMutedState: false,
+      userInfo: null
     }
   },
   computed: {
@@ -44,6 +45,17 @@ export default {
           this.attachTracks(tracks, container)
         }
       },
+      deep: true
+    },
+    'item.tracks': {
+      handler(newV, oldV) {
+        if (newV !== oldV) {
+          let container = this.$refs.videoItem
+          var tracks = Array.from(this.item.tracks.values())
+          this.attachTracks(tracks, container)
+        }
+      },
+      immediate: true,
       deep: true
     }
   },
@@ -80,6 +92,18 @@ export default {
     kickOut() {
       // todo 踢出成员
       alert(this.item.identity + '被踢出')
+    },
+    getUserInfo(identity) {
+      this.$http.post('/api/httpForward', {
+        url: 'http://devmini.imclass.cn:80/majorserverm/user/getUserInfo', params: { userId: identity }
+      }).then(res => {
+        console.warn('-----', res)
+        const { code, data } = res.data
+        console.warn(code, data)
+        if (code === '0' && data && data.data.userInfo) {
+          this.userInfo = data.data.userInfo
+        }
+      })
     }
   },
 
@@ -93,6 +117,7 @@ export default {
       let container = this.$refs.videoItem
       var tracks = Array.from(item.tracks.values())
       this.attachTracks(tracks, container)
+      this.getUserInfo(item.identity)
     }
   },
 

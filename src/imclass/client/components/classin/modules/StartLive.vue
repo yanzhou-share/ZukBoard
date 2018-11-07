@@ -1,12 +1,15 @@
 <template>
     <div>
         <div class="layer_02 f-16 txt_color_white" v-show="isShow" :style="styleMode">
-            <h2 class="f-20">开启直播<div class="close" @click="closeComp"></div></h2>
+            <h2 class="f-20">开启直播
+                <div class="close" @click="closeComp"></div>
+            </h2>
             <div class="con center cf">
                 <p>开启直播后可以让更多人看到你的课程</p>
                 <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20">开启直播</a></div>
             </div>
         </div>
+        <div class="masker" id="masker"></div>
     </div>
 </template>
 
@@ -35,9 +38,9 @@ export default {
     getclientPoint() {
       return {
         width:
-          document.documentElement.clientWidth || document.body.clientWidth,
+            document.documentElement.clientWidth || document.body.clientWidth,
         height:
-          document.documentElement.clientHeight || document.body.clientHeight
+            document.documentElement.clientHeight || document.body.clientHeight
       }
     },
     style(index, comp) {
@@ -64,7 +67,17 @@ export default {
 </script>
 
 <style scoped>
-.layer_02 {
-  position: absolute;
-}
+    .layer_02 {
+        position: absolute;
+        z-index: 103;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
+    }
 </style>

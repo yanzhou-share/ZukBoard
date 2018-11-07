@@ -7,6 +7,7 @@
                 <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="actionComp">确认</a><a href="javascript:void(0);" class="layer_btn2 f-20" @click="closeComp">取消</a></div>
             </div>
         </div>
+        <div class="masker" id="masker"></div>
     </div>
 </template>
 
@@ -70,5 +71,15 @@ export default {
 <style scoped>
     .layer_02 {
         position: absolute;
+        z-index: 103;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
     }
 </style>

@@ -30,10 +30,10 @@
                         <!--<i class="icons icons-group" @click="sendCode"></i>-->
                     <!--</div>-->
 
-                    <div class="tool-item cf">
-                        <span class="tool-note">登录</span>
-                        <i class="icons icons-group" @click="login"></i>
-                    </div>
+                    <!--<div class="tool-item cf">-->
+                        <!--<span class="tool-note">登录</span>-->
+                        <!--<i class="icons icons-group" @click="login"></i>-->
+                    <!--</div>-->
                 </div>
             </div>
         </aside>

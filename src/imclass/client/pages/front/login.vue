@@ -60,7 +60,7 @@ export default {
       if (!(this.greenBtnStatus && this.checkMobile() && this.checkCaptcha())) return
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/user/loginUser',
-        params: { mobile: this.mobile, code: '', userType: '1' }
+        params: { mobile: this.mobile, code: this.verifyCode, userType: '1' }
       }).then(res => {
         const { code, data } = res.data.data
         const { userToken } = data.userInfo
@@ -70,6 +70,7 @@ export default {
           this.$toast('手机号或验证码不正确')
         }
       }, err => {
+        console.error(err)
         this.$toast('手机号或验证码不正确')
       })
     },
