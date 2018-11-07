@@ -5,7 +5,7 @@
                 <div class="class_logo"><a href="index.html"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>
 
                 <div class="btn-tool cf">
-                    <div class="tool-item cf">
+                    <div class="tool-item cf" v-if="">
                         <span class="tool-note wd01">邀请成员</span>
                         <i class="icons icons-add" @click="invitingAction"></i>
                     </div>

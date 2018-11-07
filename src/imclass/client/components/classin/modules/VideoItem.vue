@@ -49,11 +49,11 @@ export default {
     },
     item: {
       handler(newV, oldV) {
-        if (newV !== oldV) {
-          let container = this.$refs.videoItem
-          var tracks = Array.from(this.item.tracks.values())
-          this.attachTracks(tracks, container)
-        }
+        // if (newV !== oldV) {
+        let container = this.$refs.videoItem
+        var tracks = Array.from(this.item.tracks.values())
+        this.attachTracks(tracks, container)
+        // }
       },
       // immediate: true,
       deep: true

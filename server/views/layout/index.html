@@ -23,7 +23,8 @@
 <body>
   <div id="app"></div>
   <script type="text/javascript">
-    window.baseUrl = "##baseUrl##";
+    var title = "##title##"
+    var userInfo = {{userInfo}}
   </script>
   {% if ENV === 'development' %}
     <script src="##staticBaseUrl##dist/##bundle##.js"></script>

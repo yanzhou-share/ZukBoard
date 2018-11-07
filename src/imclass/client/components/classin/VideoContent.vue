@@ -5,7 +5,7 @@
                         v-bind:localItem="localParticipant">
             </video-item>
 
-            <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants"
+            <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants" :key="item.sid"
                         v-bind:index="index" v-bind:item="item" v-bind:tracks="item.tracks">
             </video-item>
         </div>
@@ -295,18 +295,6 @@ export default {
             that.$set(that.participants[index], 'trackId', track.id)
           }
         })
-
-        // this.$set(this.participants, this.participants)
-
-        // var index = this.participants.indexOf(participant)
-        // if (index > -1) {
-        //   this.participants.splice(index, 1, participant)
-        // }
-
-        // this.removeUser(participant)
-        // if (!this.findUser(participant)) {
-        //   this.participants.push(participant)
-        // }
       }
     },
 
@@ -340,6 +328,18 @@ export default {
           that.token = data.data.twilioToken
           // that.identity = uuid.v4()
           that.joinRoom()
+        } else if (code === '3001') {
+          that.$toast('创建twilio房间错误')
+        } else if (code === '3002') {
+          that.$toast('房间不存在')
+        } else if (code === '3003') {
+          that.$toast('用户已经上限')
+        } else if (code === '3004') {
+          that.$toast('没有操作房间权限')
+        } else if (code === '3005') {
+          that.$toast('房间内踢出用户失败')
+        } else {
+          that.$toast('加入房间异常')
         }
       })
 
