@@ -120,12 +120,11 @@
 .pic_wrap .close_off .img .bg { display:block; }
 .pic_wrap .close_off .title { display:block; }
 .pic_wrap .close_off .pic-item-option { display:block; }
-.pic_wrap .close_off { background:#DB5144; }
+/*.pic_wrap .close_off { background:#DB5144; }*/
 .pic_wrap .close_off .close { display:block; }
 
 .pic_wrap .img_off .img .bg { display:none; }
 .pic_wrap .img_off .title { display:none; }
-
 
 
 
