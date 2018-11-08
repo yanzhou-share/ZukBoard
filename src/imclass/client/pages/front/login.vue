@@ -14,12 +14,12 @@
            <ul class="cf txt_color_b4 f-14">
             <li>
               <!--div class="num txt_color_blue center"><span>+86<label></label></span></div-->
-              <div class="inp"><input name="" class="txt_color_666 f-14" v-model="mobile" placeholder="请输入手机号" type="text" maxlength="11"></div>
+              <div class="inp"><input name="" class="txt_color_666 f-14" v-model="mobile" v-on:keyup.enter="login" placeholder="请输入手机号" type="text" maxlength="11"></div>
             </li>
             <li>
                 <div v-show="sendAuthCode" class="code txt_color_blue" @click="getCaptcha"><span>获取验证码</span></div>
                 <div v-show="!sendAuthCode" class="code txt_color_blue"><span>{{auth_time}} </span><span>s后可再次获取</span></div>
-                <div class="inp"><input name="" class="txt_color_666 f-14" v-model="verifyCode" placeholder="请输入验证码" type="text" maxlength="6"></div>
+                <div class="inp"><input name="" class="txt_color_666 f-14" v-model="verifyCode" v-on:keyup.enter="login" placeholder="请输入验证码" type="text" maxlength="6"></div>
             </li>
             <li class="bg_none txt_color_666">
               <div class="check_group" @click="selectPracy">

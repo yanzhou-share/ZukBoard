@@ -2,7 +2,7 @@
 <div class="body-box">
    <!--big_class_login_wrap Begin-->
    <div class="miniclass_setup_wrap">
-         <h1><a href="index.html"><img src="../../assets/images/setup_logo_imclass_mini.svg" /></a></h1>
+         <h1><a href="javascript:;"><img src="../../assets/images/setup_logo_imclass_mini.svg" /></a></h1>
          <ul class="cf f-20 txt_color_666 f-14">
           <li>
             <dl class="text v-m-c">
@@ -15,7 +15,7 @@
              <dd class="f-b">加入一间教室</dd>
              <dd class="f-16">
               <span>www.imclass.cn/</span>
-              <div class="inp"><input name="" v-model="roomId" placeholder="输入6位房间号" class="f-16 txt_color_999" type="text" maxlength="6"></div>
+              <div class="inp"><input name="" v-model="roomId" v-on:keyup.enter="joinRoom" placeholder="输入6位房间号" class="f-16 txt_color_999" type="text" maxlength="6"></div>
             </dd>
              <dt class="txt_color_d9 f-b" @click="joinRoom">加入教室</dt>
             </dl>

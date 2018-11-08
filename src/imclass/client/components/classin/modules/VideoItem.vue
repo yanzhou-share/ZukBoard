@@ -1,7 +1,9 @@
 <template>
     <div>
         <div :class="itemClass" v-if="isRender" @mouseover="overClass" @mouseout="outClass">
-            <div class="img" ref='videoItem' :id="identity"></div>
+            <div class="img" ref='videoItem' :id="identity">
+              <div class="bg"></div>
+            </div>
             <!--<div class="close" @click="kickOut"></div>-->
             <!--<div class="pic-item-option">-->
                 <!--<span :class="videoMutedState ? 'ico_camera_off' : 'ico_camera'" v-on:click="videoMuted"></span>-->
