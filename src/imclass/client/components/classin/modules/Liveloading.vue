@@ -34,7 +34,7 @@ export default {
       isShow: true,
       startFaildShow: false,
       startSuccessShow: false,
-      startState: false
+      startState: true
     }
   },
   components: {
