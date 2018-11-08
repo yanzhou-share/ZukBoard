@@ -70,6 +70,7 @@ export default {
     closeLoading() {
       this.loadingShow = false
       this.isShow = false
+      this.$emit('closeStartLive', {})
     },
     closeComp() {
       this.isShow = false

@@ -1,12 +1,13 @@
 <template>
     <div>
         <div class="layer_02 f-16 txt_color_white midStyle" v-show="isShow">
-            <h2 class="f-20">开启直播<div class="close"></div></h2>
+            <h2 class="f-20">开启直播<div class="close" @click="closed"></div></h2>
             <div class="con center cf">
                 <p>开启直播后可以让更多人看到你的课程</p>
                 <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="stopAction">结束直播</a></div>
             </div>
         </div>
+        <div class="masker" v-show="isShow" id="masker"></div>
     </div>
 </template>
 
@@ -26,9 +27,11 @@ export default {
   methods: {
     closed() {
       this.isShow = false
+      this.$emit('closeSuccess', {})
     },
     stopAction() {
       this.isShow = false
+      this.$emit('closeSuccess', {})
     }
   },
   mounted() {
@@ -45,5 +48,14 @@ export default {
         left: 50%;
         margin-left: -211px;
         margin-top: -122px;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
     }
 </style>

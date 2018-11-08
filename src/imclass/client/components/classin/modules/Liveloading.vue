@@ -12,20 +12,34 @@
                     :is="'startFail'" >
             </component>
         </template>
+
+        <template v-if="startSuccessShow">
+            <component
+                    v-show="'startSuccessShow'"
+                    v-on:closeSuccess="closeSuccess"
+                    :is="'startSuccess'" >
+            </component>
+        </template>
+
+        <div class="masker" v-show="isShow" id="masker"></div>
     </div>
 </template>
 
 <script>
 import startFail from './Startfaild'
+import startSuccess from './StartSuccess'
 export default {
   data() {
     return {
       isShow: true,
-      startFaildShow: false
+      startFaildShow: false,
+      startSuccessShow: false,
+      startState: false
     }
   },
   components: {
-    startFail
+    startFail,
+    startSuccess
   },
   computed: {
 
@@ -38,15 +52,32 @@ export default {
     reloadAction() {
       // todo 重新启动
       this.isShow = true
+      this.startAction()
     },
     closeFilad() {
       this.closed()
+    },
+    closeSuccess() {
+      this.closed()
+    },
+    startAction() {
+      this.interval = setInterval(() => {
+        if (!this.startState) {
+          this.startFaildShow = true
+          this.isShow = false
+        } else {
+          this.startSuccessShow = true
+          this.isShow = false
+        }
+        clearInterval(this.interval)
+      }, 5000)
     }
   },
   mounted() {
     // todo 启动是否成功失败
-    this.startFaildShow = true
-    this.isShow = false
+    this.$nextTick(() => {
+      this.startAction()
+    })
   }
 }
 </script>
@@ -59,6 +90,15 @@ export default {
         left: 50%;
         margin-left: -129px;
         margin-top: -47px;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
     }
 
 </style>

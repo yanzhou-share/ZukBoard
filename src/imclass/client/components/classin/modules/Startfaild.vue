@@ -7,6 +7,7 @@
                 <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="reloadAction">重新开启</a><a href="javascript:void(0);" class="layer_btn2 f-20" @click="closed">取消</a></div>
             </div>
         </div>
+        <div class="masker" v-show="isShow" id="masker"></div>
     </div>
 </template>
 
@@ -48,5 +49,14 @@ export default {
         left: 50%;
         margin-left: -211px;
         margin-top: -122px;
+    }
+    .masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
     }
 </style>
