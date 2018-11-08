@@ -101,9 +101,9 @@
 /****************pic_wrap********************/
 .pic_wrap { position:absolute; width:134px; right:16px; top:116px;}
 .pic_wrap .pic-item { height:100px; margin-top:6px; position:relative; padding-left:34px; border-radius:8px; }
-.pic_wrap .pic-item .img { width:100px; position:relative; height:100px; border-radius:8px; background:url(../images/people_miniclass@2x.png) no-repeat center center; background-size:cover; }
+.pic_wrap .pic-item .img { width:110px; position:relative; height:80px; border-radius:8px; background:url(../images/people_miniclass@2x.png) no-repeat center center; background-size:cover; }
 .pic_wrap .pic-item .img img { position:absolute; left:0px; top:0px; right:0px; bottom:0px; }
-.pic_wrap .pic-item .img video { position:absolute; left:0px; top:0px; right:0px; bottom:0px; height:100px; width:100px;}
+.pic_wrap .pic-item .img video { position:absolute; left:0px; top:0px; right:0px; bottom:0px; width:110px;border-radius:8px;}
 .pic_wrap .pic-item .img .bg { position:absolute; display:none; z-index:2; background:rgba(0,0,0,0.6017); border-radius:8px; left:0px; top:0px; right:0px; bottom:0px; }
 .pic_wrap .title { position:absolute; display:none; right:9px; width:82px; top:20px; z-index:3; }
 .pic_wrap .pic-item .close { position:absolute; display:none; left:1px; margin-top:-16px; cursor:pointer; top:50%; width:32px; height:32px; background:url(../images/ico/icon_24_out.svg) no-repeat center center; }
