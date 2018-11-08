@@ -52,6 +52,7 @@ export default {
       }).then(res => {
         const { code, data } = res.data.data
         if (code === '0') {
+          // this.$router.push({ name: 'classin' }, { params: { id: 1111 } })
           window.location.href = '/imclass/classin/' + data.roomInfo.roomNumber
         } else if (code === '3001') {
           this.$toast('房间创建失败')
@@ -93,5 +94,6 @@ export default {
 .mobile {
   font-size: 14px;
   margin-left: 5px;
+  color: #ffffff;
 }
 </style>
