@@ -7,7 +7,7 @@
 
 .screen-content { padding:90px 150px 0px 68px; height:100%; position:relative; }
 
-.drawingboard { position:absolute; left:88px; top:90px; right:170px; bottom:0px; }
+.drawingboard { position:absolute; left:0px; top:0px; right:0px; bottom:0px; }
 
 
 .toolbar { position:absolute; left:16px; top:100px;*+z-index:101; }

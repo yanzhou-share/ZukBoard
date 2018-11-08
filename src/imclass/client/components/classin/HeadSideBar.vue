@@ -1,8 +1,8 @@
 <template>
     <div id="headsidebar">
-        <aside class="toolbar top_bar" :class="{'noCreator': !getCreator}">
+        <aside class="toolbar top_bar" :class="[!getCreator ? 'noCreator': 'creator']">
             <div class="toolbar-inner cf">
-                <div class="class_logo"><a href="index.html"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>
+                <div class="class_logo"><a href="/"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>
 
                 <div class="btn-tool cf">
                     <div class="tool-item cf" v-if="getCreator">
@@ -107,21 +107,6 @@ export default {
     },
     closeLeaveRoom() {
       this.leaveRoomShow = false
-    },
-
-    createRoom() {
-      this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/room/createRoom', params: {}
-      }).then(res => {
-        console.warn('-----', res)
-        const { code, data } = res.data
-        console.warn(code, data)
-        const twilioToken = data.data.twilioToken
-        const roomId = data.data.roomInfo.roomNumber
-        console.warn(twilioToken, roomId)
-        // window.history.replaceState({}, '', `/imclass/classin/${roomId}`)
-        this.$router.push(`/imclass/classin/${roomId}`)
-      })
     },
     leaveRoom() {
       this.leaveRoomShow = !this.leaveRoomShow

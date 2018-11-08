@@ -6,14 +6,23 @@
             </h2>
             <div class="con center cf">
                 <p>开启直播后可以让更多人看到你的课程</p>
-                <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20">开启直播</a></div>
+                <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="startAction">开启直播</a></div>
             </div>
         </div>
-        <div class="masker" id="masker"></div>
+        <template v-if="loadingShow">
+            <component
+                    v-show="'loadingShow'"
+                    v-on:closeLoading="closeLoading"
+                    :is="'liveLoading'">
+            </component>
+        </template>
+        <div class="masker" v-show="isShow" id="masker"></div>
     </div>
 </template>
 
 <script>
+import liveLoading from './Liveloading'
+
 export default {
   data() {
     return {
@@ -21,8 +30,12 @@ export default {
       styleMode: {
         left: 0,
         top: 0
-      }
+      },
+      loadingShow: false
     }
+  },
+  components: {
+    liveLoading: liveLoading
   },
   computed: {},
 
@@ -49,6 +62,14 @@ export default {
         left: (point.width - 422) / 2 + 'px',
         top: (point.height - 244) / 2 + 'px'
       }
+    },
+    startAction() {
+      this.loadingShow = true
+      this.isShow = false
+    },
+    closeLoading() {
+      this.loadingShow = false
+      this.isShow = false
     },
     closeComp() {
       this.isShow = false
