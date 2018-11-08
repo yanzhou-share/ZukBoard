@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div :class="itemClass" @mouseover="overClass" @mouseout="outClass">
+        <div :class="itemClass" v-if="isRender" @mouseover="overClass" @mouseout="outClass">
             <div class="img" ref='videoItem' :id="identity"></div>
             <!--<div class="close" @click="kickOut"></div>-->
             <!--<div class="pic-item-option">-->
@@ -34,6 +34,16 @@ export default {
           ? this.localItem.identity
           : this.item.identity
       return identity
+    },
+    isRender: function () {
+      if (!this.localItem && !this.item) {
+        return ''
+      }
+      const identity =
+        this.localItem && this.localItem.identity
+          ? this.localItem.identity
+          : this.item.identity
+      return !(identity.indexOf('RecordUser') > -1 || identity.indexOf('WatchUser') > -1)
     }
   },
   watch: {

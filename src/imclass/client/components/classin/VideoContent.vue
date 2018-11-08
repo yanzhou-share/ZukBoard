@@ -22,7 +22,7 @@ export default {
   name: 'Video',
   data() {
     return {
-      roomName: 'test2',
+      roomName: '',
       token: '',
       identity: '',
       participants: [],
@@ -99,13 +99,11 @@ export default {
     },
 
     joinRoom() {
-      // roomName = "test123";//document.getElementById('room-name').value;
       if (!this.roomName) {
         alert('Please enter a room name.')
         return
       }
       // this.identity = this.mathRand();
-
       this.roomName = this.$route.path.substring(1, this.$route.path.length)
 
       console.log("Joining room '" + this.roomName + "'...")
@@ -114,13 +112,6 @@ export default {
         logLevel: 'debug',
         dominantSpeaker: true
       }
-
-      // Video.createLocalTracks({
-      //   audio: { name: 'microphone' },
-      //   video: { name: 'camera' }
-      // }).then(function (localTracks) {
-      //   that.previewTracks = localTracks
-      // })
 
       if (this.previewTracks) {
         connectOptions.tracks = this.previewTracks
@@ -167,7 +158,11 @@ export default {
       //                this.attachParticipantTracks(room.localParticipant, previewContainer);
       //            }
 
-      this.localParticipant = room.localParticipant
+      const userType = this.getUserType(room.localParticipant.identity)
+
+      if (userType === 1) {
+        this.localParticipant = room.localParticipant
+      }
 
       this.participants = Array.from(room.participants.values())
 
@@ -178,14 +173,13 @@ export default {
       //                that.attachParticipantTracks(participant, previewContainer);
       //            });
 
-      // When a Participant joins the Room, log the event.
-      room.on('participantConnected', function (participant) {
-        console.warn("Joining: '" + participant.identity + "'")
-      })
-
       // When a Participant adds a Track, attach it to the DOM.
-      room.on('trackAdded', function (track, participant) {
+      room.on('trackAdded', (track, participant) => {
         console.warn(participant.identity + ' added track: ' + track.kind)
+        const userType = this.getUserType(participant.identity)
+        if (userType === 2 || userType === 3) {
+          return
+        }
         that.participantAddTrack(participant, track)
         console.log(that.participants.tracks)
       })
@@ -196,9 +190,13 @@ export default {
         that.detachTracks([track])
       })
 
-      //
-      room.on('participantConnected', function (participant) {
+      // join room
+      room.on('participantConnected', (participant) => {
         console.log(participant.identity + ' joined the Room')
+        const userType = this.getUserType(participant.identity)
+        if (userType === 2 || userType === 3) {
+          return
+        }
         if (!that.findUser(participant)) {
           that.participants.push(participant)
         }
@@ -280,6 +278,16 @@ export default {
       })
     },
 
+    getUserType(identity) {
+      let userType = 1
+      if (identity.indexOf('RecordUser') > -1) {
+        userType = 3
+      } else if (identity.indexOf('WatchUser') > -1) {
+        userType = 2
+      }
+      return userType
+    },
+
     mathRand() {
       var Num = ''
       for (var i = 0; i < 6; i++) {
@@ -324,20 +332,38 @@ export default {
       }
     },
 
+    createLocalTracks() {
+      // Connect with media acquired using getUserMedia()
+      // navigator.mediaDevices.getUserMedia({
+      //   audio: this.userType === 1,
+      //   video: this.userType === 1
+      // }).then((mediaStream) => {
+      //   this.previewTracks = mediaStream.getTracks()
+      //   this.joinRoom()
+      // })
+
+      Video.createLocalTracks({
+        audio: this.userType === 1,
+        video: this.userType === 1
+      }).then((localTracks) => {
+        this.previewTracks = localTracks
+        this.joinRoom()
+      })
+    },
+
     initToken() {
       const that = this
       this.roomName = this.$route.params.id
+      this.userType = this.$route.query.userType || 1
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom', params: { roomNumber: this.roomName, userType: 1 }
+        url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom', params: { roomNumber: this.roomName, userType: this.userType }
       }).then(res => {
-        console.warn('-----', res)
         const { code, data } = res.data
-        console.warn(code, data)
         if (code === '0' && data) {
-          that.token = data.data.twilioToken
-          that.roomInfo = data.data.roomInfo
-          that.setRoomInfo(that.roomInfo)
-          that.joinRoom()
+          this.token = data.data.twilioToken
+          this.roomInfo = data.data.roomInfo
+          this.setRoomInfo(that.roomInfo)
+          this.createLocalTracks()
         } else if (code === '3001') {
           that.$toast('创建twilio房间错误')
         } else if (code === '3002') {
@@ -355,9 +381,13 @@ export default {
     }
   },
 
+  mounted() {
+    this.initToken()
+  },
+
   created() {
     // 初始化信息
-    this.initToken()
+    // this.initToken()
   },
   beforeDestroy() {
     // 离开房间
