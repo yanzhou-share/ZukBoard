@@ -26,21 +26,21 @@ module.exports = {
       staticBaseUrl: '/',
       apiUrl: '',
       db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'http://www.imclass.cn',
+      baseUrl: 'https://www.imclass.cn',
       serverUrl: 'http://miniserver.imclass.cn:80/'
     },
     heroku: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: mongoBaseUri,
-      baseUrl: 'http://www.imclass.cn',
+      baseUrl: 'https://www.imclass.cn',
       serverUrl: 'http://miniserver.imclass.cn:80/'
     },
     now: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: mongoBaseUri,
-      baseUrl: 'http://www.imclass.cn',
+      baseUrl: 'https://miniwb.imclass.cn',
       serverUrl: 'http://devmini.imclass.cn:80/'
     }
   },
