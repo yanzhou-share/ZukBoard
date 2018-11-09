@@ -48,4 +48,4 @@ COPY . .
 # Expose the listening port of your app
 EXPOSE 4089
 
-CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "echo $env" ]
+CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", ${env} ]
