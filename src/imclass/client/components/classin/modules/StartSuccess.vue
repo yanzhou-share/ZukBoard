@@ -51,7 +51,7 @@ export default {
     stopAction() {
       this.roomName = this.$route.params.id
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/room/endLive', params: { roomNumber: this.roomName }
+        url: 'http://devmini.imclass.cn:80/majorserverm/live/endLive', params: { roomNumber: this.roomName }
       }).then(res => {
         const { code, data } = res.data
         if (code === '0' && data) {

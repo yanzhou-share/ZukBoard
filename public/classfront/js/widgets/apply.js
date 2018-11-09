@@ -114,32 +114,32 @@ var APPLY = (function() {
       this.$applyBtn.addClass("disabled");
 
       //TODO 跨域问题，暂时成功处理
-      this.$applyBox.show();
-      setTimeout(function() {
-        that.$applyBox.hide();
-        window.location.href = "/web/index";
-      }, 1000);
+      // this.$applyBox.show();
+      // setTimeout(function() {
+      //   that.$applyBox.hide();
+      //   window.location.href = "/web/index";
+      // }, 1000);
 
       // 提交申请
-      // this.ajax("/api/httpForward", {url: "/page/web/classfront/addPersonTrial", params: {linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}}).then(res=>{
-      //   if(!!res.code && res.code == 0) {
-      //     console.log(res);
-      //     //alert("提交成功");
-      //     that.$applyBox.show();
-      //     setTimeout(function () {
-      //       that.$applyBox.hide();
-      //       window.location.href = "/";
-      //     }, 1000);
-      //   } else {
-      //     console.log(res);
-      //     alert("申请失败, 服务异常");
-      //   }
-      //   that.$applyBtn.removeClass('disabled');
-      // }).catch(error=>{
-      //   console.log(error);
-      //   that.$applyBtn.removeClass('disabled');
-      //   alert("申请失败, 服务异常");
-      // })
+      this.ajax("/api/httpForward", {url: "https://www.imclass.cn/page/web/classfront/addPersonTrial", params: {linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}}).then(res=>{
+        if(!!res.code && res.code == 0) {
+          console.log(res);
+          //alert("提交成功");
+          that.$applyBox.show();
+          setTimeout(function () {
+            that.$applyBox.hide();
+            window.location.href = "/";
+          }, 1000);
+        } else {
+          console.log(res);
+          alert("申请失败, 服务异常");
+        }
+        that.$applyBtn.removeClass('disabled');
+      }).catch(error=>{
+        console.log(error);
+        that.$applyBtn.removeClass('disabled');
+        alert("申请失败, 服务异常");
+      })
     },
 
     ajax: function(a, d, c, e, b, f){
