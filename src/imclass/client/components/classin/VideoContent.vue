@@ -108,9 +108,9 @@ export default {
 
       console.log("Joining room '" + this.roomName + "'...")
       let connectOptions = {
-        name: this.roomName,
-        logLevel: 'debug',
-        dominantSpeaker: true
+        name: this.roomName
+        // logLevel: 'debug',
+        // dominantSpeaker: true
       }
 
       if (this.previewTracks) {

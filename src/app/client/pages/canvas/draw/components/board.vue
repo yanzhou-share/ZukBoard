@@ -11,7 +11,7 @@
     </div>
 
     <!--左边导航 Begin-->
-    <aside class="toolbar" v-show="role ? false : true" @click.stop>
+    <aside class="toolbar middle" v-show="role ? false : true" @click.stop>
       <div class="toolbar-inner">
         <div class="btn-tool cf">
           <!--<div class="tool-item cf">-->
@@ -522,3 +522,10 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .middle{
+    top: 50%;
+    margin-top: -130px;
+  }
+</style>
