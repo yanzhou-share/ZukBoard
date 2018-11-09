@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>ico_多人分组讨论</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="设计稿" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="ImClass官网--功能概述" transform="translate(-376.000000, -2486.000000)" fill-rule="nonzero">
+            <g id="教室辅助功能" transform="translate(360.000000, 2266.000000)">
+                <g id="多人分组讨论" transform="translate(0.000000, 195.000000)">
+                    <g id="ico_多人分组讨论" transform="translate(16.000000, 25.000000)">
+                        <rect id="Rectangle-7-Copy-2" x="0" y="0" width="24" height="24"></rect>
+                        <g id="Group-8" transform="translate(2.000000, 3.000000)">
+                            <rect id="Rectangle-24-Copy" stroke="#333333" stroke-width="2" x="1" y="14" width="4" height="4" rx="1"></rect>
+                            <rect id="Rectangle-24-Copy-2" stroke="#333333" stroke-width="2" x="15" y="14" width="4" height="4" rx="1"></rect>
+                            <rect id="Rectangle-24" stroke="#333333" stroke-width="2" x="6" y="1" width="8" height="4" rx="1"></rect>
+                            <path d="M11,9 L17,9 C17.5522847,9 18,9.44771525 18,10 L18,13 C18,13.5522847 17.5522847,14 17,14 C16.4477153,14 16,13.5522847 16,13 L16,11 L4,11 L4,13 C4,13.5522847 3.55228475,14 3,14 C2.44771525,14 2,13.5522847 2,13 L2,10 C2,9.44771525 2.44771525,9 3,9 L9,9 L9,6 C9,5.44771525 9.44771525,5 10,5 C10.5522847,5 11,5.44771525 11,6 L11,9 Z" id="Combined-Shape" fill="#333333"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

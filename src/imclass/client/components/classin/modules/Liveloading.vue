@@ -34,7 +34,7 @@ export default {
       isShow: true,
       startFaildShow: false,
       startSuccessShow: false,
-      startState: true
+      startState: false
     }
   },
   components: {
@@ -61,7 +61,16 @@ export default {
       this.closed()
     },
     startAction() {
+      this.recordUrl = window.baseUrl + this.$route.path + '?userType=3'
       this.interval = setInterval(() => {
+        this.$http.post('/api/httpForward', {
+          url: 'http://devmini.imclass.cn:80/majorserverm/room/startLive', params: { roomNumber: this.roomName, recordUrl: this.recordUrl }
+        }).then(res => {
+          const { code, data } = res.data
+          if (code === '0' && data) {
+
+          }
+        })
         if (!this.startState) {
           this.startFaildShow = true
           this.isShow = false

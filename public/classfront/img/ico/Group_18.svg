@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 18</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主界面-激活态" transform="translate(-29.000000, -187.000000)">
+            <g id="bar_left-side" transform="translate(16.000000, 122.000000)">
+                <g id="Group-18" transform="translate(13.000000, 65.000000)">
+                    <g id="Group-24" transform="translate(13.000000, 13.000000) rotate(-45.000000) translate(-13.000000, -13.000000) translate(6.000000, 2.000000)">
+                        <rect id="Rectangle-65" fill="#A7A7A7" x="5" y="7" width="4" height="15" rx="1"></rect>
+                        <path d="M7.89358601,0.520963144 L13.8930006,12.2895074 C14.1438336,12.7815452 13.9482984,13.3837611 13.4562606,13.634594 C13.2122441,13.7589897 12.9278845,13.777853 12.6695747,13.6867795 L7.0457589,11.7039654 L1.32710179,13.698688 C0.805629955,13.8805824 0.235438969,13.6053005 0.0535445789,13.0838287 C-0.0362788447,12.8263145 -0.0170273043,12.5432855 0.106839506,12.3003064 L6.11175929,0.520963144 C6.36259228,0.0289252836 6.96480809,-0.166609899 7.45684595,0.08422309 C7.64486345,0.180071388 7.79773771,0.332945644 7.89358601,0.520963144 Z" id="Triangle-10" fill="#FFFFFF"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -30,8 +30,18 @@ export default {
       this.$emit('closeSuccess', {})
     },
     stopAction() {
-      this.isShow = false
-      this.$emit('closeSuccess', {})
+      this.roomName = this.$route.params.id
+      this.$http.post('/api/httpForward', {
+        url: 'http://devmini.imclass.cn:80/majorserverm/room/endLive', params: { roomNumber: this.roomName }
+      }).then(res => {
+        const { code, data } = res.data
+        if (code === '0' && data) {
+          this.isShow = false
+          this.$emit('closeSuccess', {})
+        } else {
+          this.$toast('结束直播异常')
+        }
+      })
     }
   },
   mounted() {

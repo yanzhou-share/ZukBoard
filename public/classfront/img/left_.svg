@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="436px" height="500px" viewBox="0 0 436 500" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>left </title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M18,0 L436,0 L436,500 L18,500 C8.0588745,500 1.21743675e-15,491.941125 0,482 L0,18 C-1.21743675e-15,8.0588745 8.0588745,1.82615513e-15 18,0 Z" id="path-1"></path>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="创建教室" transform="translate(-542.000000, -290.000000)">
+            <g id="interface" transform="translate(542.000000, 290.000000)">
+                <g id="left-">
+                    <mask id="mask-2" fill="white">
+                        <use xlink:href="#path-1"></use>
+                    </mask>
+                    <use id="left-bg" fill="#DB5144" xlink:href="#path-1"></use>
+                    <ellipse id="Oval-19" stroke="#FFFFFF" stroke-width="40" opacity="0.0890066964" mask="url(#mask-2)" cx="409.474572" cy="22.0125786" rx="131.40791" ry="123.427673"></ellipse>
+                    <path d="M336.754025,322.247081 L499.801934,584.473854 C502.134928,588.225963 500.984508,593.158913 497.2324,595.491907 C495.96446,596.280289 494.501197,596.698113 493.008141,596.698113 L166.912321,596.698113 C162.494043,596.698113 158.912321,593.116391 158.912321,588.698113 C158.912321,587.205057 159.330145,585.741794 160.118528,584.473854 L323.166437,322.247081 C325.499431,318.494972 330.432382,317.344552 334.18449,319.677546 C335.226766,320.325615 336.105956,321.204805 336.754025,322.247081 Z" id="Triangle-10" stroke="#FFFFFF" stroke-width="40" opacity="0.0890066964" mask="url(#mask-2)" transform="translate(329.960231, 457.154088) rotate(19.000000) translate(-329.960231, -457.154088) "></path>
+                    <rect id="Rectangle-68" stroke="#FFFFFF" stroke-width="40" opacity="0.0890066964" mask="url(#mask-2)" transform="translate(-55.475073, 273.584906) rotate(-29.000000) translate(55.475073, -273.584906) " x="-209.900293" y="176.886792" width="308.850439" height="193.396226" rx="10"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
