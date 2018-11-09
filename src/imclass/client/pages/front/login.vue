@@ -10,7 +10,7 @@
          <!--big_left End-->
          <!--big_form Begin-->
          <div class="big_form">
-           <h1 class="f-28 txt_color_666 center"><a href="index.html"><img src="../../assets/images/logo_imclass_mini.svg" /></a></h1>
+           <h1 class="f-28 txt_color_666 center"><a href="javascript:;"><img src="../../assets/images/logo_imclass_mini.svg" /></a></h1>
            <ul class="cf txt_color_b4 f-14">
             <li>
               <!--div class="num txt_color_blue center"><span>+86<label></label></span></div-->

@@ -23,9 +23,6 @@ export default {
       this.$emit('hide')
     },
     save: function () {
-      const userInfo = window.localStorage.getItem('userInfo')
-      const info = JSON.parse(userInfo)
-      info.mobile = userName
       this.$emit('hide')
     }
   }
