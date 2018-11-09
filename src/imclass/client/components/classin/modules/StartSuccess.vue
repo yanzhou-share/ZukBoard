@@ -56,12 +56,18 @@ export default {
         const { code, data } = res.data
         if (code === '0' && data) {
           this.isShow = false
+          this.setState()
           this.$emit('closeSuccess', {})
         } else {
           this.$toast('结束直播异常')
         }
       })
     },
+
+    setState() {
+      sessionStorage.setItem('liveState', false)
+    },
+
     // 取消结束
     stopCancel() {
       this.stopLiveShow = false

@@ -103,7 +103,7 @@
 
 
 /****************pic_wrap********************/
-.pic_wrap { position:absolute; width:134px; right:16px; top:116px;}
+.pic_wrap { position:absolute; width:134px; right:16px; top:50%;margin-top: -100px;}
 .pic_wrap .pic-item { height:100px; margin-top:6px; position:relative; padding-left:34px; border-radius:8px; }
 .pic_wrap .pic-item .img { width:110px; position:relative; height:80px; border-radius:8px; background:url(../images/people_miniclass@2x.png) no-repeat center center; background-size:cover; }
 .pic_wrap .pic-item .img img { position:absolute; left:0px; top:0px; right:0px; bottom:0px; }

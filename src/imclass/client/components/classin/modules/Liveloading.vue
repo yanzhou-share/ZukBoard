@@ -60,6 +60,11 @@ export default {
     closeSuccess() {
       this.closed()
     },
+
+    setState() {
+      sessionStorage.setItem('liveState', this.startState)
+    },
+
     startAction() {
       this.recordUrl = window.baseUrl + this.$route.path + '?userType=3'
       this.roomName = this.$route.params.id
@@ -68,17 +73,16 @@ export default {
       }).then(res => {
         const { code, data } = res.data
         if (code === '0' && data) {
-          const { code, data } = res.data
-          if (code === '0' && data) {
-            this.startState = true
-            this.startSuccessShow = true
-            this.isShow = false
-          } else {
-            this.startState = false
-            this.startFaildShow = true
-            this.isShow = false
-          }
+          this.startState = true
+          this.startSuccessShow = true
+          this.isShow = false
+        } else {
+          this.startState = false
+          this.startFaildShow = true
+          this.isShow = false
         }
+        // this.$emit('updataState', this.startState)
+        this.setState()
       })
 
       // this.interval = setInterval(() => {

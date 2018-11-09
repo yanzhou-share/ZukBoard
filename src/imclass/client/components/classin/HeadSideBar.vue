@@ -63,11 +63,20 @@
                     :is="'leaveRoom'" >
             </component>
         </template>
+
+        <template v-if="liveStopShow">
+            <component
+                    v-show="'liveStopShow'"
+                    v-on:closeSuccess="closeSuccess"
+                    :is="'startStop'" >
+            </component>
+        </template>
     </div>
 </template>
 
 <script>
 import startLive from './modules/StartLive.vue'
+import startStop from './modules/StartSuccess.vue'
 import inviting from './modules/Inviting.vue'
 import leaveRoom from './modules/confirm.vue'
 import { eventEmitter } from '../util'
@@ -78,6 +87,7 @@ export default {
       startLiveShow: false,
       invitingShow: false,
       leaveRoomShow: false,
+      liveStopShow: false,
       roomInfo: undefined,
       userInfo: undefined,
       leaveRoomText: '确定离开教室吗？'
@@ -87,7 +97,8 @@ export default {
   components: {
     startLive: startLive,
     inviting: inviting,
-    leaveRoom: leaveRoom
+    leaveRoom: leaveRoom,
+    startStop: startStop
   },
   computed: {
     getCreator: function () {
@@ -96,7 +107,11 @@ export default {
   },
   methods: {
     startLiveAction() {
-      this.startLiveShow = true
+      if (this.getLiveState()) {
+        this.liveStopShow = true
+      } else {
+        this.startLiveShow = true
+      }
     },
     invitingAction() {
       this.invitingShow = true
@@ -109,6 +124,9 @@ export default {
     },
     closeLeaveRoom() {
       this.leaveRoomShow = false
+    },
+    closeSuccess() {
+      this.liveStopShow = false
     },
     leaveRoom() {
       this.leaveRoomShow = !this.leaveRoomShow
@@ -128,6 +146,9 @@ export default {
       } catch (e) {
         console.error(e)
       }
+    },
+    getLiveState() {
+      return sessionStorage.getItem('liveState') === 'true'
     }
   },
   mounted() {
