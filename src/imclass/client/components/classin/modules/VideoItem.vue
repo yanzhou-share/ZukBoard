@@ -85,7 +85,9 @@ export default {
   methods: {
     attachTracks(tracks, container) {
       tracks.forEach(function (track) {
-        container.appendChild(track.attach())
+        if (typeof track.attach !== 'undefined') {
+          container.appendChild(track.attach())
+        }
       })
     },
     videoMuted() {
