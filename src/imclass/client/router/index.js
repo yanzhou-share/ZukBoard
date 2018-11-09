@@ -47,7 +47,7 @@ router.beforeEach((to, from, next) => {
       }
       next()
     } else if (to.name !== 'login/') {
-      if (localStorage.getItem('userInfo')) {
+      if (localStorage.getItem('userInfo') || !!to.query.userType) {
         next()
       } else {
         next('/imclass/front/login/')

@@ -166,6 +166,19 @@ class Draw {
       this.setZoom(canvasWidth / this.baseWidth * this.presenterZoom)
     }
   }
+  // calAttr() {
+  //   const canvasWidth = document.body.clientWidth - 200
+  //   const canvasHeight = document.body.clientHeight - 100
+  //   let n = this.baseWidth / this.baseHeight
+  //   let _width = canvasWidth
+  //   let _height = canvasHeight
+  //   if ((canvasWidth / canvasHeight) >= n) {
+  //     _width = n * canvasHeight
+  //   } else {
+  //     _height = _width / n
+  //   }
+  //   return { width: _width, height: _height }
+  // }
   initImage() {
     const image = new HandleImage(this)
     image.log()
