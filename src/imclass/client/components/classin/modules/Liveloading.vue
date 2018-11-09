@@ -62,24 +62,35 @@ export default {
     },
     startAction() {
       this.recordUrl = window.baseUrl + this.$route.path + '?userType=3'
-      this.interval = setInterval(() => {
-        this.$http.post('/api/httpForward', {
-          url: 'http://devmini.imclass.cn:80/majorserverm/room/startLive', params: { roomNumber: this.roomName, recordUrl: this.recordUrl }
-        }).then(res => {
+      this.roomName = this.$route.params.id
+      this.$http.post('/api/httpForward', {
+        url: 'http://devmini.imclass.cn:80/majorserverm/room/startLive', params: { roomNumber: this.roomName, recordUrl: this.recordUrl }
+      }).then(res => {
+        const { code, data } = res.data
+        if (code === '0' && data) {
           const { code, data } = res.data
           if (code === '0' && data) {
-
+            this.startState = true
+            this.startSuccessShow = true
+            this.isShow = false
+          } else {
+            this.startState = false
+            this.startFaildShow = true
+            this.isShow = false
           }
-        })
-        if (!this.startState) {
-          this.startFaildShow = true
-          this.isShow = false
-        } else {
-          this.startSuccessShow = true
-          this.isShow = false
         }
-        clearInterval(this.interval)
-      }, 5000)
+      })
+
+      // this.interval = setInterval(() => {
+      //   if (!this.startState) {
+      //     this.startFaildShow = true
+      //     this.isShow = false
+      //   } else {
+      //     this.startSuccessShow = true
+      //     this.isShow = false
+      //   }
+      //   clearInterval(this.interval)
+      // }, 5000)
     }
   },
   mounted() {
