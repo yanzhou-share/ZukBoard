@@ -3,7 +3,7 @@
         <div class="layer_02 f-16 txt_color_white" v-show="isShow" :style="styleMode">
             <h2 class="f-20"><div class="close" @click="closeComp"></div></h2>
             <div class="con center cf">
-                <p>确定离开教室吗？</p>
+                <p>{{ text }}</p>
                 <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="actionComp">确认</a><a href="javascript:void(0);" class="layer_btn2 f-20" @click="closeComp">取消</a></div>
             </div>
         </div>
@@ -22,6 +22,7 @@ export default {
       }
     }
   },
+  props: ['text'],
   computed: {},
 
   watch: {
@@ -50,11 +51,11 @@ export default {
     },
     closeComp() {
       this.isShow = false
-      this.$emit('closeLeaveRoom', {})
+      this.$emit('confirmCancel', {})
     },
     actionComp() {
       this.isShow = false
-      this.$emit('actionLeaveRoom', {})
+      this.$emit('confirmAction', {})
     }
   },
 

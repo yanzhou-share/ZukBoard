@@ -57,8 +57,9 @@
         <template v-if="leaveRoomShow">
             <component
                     v-show="'leaveRoomShow'"
-                    v-on:closeLeaveRoom="closeLeaveRoom"
-                    v-on:actionLeaveRoom="actionLeaveRoom"
+                    v-on:confirmCancel="closeLeaveRoom"
+                    v-on:confirmAction="actionLeaveRoom"
+                    v-bind:text="leaveRoomText"
                     :is="'leaveRoom'" >
             </component>
         </template>
@@ -68,7 +69,7 @@
 <script>
 import startLive from './modules/StartLive.vue'
 import inviting from './modules/Inviting.vue'
-import leaveRoom from './modules/LeaveRoom.vue'
+import leaveRoom from './modules/confirm.vue'
 import { eventEmitter } from '../util'
 export default {
   name: 'headsidebar',
@@ -78,7 +79,8 @@ export default {
       invitingShow: false,
       leaveRoomShow: false,
       roomInfo: undefined,
-      userInfo: undefined
+      userInfo: undefined,
+      leaveRoomText: '确定离开教室吗？'
     }
   },
   props: [],

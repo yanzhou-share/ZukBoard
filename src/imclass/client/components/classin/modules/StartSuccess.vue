@@ -1,25 +1,37 @@
 <template>
     <div>
         <div class="layer_02 f-16 txt_color_white midStyle" v-show="isShow">
-            <h2 class="f-20">开启直播<div class="close" @click="closed"></div></h2>
+            <h2 class="f-20">结束直播<div class="close" @click="closed"></div></h2>
             <div class="con center cf">
-                <p>开启直播后可以让更多人看到你的课程</p>
-                <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="stopAction">结束直播</a></div>
+                <p>直播已开启</p>
+                <div class="btn"><a href="javascript:void(0);" class="layer_btn f-20" @click="stopLiveAction">结束直播</a></div>
             </div>
         </div>
+        <template v-if="stopLiveShow">
+            <component
+                    v-show="'stopLiveShow'"
+                    v-on:confirmCancel="stopCancel"
+                    v-on:confirmAction="stopAction"
+                    v-bind:text="stopLiveText"
+                    :is="'stopLive'" >
+            </component>
+        </template>
         <div class="masker" v-show="isShow" id="masker"></div>
     </div>
 </template>
 
 <script>
+import stopLive from './confirm'
 export default {
   data() {
     return {
-      isShow: true
+      isShow: true,
+      stopLiveShow: false,
+      stopLiveText: '确认结束直播吗？'
     }
   },
   components: {
-
+    stopLive: stopLive
   },
   computed: {
 
@@ -29,6 +41,13 @@ export default {
       this.isShow = false
       this.$emit('closeSuccess', {})
     },
+
+    stopLiveAction() {
+      this.stopLiveShow = true
+      this.isShow = false
+    },
+
+    // 确认结束
     stopAction() {
       this.roomName = this.$route.params.id
       this.$http.post('/api/httpForward', {
@@ -42,6 +61,11 @@ export default {
           this.$toast('结束直播异常')
         }
       })
+    },
+    // 取消结束
+    stopCancel() {
+      this.stopLiveShow = false
+      this.isShow = true
     }
   },
   mounted() {
