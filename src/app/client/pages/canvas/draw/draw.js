@@ -156,7 +156,7 @@ class Draw {
   }
   resizeCanvas() {
     const canvas = this.layerDraw
-    const canvasWidth = 1344
+    const canvasWidth = 958
     const canvasHeight = 718 // 800 / 1080 * canvasWidth
     if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
       canvas.setWidth(canvasWidth)
