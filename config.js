@@ -41,7 +41,7 @@ module.exports = {
       apiUrl: '',
       db: mongoBaseUri,
       baseUrl: 'http://www.imclass.cn',
-      serverUrl: 'http://miniserver.imclass.cn:80/'
+      serverUrl: 'http://devmini.imclass.cn:80/'
     }
   },
   webpackConfig: {
