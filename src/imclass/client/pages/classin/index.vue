@@ -11,7 +11,8 @@
         <!--左边导航 End-->
 
         <!--顶部导航 Begin-->
-        <HeadSideBar></HeadSideBar>
+
+        <HeadSideBar v-if="getUserType"></HeadSideBar>
 
         <!--顶部导航 End-->
 
@@ -45,6 +46,11 @@ export default {
     Board,
     HeadSideBar,
     VideoContent
+  },
+  computed: {
+    getUserType: function () {
+      return !this.$route.query.userType
+    }
   }
 }
 </script>

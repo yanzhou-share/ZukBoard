@@ -12,31 +12,36 @@ module.exports = {
       staticBaseUrl: '/',
       apiUrl: '',
       db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'http://127.0.0.1:4099'
+      baseUrl: 'http://127.0.0.1:4099',
+      serverUrl: 'http://devmini.imclass.cn:80/'
     },
     testing: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'http://127.0.0.1:4099'
+      baseUrl: 'http://127.0.0.1:4099',
+      serverUrl: 'http://testmini.imclass.cn:80/'
     },
     production: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'http://www.imclass.cn'
+      baseUrl: 'http://www.imclass.cn',
+      serverUrl: 'http://miniserver.imclass.cn:80/'
     },
     heroku: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: mongoBaseUri,
-      baseUrl: 'http://www.imclass.cn'
+      baseUrl: 'http://www.imclass.cn',
+      serverUrl: 'http://miniserver.imclass.cn:80/'
     },
     now: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: mongoBaseUri,
-      baseUrl: 'http://www.imclass.cn'
+      baseUrl: 'http://www.imclass.cn',
+      serverUrl: 'http://miniserver.imclass.cn:80/'
     }
   },
   webpackConfig: {

@@ -30,7 +30,7 @@
        <!--span v-text="mobile" class="mobile"></span-->
      </div>
      <template v-if="isShowUserInfo">
-       <component 
+       <component
          :is="'userInfo'"
          :mobile="mobile"
          v-on:edit="isEditUserInfo=true,maskerShow=true"
@@ -40,7 +40,7 @@
    </div>
    <!--miniclass_setup_member End-->
    <template v-if="isEditUserInfo">
-      <component 
+      <component
         v-bind:style="centerStyle"
         v-on:hide="hideMasker"
         :is="'editInfo'"
@@ -91,7 +91,7 @@ export default {
   methods: {
     createLesson: function () {
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/room/createRoom',
+        url: window.serverUrl + 'majorserverm/room/createRoom',
         params: {}
       }).then(res => {
         const { code, data } = res.data.data

@@ -69,7 +69,7 @@ export default {
       this.recordUrl = window.baseUrl + this.$route.path + '?userType=3'
       this.roomName = this.$route.params.id
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/live/startLive', params: { roomNumber: this.roomName, recordUrl: this.recordUrl }
+        url: window.serverUrl + 'majorserverm/live/startLive', params: { roomNumber: this.roomName, recordUrl: this.recordUrl }
       }).then(res => {
         const { code, data } = res.data
         if (code === '0' && data) {

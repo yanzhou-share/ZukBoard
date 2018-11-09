@@ -120,7 +120,7 @@ export default {
     },
     getUserInfo(identity) {
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/user/getUserInfo', params: { userId: identity }
+        url: window.serverUrl + 'majorserverm/user/getUserInfo', params: { userId: identity }
       }).then(res => {
         console.warn('-----', res)
         const { code, data } = res.data

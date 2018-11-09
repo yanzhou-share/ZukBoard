@@ -14,6 +14,7 @@ module.exports = {
     await ctx.render('layout/index.html', {
       title: '',
       baseUrl: config.baseUrl,
+      serverUrl: config.serverUrl,
       dataset: encodeURIComponent(JSON.stringify({
         user: ctx.session.user,
         biUrl: ctx.state.biUrl

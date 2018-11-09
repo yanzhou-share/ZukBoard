@@ -59,7 +59,7 @@ export default {
     login: function () {
       if (!(this.greenBtnStatus && this.checkMobile() && this.checkCaptcha())) return
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/user/loginUser',
+        url: window.serverUrl + 'majorserverm/user/loginUser',
         params: { mobile: this.mobile, code: this.verifyCode, userType: '1' }
       }).then(res => {
         const { code } = res.data
@@ -78,7 +78,7 @@ export default {
     getCaptcha: function () {
       if (!this.checkMobile()) return
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/user/sendPhoneCode',
+        url: window.serverUrl + 'majorserverm/user/sendPhoneCode',
         params: { mobile: this.mobile }
       }).then(res => {
         const { code } = res.data.data

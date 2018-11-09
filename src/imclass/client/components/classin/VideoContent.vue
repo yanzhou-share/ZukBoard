@@ -356,7 +356,7 @@ export default {
       this.roomName = this.$route.params.id
       this.userType = this.$route.query.userType || 1
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom', params: { roomNumber: this.roomName, userType: this.userType }
+        url: window.serverUrl + 'majorserverm/room/jionRoom', params: { roomNumber: this.roomName, userType: this.userType }
       }).then(res => {
         const { code, data } = res.data
         if (code === '0' && data) {
