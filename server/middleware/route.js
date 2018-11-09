@@ -32,17 +32,14 @@ const defaultRoute = async (ctx, info, method) => {
     const action = info.splice(2).join('/') || '/'
     await addRenderBundle(ctx, page)
     debug('page =>' + page)
-    if (page === '' || page === 'ping') {
+    if (existsSync(getPagePath(page))) {
+      controller = await require(getPagePath(page))
+    } else {
       debug('which page =>' + page)
       controller = await require(path.join(
         CURRENT_PATH,
         '/server/routes/index'
       ))
-    } else if (existsSync(getPagePath(page))) {
-      controller = await require(getPagePath(page))
-    } else {
-      ctx.status = 404
-      ctx.throw(404)
     }
     let keys = Object.keys(controller)
     debug('keys => ' + keys)
@@ -59,7 +56,11 @@ const defaultRoute = async (ctx, info, method) => {
       } else if (page === 'ping') {
         regex = reg(router, []).exec(page + '/')
       } else {
-        regex = reg(router, []).exec(action)
+        if (existsSync(getPagePath(page))) {
+          regex = reg(router, []).exec(action)
+        } else {
+          regex = reg(router, []).exec(page)
+        }
       }
       debug('regex => ' + regex)
       if (!match && httpMethod === method && regex) {

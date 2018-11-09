@@ -75,7 +75,7 @@ export default {
       left: (point.width - 488) / 2 + 'px',
       top: (point.height - 202) / 2 + 'px'
     }
-    this.copyUrl = window.baseUrl + this.$route.path
+    this.copyUrl = window.baseUrl + '/' + this.$route.params.id
   }
 }
 </script>
