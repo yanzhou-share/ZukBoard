@@ -24,17 +24,38 @@
    </div>
    <!--big_class_login_wrap End-->
    <!--miniclass_setup_member Begin-->
-   <div class="miniclass_setup_member">
-     <div class="mem_ico"><img src="../../assets/images/images.svg" class="img"/><span v-text="mobile" class="mobile"></span></div>
+   <div class="miniclass_setup_member" @click.stop.prevent="">
+     <div class="mem_ico" @click="isShowUserInfo=!isShowUserInfo">
+       <img src="../../assets/images/images.svg" class="img"/>
+       <!--span v-text="mobile" class="mobile"></span-->
+     </div>
+     <template v-if="isShowUserInfo">
+       <component 
+         :is="'userInfo'"
+         :mobile="mobile"
+       >
+       </component>
+     </template>
+     <template v-if="isEditUserInfo">
+       <component 
+         :is="'editInfo'"
+       >
+       </component>
+     </template>
    </div>
    <!--miniclass_setup_member End-->
 </div>
 </template>
 <script>
+import userInfo from './userInfo'
+import editInfo from './editInfo'
+
 export default {
   data() {
     return {
-      roomId: ''
+      roomId: '',
+      isShowUserInfo: false,
+      isEditUserInfo: false
     }
   },
   computed: {
@@ -43,6 +64,15 @@ export default {
       const info = JSON.parse(userInfo)
       return info.mobile
     }
+  },
+  components: {
+    userInfo,
+    editInfo
+  },
+  mounted() {
+    document.addEventListener('click', () => {
+      this.isShowUserInfo = false
+    })
   },
   methods: {
     createLesson: function () {
@@ -65,6 +95,7 @@ export default {
     joinRoom: function () {
       if (!this.roomId || this.roomId.length < 6) {
         this.$toast('请输入6位有效的房间号')
+        return
       }
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom',
@@ -95,5 +126,9 @@ export default {
   font-size: 14px;
   margin-left: 5px;
   color: #ffffff;
+}
+.mem_ico {
+  float: right;
+  margin-bottom: 5px;
 }
 </style>
