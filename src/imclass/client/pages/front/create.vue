@@ -95,6 +95,7 @@ export default {
     joinRoom: function () {
       if (!this.roomId || this.roomId.length < 6) {
         this.$toast('请输入6位有效的房间号')
+        return
       }
       this.$http.post('/api/httpForward', {
         url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom',
