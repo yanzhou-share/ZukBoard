@@ -96,6 +96,10 @@
 	border-right-color:transparent;
 	border-bottom-color:#3C3C3C;
 }
+.icons-loading { background-image:url(../images/ico/loding.svg); padding-top:8px; position:absolute; width:16px; height:16px; background-color: #ececec;
+	left:8px; background-size:16px;}
+.image-loading { position:absolute; bottom:20px; left:16px; }
+.image-loading .loading-text { padding: 8px; font-size: 12px; border: 1px black; background-color:#ececec; border-radius:4px; color:#333333; padding-left:30px; }
 
 
 /****************pic_wrap********************/
