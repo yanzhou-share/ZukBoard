@@ -33,17 +33,22 @@
        <component 
          :is="'userInfo'"
          :mobile="mobile"
-       >
-       </component>
-     </template>
-     <template v-if="isEditUserInfo">
-       <component 
-         :is="'editInfo'"
+         v-on:edit="isEditUserInfo=true,maskerShow=true"
        >
        </component>
      </template>
    </div>
    <!--miniclass_setup_member End-->
+   <template v-if="isEditUserInfo">
+      <component 
+        v-bind:style="centerStyle"
+        v-on:hide="hideMasker"
+        :is="'editInfo'"
+        :userName="mobile"
+      >
+      </component>
+    </template>
+    <div class="masker" v-show="maskerShow" id="masker"></div>
 </div>
 </template>
 <script>
@@ -55,7 +60,16 @@ export default {
     return {
       roomId: '',
       isShowUserInfo: false,
-      isEditUserInfo: false
+      isEditUserInfo: false,
+      centerStyle: {
+        position: 'absolute',
+        left: '50%',
+        top: '50%',
+        zIndex: '1000',
+        marginLeft: '-100px',
+        marginTop: '-150px'
+      },
+      maskerShow: false
     }
   },
   computed: {
@@ -114,6 +128,10 @@ export default {
           this.$toast('房间已经满了')
         }
       })
+    },
+    hideMasker: function () {
+      this.maskerShow = false
+      this.isEditUserInfo = false
     }
   }
 }
@@ -131,4 +149,13 @@ export default {
   float: right;
   margin-bottom: 5px;
 }
+.masker {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 102;
+        background-color: rgba(0,0,0,.3);
+    }
 </style>
