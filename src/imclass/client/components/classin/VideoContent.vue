@@ -165,6 +165,11 @@ export default {
       }
 
       this.participants = Array.from(room.participants.values())
+      // Array.from(room.participants.values()).forEach((item) => {
+      //   if (!this.findUser(item)) {
+      //     that.participants.push(item)
+      //   }
+      // })
 
       // 加载远端视频 Attach the Tracks of the Room's Participants.
       //            room.participants.forEach(function(participant) {
@@ -181,7 +186,6 @@ export default {
           return
         }
         that.participantAddTrack(participant, track)
-        console.log(that.participants.tracks)
       })
 
       // When a Participant removes a Track, detach it from the DOM.
