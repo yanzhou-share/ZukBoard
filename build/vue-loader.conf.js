@@ -1,7 +1,7 @@
 const CURRENT_PATH = process.cwd()
 const utils = require(CURRENT_PATH + '/build/utils')
 const config = require(CURRENT_PATH + '/config').webpackConfig
-const isDevlopment = process.env.NODE_ENV === 'development'
+const isDevlopment = process.env.NODE_ENV === 'local'
 
 console.log(isDevlopment)
 module.exports = {

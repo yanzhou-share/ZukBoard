@@ -6,7 +6,7 @@ const config = require(CURRENT_PATH + '/config').webpackConfig
 
 exports.assetsPath = _path => {
   var assetsSubDirectory =
-    process.env.NODE_ENV === 'development'
+    process.env.NODE_ENV === 'local'
       ? config.dev.assetsSubDirectory
       : config.build.assetsSubDirectory
   return path.posix.join(assetsSubDirectory, _path)
