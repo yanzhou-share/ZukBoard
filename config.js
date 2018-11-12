@@ -18,7 +18,7 @@ module.exports = {
     development: {
       staticBaseUrl: '/',
       apiUrl: '',
-      db: 'mongodb://127.0.0.1:27017/board',
+      db: mongoBaseUri,
       baseUrl: 'https://miniwb.imclass.cn/',
       serverUrl: 'http://devmini.imclass.cn:80/'
     },
