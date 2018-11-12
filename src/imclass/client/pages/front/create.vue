@@ -79,6 +79,7 @@ export default {
       return info.mobile
     }
   },
+
   components: {
     userInfo,
     editInfo

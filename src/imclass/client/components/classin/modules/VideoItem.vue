@@ -85,7 +85,7 @@ export default {
   methods: {
     attachTracks(tracks, container) {
       tracks.forEach(function (track) {
-        if (typeof track.attach !== 'undefined') {
+        if (typeof track.attach !== 'undefined' && container.querySelectorAll(track.kind).length === 0) {
           container.appendChild(track.attach())
         }
       })
@@ -147,6 +147,7 @@ export default {
   },
 
   updated() {
+
     //        if(!!this.item){
     //            let container = this.$refs.remoteVideo;
     //            var tracks = Array.from(this.item.tracks.values());
@@ -155,3 +156,4 @@ export default {
   }
 }
 </script>
+

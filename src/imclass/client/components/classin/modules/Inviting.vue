@@ -4,10 +4,12 @@
             <h2 class="f-20">邀请成员<div class="close" @click="closeComp"></div></h2>
             <div class="con center cf">
                 <!--<div class="code"><img src="../../../assets/images/layer_codeimg02.jpg" onerror=""></div>-->
+                <p class="room-title-text">房间号</p>
+                <p class="room-number-text">{{ roomId }}</p>
                 <p>直播地址：{{ copyUrl }} <span v-clipboard:copy="copyUrl"
                                             　　v-clipboard:success="onCopy"
                                             　　v-clipboard:error="onError" >复制</span></p>
-                <p class="f-14 txt_color_999">复制粘贴上面地址，或者用微信扫描二维码进行分享</p>
+                <p class="f-14 txt_color_999">可复制粘贴上面地址进行分享</p>
             </div>
         </div>
         <div class="masker" id="masker"></div>
@@ -26,7 +28,11 @@ export default {
       copyUrl: ''
     }
   },
-  computed: {},
+  computed: {
+    roomId: function () {
+      return this.$route.params.id
+    }
+  },
 
   watch: {
     styleMode: {
@@ -94,4 +100,22 @@ export default {
         z-index: 102;
         background-color: rgba(0,0,0,.3);
     }
+    .room-title-text{
+        font-size:24px;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
+        color:rgba(255,255,255,1);
+        line-height:33px;
+    }
+    .room-number-text{
+        font-size:32px;
+        font-family:PingFangSC-Medium;
+        font-weight:500;
+        color:rgba(255,123,110,1);
+        line-height:45px;
+        letter-spacing:16px;
+        margin-top:8px;
+        margin-bottom: 32px;
+    }
+
 </style>
