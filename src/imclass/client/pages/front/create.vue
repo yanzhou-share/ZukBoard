@@ -101,6 +101,10 @@ export default {
           window.location.href = '/imclass/classin/' + data.roomInfo.roomNumber
         } else if (code === '3001') {
           this.$toast('房间创建失败')
+        } else if (code === '2003') {
+          this.$toast('请重新登录')
+          window.localStorage.clear()
+          window.location.href = '/imclass/front/login'
         }
       }, err => {
         console.error(err)
