@@ -50,6 +50,6 @@ COPY server ./server
 COPY . .
 
 # Expose the listening port of your app
-EXPOSE 4089
+EXPOSE 4099
 
 CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "$env" ]
