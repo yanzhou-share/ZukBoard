@@ -15,7 +15,7 @@
   <script>
     window.__dataset = JSON.parse(decodeURIComponent('##dataset##' || '{}'))
   </script>
-  {% if ENV !== 'development' %}
+  {% if ENV !== 'local' %}
   <link rel="stylesheet" href="##staticBaseUrl####WEBPACK_HASH_MAP.css[bundle]##">
   {% endif %}
 </head>
@@ -26,7 +26,7 @@
       window.baseUrl = "##baseUrl##";
       window.serverUrl = "##serverUrl##";
   </script>
-  {% if ENV === 'development' %}
+  {% if ENV === 'local' %}
     <script src="##staticBaseUrl##dist/##bundle##.js"></script>
   {% else %}
     <script type="text/javascript">
