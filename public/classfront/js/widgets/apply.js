@@ -121,7 +121,7 @@ var APPLY = (function() {
       // }, 1000);
 
       // 提交申请
-      this.ajax("/api/httpForward", {url: "https://www.imclass.cn/page/web/classfront/addPersonTrial", params: {linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}}).then(res=>{
+      this.ajax("/api/httpForward", {url: "https://class.imclass.cn/page/web/classfront/addPersonTrial", params: {linkManName : name, linkManPhone: phone, organizeName: company, serviceField: field, city: city}}).then(res=>{
         if(!!res.code && res.code == 0) {
           console.log(res);
           //alert("提交成功");
