@@ -2,10 +2,6 @@
 # ---- Base Node ----
 FROM keymetrics/pm2:latest-alpine AS base
 
-ARG env1
-
-RUN echo "envirment : $env1"
-
 RUN apk add --no-cache tini
 # Tini is now available at /sbin/tini
 
@@ -52,4 +48,6 @@ COPY . .
 # Expose the listening port of your app
 EXPOSE 4099
 
-CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "echo $env1" ]
+ARG env
+
+CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "echo $env" ]
