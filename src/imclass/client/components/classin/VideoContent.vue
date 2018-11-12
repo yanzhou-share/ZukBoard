@@ -306,7 +306,9 @@ export default {
         this.participants.forEach(function (item, index) {
           if (item.identity === participant.identity) {
             // item.tracks = participant.tracks
-            that.$set(that.participants[index], 'trackId', track.id)
+            if (track && (track.kind === 'video' || track.kind === 'audio')) {
+              that.$set(that.participants[index], 'trackId', track.id)
+            }
           }
         })
       }
