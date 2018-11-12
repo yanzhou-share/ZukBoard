@@ -22,7 +22,7 @@ module.exports = {
       baseUrl: 'https://miniwb.imclass.cn/',
       serverUrl: 'http://devmini.imclass.cn:80/'
     },
-    testing: {
+    test: {
       staticBaseUrl: '/',
       apiUrl: '',
       db: mongoBaseUri,

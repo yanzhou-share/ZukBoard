@@ -25,6 +25,12 @@ module.exports = {
       },
       env_now: {
         NODE_ENV: 'now'
+      },
+      env_test: {
+        NODE_ENV: 'test'
+      },
+      env_production: {
+        NODE_ENV: 'production'
       }
     }
   ]
