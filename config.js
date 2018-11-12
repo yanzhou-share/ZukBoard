@@ -12,7 +12,7 @@ module.exports = {
       staticBaseUrl: '/',
       apiUrl: '',
       db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'http://127.0.0.1:4099',
+      baseUrl: 'https://miniwb.imclass.cn/',
       serverUrl: 'http://devmini.imclass.cn:80/'
     },
     testing: {
