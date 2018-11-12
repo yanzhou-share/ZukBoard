@@ -1,5 +1,5 @@
 const CURRENT_PATH = process.cwd()
-const env = process.env.NODE_ENV || 'development'
+const env = process.env.NODE_ENV || 'local'
 const Koa = require('koa')
 const app = new Koa()
 const cors = require('@koa/cors')
@@ -74,7 +74,7 @@ app.use(
   })
 )
 
-if (env === 'development') {
+if (env === 'local') {
   devServer(app)
 }
 

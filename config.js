@@ -8,6 +8,13 @@ const mongoBaseUri = process.env.MONGODB_URI
 module.exports = {
   port: port,
   ENV_VAR: {
+    local: {
+      staticBaseUrl: '/',
+      apiUrl: '',
+      db: 'mongodb://127.0.0.1:27017/board',
+      baseUrl: 'http://localhost:4089/',
+      serverUrl: 'http://devmini.imclass.cn:80/'
+    },
     development: {
       staticBaseUrl: '/',
       apiUrl: '',
