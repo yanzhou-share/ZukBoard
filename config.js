@@ -18,30 +18,16 @@ module.exports = {
     testing: {
       staticBaseUrl: '/',
       apiUrl: '',
-      db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'http://127.0.0.1:4099',
+      db: mongoBaseUri,
+      baseUrl: 'https://test.imclass.cn',
       serverUrl: 'http://testmini.imclass.cn:80/'
     },
     production: {
       staticBaseUrl: '/',
       apiUrl: '',
-      db: 'mongodb://127.0.0.1:27017/board',
-      baseUrl: 'https://www.imclass.cn',
-      serverUrl: 'http://miniserver.imclass.cn:80/'
-    },
-    heroku: {
-      staticBaseUrl: '/',
-      apiUrl: '',
       db: mongoBaseUri,
       baseUrl: 'https://www.imclass.cn',
       serverUrl: 'http://miniserver.imclass.cn:80/'
-    },
-    now: {
-      staticBaseUrl: '/',
-      apiUrl: '',
-      db: mongoBaseUri,
-      baseUrl: 'https://miniwb.imclass.cn',
-      serverUrl: 'http://devmini.imclass.cn:80/'
     }
   },
   webpackConfig: {
