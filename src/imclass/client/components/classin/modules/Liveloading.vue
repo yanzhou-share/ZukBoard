@@ -47,11 +47,14 @@ export default {
   methods: {
     closed() {
       this.isShow = false
+      this.startFaildShow = false
+      this.startSuccessShow = false
       this.$emit('closeLoading', {})
     },
     reloadAction() {
       // todo 重新启动
       this.isShow = true
+      this.startFaildShow = false
       this.startAction()
     },
     closeFilad() {
