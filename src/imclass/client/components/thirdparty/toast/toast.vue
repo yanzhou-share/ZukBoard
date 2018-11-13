@@ -18,7 +18,8 @@ export default {
   position: absolute;
   left: 50%;
   top: 0;
-  margin-left: -110px;
+  margin-left: -130px;
+  z-index: 105;
 }
 .layer_error {
   border-radius: 8px;

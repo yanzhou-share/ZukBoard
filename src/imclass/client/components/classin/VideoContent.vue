@@ -166,6 +166,12 @@ export default {
         this.localParticipant = room.localParticipant
       }
 
+      if (userType === 3 && window.canvas) {
+        // 录制端设置录制端canvas鼠标样式
+        window.canvas.defaultCursor = 'none'
+        window.canvas.setCursor('none')
+      }
+
       this.participants = Array.from(room.participants.values())
       // Array.from(room.participants.values()).forEach((item) => {
       //   if (!this.findUser(item)) {
