@@ -133,9 +133,11 @@ export default {
     // Detach the Tracks from the DOM.
     detachTracks(tracks) {
       tracks.forEach(function (track) {
-        track.detach().forEach(function (detachedElement) {
-          detachedElement.remove()
-        })
+        if (track.detach) {
+          track.detach().forEach(function (detachedElement) {
+            detachedElement.remove()
+          })
+        }
       })
     },
 
@@ -350,7 +352,7 @@ export default {
 
       Video.createLocalTracks({
         audio: this.userType === 1,
-        video: this.userType === 1
+        video: this.userType === 1 ? { width: 352, height: 288 } : false
       }).then((localTracks) => {
         this.previewTracks = localTracks
         this.joinRoom()
