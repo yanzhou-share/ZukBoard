@@ -60,6 +60,8 @@ export default {
           this.$emit('closeSuccess', {})
         } else {
           this.$toast('结束直播异常')
+          this.isShow = false
+          this.$emit('closeSuccess', {})
         }
       })
     },

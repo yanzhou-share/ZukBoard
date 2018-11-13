@@ -158,6 +158,7 @@ module.exports = {
       // ca : key_opts.ca,
       method: type,
       headers: {
+        'User-Agent': 'request',
         'content-type': 'application/json',
         'channel': '0000',
         'imei': ctx.cookies.get('USER_SESSION_ID'),
@@ -168,6 +169,7 @@ module.exports = {
         'txversion': 0,
         'version': '1.0.0'
       },
+      json: true,
       rejectUnauthorized: false
     };
 
@@ -183,7 +185,6 @@ module.exports = {
       })
     }).then((body) => {
       try {
-        body = JSON.parse(body)
         if (body) {
           if (ctx.request.body.url.indexOf('loginUser') !== -1) {
               if (body.code !== '0') {

@@ -117,7 +117,7 @@ export default {
         return
       }
       this.$http.post('/api/httpForward', {
-        url: 'http://devmini.imclass.cn:80/majorserverm/room/jionRoom',
+        url: window.serverUrl + 'majorserverm/room/jionRoom',
         params: { roomNumber: this.roomId, userType: 1 }
       }).then(res => {
         const { code } = res.data.data
