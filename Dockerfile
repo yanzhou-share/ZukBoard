@@ -50,5 +50,5 @@ EXPOSE 4099
 
 ARG env
 
-CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "echo $env" ]
-#ENTRYPOINT [ "echo $env" ]
+#CMD [ "pm2-runtime", "start", "ecosystem.config.js", "--env", "echo $env" ]
+ENTRYPOINT [ "echo $env" ]
