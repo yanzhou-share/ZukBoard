@@ -39,6 +39,17 @@ module.exports = {
     let list = await db.Board.find({})
     createResult(ctx, resCode.OK, '', list)
   },
+  'get#board/del': async ctx => {
+    try{
+      let id = ctx.query.id
+      const delResult = await db.Board.findOneAndRemove({roomId: id})
+      console.log(delResult)
+      createResult(ctx, resCode.OK, '', delResult)
+    }catch (e) {
+      console.error(e)
+      createResult(ctx, resCode.SEARCH_NOT_EXIST, '')
+    }
+  },
   'get#board/get': async ctx => {
     try {
       let id = ctx.query.id
@@ -60,19 +71,6 @@ module.exports = {
       createResult(ctx, resCode.OK, '', model)
     } catch(e) {
       createResult(ctx, resCode.SEARCH_NOT_EXIST, '')
-      // let id = ctx.query.id
-      // const insertResult = await db.Board.collection.insertMany([{
-      //   name:  '画板',
-      //   roomId: id,
-      //   canvas: [],
-      //   follow: {
-      //     open: false,
-      //     config: {}
-      //   },
-      //   _id: ObjectId(id)
-      // }])
-      // model = insertResult.ops[0]
-      // createResult(ctx, resCode.OK, '', model)
     }
   },
   'post#board/create': async ctx => {

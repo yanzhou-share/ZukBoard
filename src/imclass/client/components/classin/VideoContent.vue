@@ -211,6 +211,7 @@ export default {
         }
         if (!that.findUser(participant)) {
           that.participants.push(participant)
+          that.networkQualityLevelChanged(participant)
         }
       })
 
@@ -241,15 +242,6 @@ export default {
       room.on('trackEnabled', function (track, participant) {
         console.log(
           "Participant '" + participant.identity + "' trackEnabled" + track.kind
-        )
-      })
-
-      room.on('networkQualityLevelChanged', function (
-        networkQualityLevel,
-        participant
-      ) {
-        console.log(
-          'Participant ' + participant.identity + networkQualityLevel
         )
       })
 
@@ -287,6 +279,17 @@ export default {
 
       room._signaling.on('dominantSpeakerChanged', dominantSpeaker => {
         console.warn('dominantSpeaker=', dominantSpeaker)
+      })
+    },
+
+    networkQualityLevelChanged(participant) {
+      participant.on('networkQualityLevelChanged', function (
+        networkQualityLevel,
+        participant
+      ) {
+        console.log(
+          'Participant ' + participant.identity + networkQualityLevel
+        )
       })
     },
 

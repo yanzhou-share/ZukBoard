@@ -79,7 +79,7 @@ export default {
     let point = this.getclientPoint()
     this.styleMode = {
       left: (point.width - 488) / 2 + 'px',
-      top: (point.height - 202) / 2 + 'px'
+      top: (point.height - 330) / 2 + 'px'
     }
     this.copyUrl = window.baseUrl + '/' + this.$route.params.id
   }
