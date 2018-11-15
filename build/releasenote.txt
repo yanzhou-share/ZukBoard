@@ -1,0 +1,5 @@
+version:
+mini_imclass_20181115_1.0.0
+
+update content:
+1、add releasenote
