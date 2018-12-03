@@ -84,3 +84,151 @@ var dataURLtoFile = function (base64Data) {
     type: mimeString
   })
 }
+
+export const checkDevice = (callback) => {
+  let MediaDevices = []
+  let audioInputDevices = []
+  let audioOutputDevices = []
+  let videoInputDevices = []
+
+  if (navigator.mediaDevices && navigator.mediaDevices.enumerateDevices) {
+    // Firefox 38+ seems having support of enumerateDevices
+    // Thanks @xdumaine/enumerateDevices
+    navigator.enumerateDevices = function (callback) {
+      navigator.mediaDevices.enumerateDevices().then(callback).catch(function () {
+        callback && callback()
+      })
+    }
+  }
+
+  let hasMicrophone = false
+  let hasSpeakers = false
+  let hasWebcam = false
+
+  let isWebsiteHasMicrophonePermissions = false
+  let isWebsiteHasWebcamPermissions = false
+
+  if (!navigator.enumerateDevices && window.MediaStreamTrack && window.MediaStreamTrack.getSources) {
+    navigator.enumerateDevices = window.MediaStreamTrack.getSources.bind(window.MediaStreamTrack)
+  }
+
+  if (!navigator.enumerateDevices && navigator.enumerateDevices) {
+    navigator.enumerateDevices = navigator.enumerateDevices.bind(navigator)
+  }
+
+  if (!navigator.enumerateDevices) {
+    if (callback) {
+      callback()
+    }
+    return
+  }
+
+  MediaDevices = []
+
+  audioInputDevices = []
+  audioOutputDevices = []
+  videoInputDevices = [];
+  (function (callback) {
+    navigator.enumerateDevices(function (devices) {
+      devices.forEach(function (_device) {
+        var device = {}
+        for (var d in _device) {
+          device[d] = _device[d]
+        }
+
+        // if it is MediaStreamTrack.getSources
+        if (device.kind === 'audio') {
+          device.kind = 'audioinput'
+        }
+
+        if (device.kind === 'video') {
+          device.kind = 'videoinput'
+        }
+
+        var skip
+        MediaDevices.forEach(function (d) {
+          if (d.id === device.id && d.kind === device.kind) {
+            skip = true
+          }
+        })
+
+        if (skip) {
+          return
+        }
+
+        if (!device.deviceId) {
+          device.deviceId = device.id
+        }
+
+        if (!device.id) {
+          device.id = device.deviceId
+        }
+
+        if (!device.label) {
+          device.label = 'Please invoke getUserMedia once.'
+          if (location.protocol !== 'https:') {
+            if (document.domain.search && document.domain.search(/localhost|127.0./g) === -1) {
+              device.label = 'HTTPs is required to get label of this ' + device.kind + ' device.'
+            }
+          }
+        } else {
+          if (device.kind === 'videoinput' && !isWebsiteHasWebcamPermissions) {
+            isWebsiteHasWebcamPermissions = true
+          }
+
+          if (device.kind === 'audioinput' && !isWebsiteHasMicrophonePermissions) {
+            isWebsiteHasMicrophonePermissions = true
+          }
+        }
+
+        if (device.kind === 'audioinput') {
+          hasMicrophone = true
+
+          if (audioInputDevices.indexOf(device) === -1) {
+            audioInputDevices.push(device)
+          }
+        }
+
+        if (device.kind === 'audiooutput') {
+          hasSpeakers = true
+
+          if (audioOutputDevices.indexOf(device) === -1) {
+            audioOutputDevices.push(device)
+          }
+        }
+
+        if (device.kind === 'videoinput') {
+          hasWebcam = true
+
+          if (videoInputDevices.indexOf(device) === -1) {
+            videoInputDevices.push(device)
+          }
+        }
+
+        // there is no 'videoouput' in the spec.
+
+        if (MediaDevices.indexOf(device) === -1) {
+          MediaDevices.push(device)
+        }
+      })
+
+      var checkDevices = {
+        MediaDevices: MediaDevices,
+        hasMicrophone: hasMicrophone,
+        hasSpeakers: hasSpeakers,
+        hasWebcam: hasWebcam,
+
+        isWebsiteHasWebcamPermissions: isWebsiteHasWebcamPermissions,
+        isWebsiteHasMicrophonePermissions: isWebsiteHasMicrophonePermissions,
+
+        audioInputDevices: audioInputDevices,
+        audioOutputDevices: audioOutputDevices,
+        videoInputDevices: videoInputDevices
+      }
+
+      if (callback) {
+        callback(checkDevices)
+      }
+    })
+  })(callback)
+}

@@ -14,9 +14,9 @@
 
 <script>
 import { mapState } from 'vuex'
-// import uuid from 'uuid'
 import VideoItem from './modules/VideoItem.vue'
 import { eventEmitter } from '../util'
+import Twilio from './twilio'
 const Video = require('twilio-video')
 export default {
   name: 'Video',
@@ -32,7 +32,8 @@ export default {
       previewTracks: undefined,
       activeRoom: undefined,
       leaveRoomShow: false,
-      roomInfo: undefined
+      roomInfo: undefined,
+      twilio: undefined
     }
   },
   props: ['fatherComponent'],
@@ -41,19 +42,6 @@ export default {
   },
   computed: mapState([]),
   methods: {
-    // Attach the Tracks to the DOM.
-    attachTracks(tracks, container) {
-      tracks.forEach(function (track) {
-        container.appendChild(track.attach())
-      })
-    },
-
-    // Attach the Participant's Tracks to the DOM.
-    attachParticipantTracks(participant, container) {
-      var tracks = Array.from(participant.tracks.values())
-      this.attachTracks(tracks, container)
-    },
-
     // Leave Room.
     leaveRoomIfJoined() {
       if (this.activeRoom) {
@@ -98,38 +86,6 @@ export default {
       })
     },
 
-    joinRoom() {
-      if (!this.roomName) {
-        alert('Please enter a room name.')
-        return
-      }
-      // this.identity = this.mathRand();
-      this.roomName = this.$route.path.substring(1, this.$route.path.length)
-
-      console.log("Joining room '" + this.roomName + "'...")
-      let connectOptions = {
-        name: this.roomName
-        // logLevel: 'debug',
-        // dominantSpeaker: true
-      }
-
-      if (this.previewTracks) {
-        connectOptions.tracks = this.previewTracks
-      }
-
-      // Join the Room with the token from the server and the
-      // LocalParticipant's Tracks.
-      Video.connect(
-        this.token,
-        connectOptions
-      ).then(this.roomJoined, function (error) {
-        console.log('Could not connect to Twilio: ' + error.message)
-        if (error.name === 'NotAllowedError') {
-          // todo 无权限
-        }
-      })
-    },
-
     // Detach the Tracks from the DOM.
     detachTracks(tracks) {
       tracks.forEach(function (track) {
@@ -146,140 +102,6 @@ export default {
       var tracks = Array.from(participant.tracks.values())
       this.detachTracks(tracks)
       this.removeUser(participant)
-    },
-
-    roomJoined(room) {
-      const that = this
-      this.room = this.activeRoom = room
-
-      console.log("Joined as '" + this.identity + "'")
-
-      // 加载本地视频 Attach LocalParticipant's Tracks, if not already attached.
-      //            var previewContainer = document.getElementById('local-media');
-      //            if (!previewContainer.querySelector('video')) {
-      //                this.attachParticipantTracks(room.localParticipant, previewContainer);
-      //            }
-
-      const userType = this.getUserType(room.localParticipant.identity)
-
-      if (userType === 1) {
-        this.localParticipant = room.localParticipant
-      }
-
-      if (userType === 3 && window.canvas) {
-        // 录制端设置录制端canvas鼠标样式
-        window.canvas.defaultCursor = 'none'
-        window.canvas.setCursor('none')
-      }
-
-      this.participants = Array.from(room.participants.values())
-      // Array.from(room.participants.values()).forEach((item) => {
-      //   if (!this.findUser(item)) {
-      //     that.participants.push(item)
-      //   }
-      // })
-
-      // 加载远端视频 Attach the Tracks of the Room's Participants.
-      //            room.participants.forEach(function(participant) {
-      //                console.log("Already in Room: '" + participant.identity + "'");
-      //                var previewContainer = document.getElementById('remote-media');
-      //                that.attachParticipantTracks(participant, previewContainer);
-      //            });
-
-      // When a Participant adds a Track, attach it to the DOM.
-      room.on('trackAdded', (track, participant) => {
-        console.warn(participant.identity + ' added track: ' + track.kind)
-        const userType = this.getUserType(participant.identity)
-        if (userType === 2 || userType === 3) {
-          return
-        }
-        that.participantAddTrack(participant, track)
-      })
-
-      // When a Participant removes a Track, detach it from the DOM.
-      room.on('trackRemoved', function (track, participant) {
-        console.log(participant.identity + ' removed track: ' + track.kind)
-        that.detachTracks([track])
-      })
-
-      // join room
-      room.on('participantConnected', (participant) => {
-        console.log(participant.identity + ' joined the Room')
-        const userType = this.getUserType(participant.identity)
-        if (userType === 2 || userType === 3) {
-          return
-        }
-        if (!that.findUser(participant)) {
-          that.participants.push(participant)
-          that.networkQualityLevelChanged(participant)
-        }
-      })
-
-      // When a Participant leaves the Room, detach its Tracks.
-      room.on('participantDisconnected', function (participant) {
-        console.log("Participant '" + participant.identity + "' left the room")
-        that.detachParticipantTracks(participant)
-      })
-
-      room.on('trackDimensionsChanged', function (track, participant) {
-        console.log(
-          "Participant '" +
-            participant.identity +
-            "' trackDimensionsChanged" +
-            track.kind
-        )
-      })
-
-      room.on('trackDisabled', function (track, participant) {
-        console.log(
-          "Participant '" +
-            participant.identity +
-            "' trackDisabled" +
-            track.kind
-        )
-      })
-
-      room.on('trackEnabled', function (track, participant) {
-        console.log(
-          "Participant '" + participant.identity + "' trackEnabled" + track.kind
-        )
-      })
-
-      room.on('reconnecting', function (error) {
-        console.warn('Reconnecting!', error)
-      })
-
-      room.on('reconnected', () => {
-        console.warn('Reconnected!')
-      })
-
-      // Once the LocalParticipant leaves the room, detach the Tracks
-      // of all Participants, including that of the LocalParticipant.
-      room.on('disconnected', function () {
-        console.log(that.identity + 'Left')
-        if (that.previewTracks) {
-          that.previewTracks.forEach(function (track) {
-            track.stop()
-          })
-        }
-        that.detachParticipantTracks(room.localParticipant)
-        room.participants.forEach(that.detachParticipantTracks)
-        that.activeRoom = null
-      })
-
-      room._signaling.on('mediaConnectionStateChanged', () => {
-        const rstate = room._signaling.state // reconnecting(... after left) connected
-        console.warn('Transitioned to state:', rstate)
-      })
-
-      room._signaling.on('signalingConnectionStateChanged', () => {
-        const rstate = room._signaling.state
-        console.warn('Transitioned to state:', rstate)
-      })
-
-      room._signaling.on('dominantSpeakerChanged', dominantSpeaker => {
-        console.warn('dominantSpeaker=', dominantSpeaker)
-      })
     },
 
     networkQualityLevelChanged(participant) {
@@ -364,7 +186,54 @@ export default {
         video: this.userType === 1 ? { width: 352, height: 288 } : false
       }).then((localTracks) => {
         this.previewTracks = localTracks
-        this.joinRoom()
+        // this.joinRoom()
+        this.initTwilio()
+      })
+    },
+
+    initTwilio() {
+      // this.roomName = this.$route.path.substring(1, this.$route.path.length)
+      this.twilio = new Twilio(this.token)
+      this.twilio.joinRoom(this.roomName)
+
+      this.twilio.event.on('joined', (localParticipant, participants) => {
+        console.log(localParticipant, participants)
+        this.localParticipant = localParticipant
+        this.participants = Array.from(participants.values())
+      })
+
+      // When a Participant joins the Room, log the event.
+      this.twilio.event.on('participantConnected', participant => {
+        console.log(participant.identity + ' joined the Room')
+        if (!this.findUser(participant)) {
+          this.participants.push(participant)
+          this.twilio.networkQualityLevelChanged(participant)
+        }
+      })
+
+      // When a Participant adds a Track, attach it to the DOM.
+      this.twilio.event.on('trackAdded', (track, participant) => {
+        console.warn(participant.identity + ' added track: ' + track.kind)
+        this.participantAddTrack(participant, track)
+      })
+
+      // When a Participant removes a Track, detach it from the DOM.
+      this.twilio.event.on('trackRemoved', (track, participant) => {
+        console.log(participant.identity + ' removed track: ' + track.kind)
+      })
+
+      // When a Participant leaves the Room, detach its Tracks.
+      this.twilio.event.on('participantDisconnected', participant => {
+        console.log("Participant '" + participant.identity + "' left the room")
+        this.removeUser(participant)
+      })
+
+      // Once the LocalParticipant leaves the room, detach the Tracks
+      // of all Participants, including that of the LocalParticipant.
+      this.twilio.event.on('disconnected', () => {
+        console.log(this.identity + 'Left')
+        this.localParticipant = ''
+        this.participants = []
       })
     },
 

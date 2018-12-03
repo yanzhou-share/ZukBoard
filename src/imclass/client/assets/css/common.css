@@ -493,7 +493,7 @@ input::-ms-input-placeholder{
 .select-box dt b { font-weight: normal; display: block; margin-right:18px; height:38px; overflow:hidden; line-height:38px; position:relative; top:0px;  color: #fff; white-space:normal; overflow:hidden; }
 .select-box dt i.ico { position: absolute; transition: 0.3s all ease-in-out; background: url(../images/select_but01.png) no-repeat 0 0; width:10px; height:9px; right:14px; top:14px; }
 .select-box dt.open i.ico { -moz-transform: rotate(-180deg); -webkit-transform: rotate(-180deg); -o-transform: rotate(-180deg); -ms-transform: rotate(-180deg); transform: rotate(-180deg); }
-.select-box dd { position: absolute; max-height: 200px; z-index: 102;  border-radius:4px; overflow-y: auto; background: #434343; padding:0px; overflow-x: hidden; right:0px; left:0px; top: 100%; display: none; }
+.select-box dd { position: absolute; max-height: 200px; z-index: 102;  border-radius:4px; overflow-y: auto; background: #434343; padding:0px; overflow-x: hidden; right:0px; left:0px; top: 100%;}
 .select-box dd a { display: block; line-height:1.5; color: #fff; font-weight: normal; white-space: normal; padding:7px 10px; margin-top: 0px; }
 .select-box dd a:hover, .select_0 dd a.on { color: #fff; background: #000; }
 

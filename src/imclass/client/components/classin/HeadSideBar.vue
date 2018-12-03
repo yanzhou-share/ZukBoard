@@ -17,7 +17,7 @@
 
                     <!--<div class="tool-item cf">-->
                         <!--<span class="tool-note">设置</span>-->
-                        <!--<i class="icons icons-setting" @click="createRoom"></i>-->
+                        <!--<i class="icons icons-setting" @click="setupAction"></i>-->
                     <!--</div>-->
 
                     <div class="tool-item cf">
@@ -71,14 +71,24 @@
                     :is="'startStop'" >
             </component>
         </template>
+
+        <template v-if="setupShow">
+            <component
+                    v-show="setupShow"
+                    v-on:setupSuccess="setupSuccess"
+                    v-on:closeSetup="closeSetup"
+                    :is="'setup'"
+            >
+            </component>
+        </template>
     </div>
 </template>
-
 <script>
 import startLive from './modules/StartLive.vue'
 import startStop from './modules/StartSuccess.vue'
 import inviting from './modules/Inviting.vue'
 import leaveRoom from './modules/confirm.vue'
+// import setup from './modules/Setup.vue'
 import { eventEmitter } from '../util'
 export default {
   name: 'headsidebar',
@@ -88,6 +98,7 @@ export default {
       invitingShow: false,
       leaveRoomShow: false,
       liveStopShow: false,
+      setupShow: false,
       roomInfo: undefined,
       userInfo: undefined,
       leaveRoomText: '确定离开教室吗？'
@@ -99,6 +110,7 @@ export default {
     inviting: inviting,
     leaveRoom: leaveRoom,
     startStop: startStop
+    // setup: setup
   },
   computed: {
     getCreator: function () {
@@ -112,6 +124,9 @@ export default {
       } else {
         this.startLiveShow = true
       }
+    },
+    setupAction() {
+      this.setupShow = true
     },
     invitingAction() {
       this.invitingShow = true
@@ -127,6 +142,12 @@ export default {
     },
     closeSuccess() {
       this.liveStopShow = false
+    },
+    closeSetup() {
+      this.setupShow = false
+    },
+    setupSuccess() {
+      this.setupShow = false
     },
     leaveRoom() {
       this.leaveRoomShow = !this.leaveRoomShow

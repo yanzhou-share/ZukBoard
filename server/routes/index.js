@@ -21,6 +21,15 @@ module.exports = {
       }))
     })
   },
+  // 'get#index2': async ctx => {
+  //   await ctx.render('imclass/index_com.html', {
+  //     title: '',
+  //     dataset: encodeURIComponent(JSON.stringify({
+  //       user: ctx.session.user,
+  //       biUrl: ctx.state.biUrl
+  //     }))
+  //   })
+  // },
   'get#support': async ctx => {
     await ctx.render('imclass/support.html', {
       title: '',
