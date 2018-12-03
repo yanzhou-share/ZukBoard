@@ -116,7 +116,7 @@ export default {
       zindex: 0,
       wPercent: 1,
       hPercent: 1,
-      baseWidth: 1024,
+      baseWidth: 1600,
       baseHeight: 1200,
       uid: '', // temp uid
       renderList: [],
@@ -282,6 +282,7 @@ export default {
       this.drawer.presenterZoom = opt.zoom
       // this.drawer.baseWidth = opt.width
       this.drawer.baseWidth = this.baseWidth
+      this.drawer.baseHeight = this.baseHeight
       this.choose('choose')
       this.drawer.resizeCanvas()
       this.focusPresenter(opt.pan)
@@ -326,7 +327,7 @@ export default {
         this.drawer.presenterPan = point
       }
       if (point) {
-        this.drawer.moveToPoint(point.x, point.y)
+        this.drawer.moveToPoint(point.x, point.y, point.width, point.height)
       }
     },
     createBoard() {

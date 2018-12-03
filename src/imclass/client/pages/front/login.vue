@@ -34,7 +34,7 @@
            </ul>
          </div>
          <!--big_form End-->
-         <div class="big_language f-12"><a href="###" class="on" title="中文" target="_blank">中文</a>/<a href="###" title="EN" target="_blank">EN</a></div>
+         <!--<div class="big_language f-12"><a href="###" class="on" title="中文" target="_blank">中文</a>/<a href="###" title="EN" target="_blank">EN</a></div>-->
      </div>
      <!--big_class_login_wrap End-->
   </div>
