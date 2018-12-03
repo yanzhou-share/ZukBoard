@@ -27,7 +27,7 @@ module.exports = {
       apiUrl: '',
       db: mongoBaseUri,
       baseUrl: 'https://test.imclass.cn',
-      serverUrl: 'http://testmini.imclass.cn:80/'
+      serverUrl: 'http://testminiserver.imclass.cn:80/'
     },
     production: {
       staticBaseUrl: '/',

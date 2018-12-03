@@ -10,7 +10,7 @@
                         <i class="icons icons-add" @click="invitingAction"></i>
                     </div>
 
-                    <div class="tool-item cf" v-if="getCreator">
+                    <div class="tool-item cf" style="display:none;">
                         <span class="tool-note">直播</span>
                         <i class="icons icons-live" @click="startLiveAction"></i>
                     </div>
@@ -194,8 +194,8 @@ export default {
     .creator{
         top: 18px;
         left: 50%;
-        width: 300px;
-        margin-left: -150px;
+        width: 240px;
+        margin-left: -120px;
         z-index: 101;
     }
 </style>
