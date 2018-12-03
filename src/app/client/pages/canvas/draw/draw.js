@@ -500,7 +500,7 @@ class Draw {
     var vpt = this.layerDraw.viewportTransform.slice(0)
     vpt[4] = x * (this.container.offsetWidth / width * this.presenterZoom)
     vpt[5] = y * (this.container.offsetHeight / height * this.presenterZoom)
-    console.warn('moveToPoint', x, vpt[4])
+    // console.warn('moveToPoint', x, vpt[4], this.layerDraw.getZoom())
     this.layerDraw.setViewportTransform(vpt)
   }
   setZoom(zoom) {
@@ -613,7 +613,6 @@ class Draw {
           }
         } else {
           let delta = new fabric.Point(e.e.movementX, e.e.movementY)
-          console.warn('------', that.getVpPoint())
           canvas.relativePan(delta)
           if (that.isPresenter) {
             that._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { ...that.getVpPoint(), isMobile: false })
