@@ -40,6 +40,8 @@
   </div>
 </template>
 <script>
+import _ from 'lodash'
+
 export default {
   data() {
     return {
@@ -56,7 +58,7 @@ export default {
     }
   },
   methods: {
-    login: function () {
+    login: _.debounce(function () {
       if (!(this.greenBtnStatus && this.checkMobile() && this.checkCaptcha())) return
       this.$http.post('/api/httpForward', {
         url: window.serverUrl + 'majorserverm/user/loginUser',
@@ -74,8 +76,8 @@ export default {
         console.error(err)
         this.$toast('手机号或验证码不正确')
       })
-    },
-    getCaptcha: function () {
+    }, 300),
+    getCaptcha: _.debounce(function () {
       if (!this.checkMobile()) return
       this.$http.post('/api/httpForward', {
         url: window.serverUrl + 'majorserverm/user/sendPhoneCode',
@@ -95,7 +97,7 @@ export default {
           this.$toast('验证码发送失败')
         }
       })
-    },
+    }, 300),
     checkMobile: function () {
       let reg = /^(((13[0-9]{1})|(14[0-9]{1})|(17[0-9]{1})|(15[0-3]{1})|(15[4-9]{1})|(18[0-9]{1})|(199))+\d{8})$/
       if (reg.test(this.mobile)) {

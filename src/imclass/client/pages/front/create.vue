@@ -54,6 +54,7 @@
 <script>
 import userInfo from './userInfo'
 import editInfo from './editInfo'
+import _ from 'lodash'
 
 export default {
   data() {
@@ -90,7 +91,7 @@ export default {
     })
   },
   methods: {
-    createLesson: function () {
+    createLesson: _.debounce(function () {
       this.$http.post('/api/httpForward', {
         url: window.serverUrl + 'majorserverm/room/createRoom',
         params: {}
@@ -110,7 +111,7 @@ export default {
         console.error(err)
         this.$toast('手机号或验证码不正确')
       })
-    },
+    }, 300),
     joinRoom: function () {
       if (!this.roomId || this.roomId.length < 6) {
         this.$toast('请输入6位有效的房间号')
