@@ -3,7 +3,7 @@ export default {
     title: '选择',
     icon: '&#xe67b;',
     useInFollowing: true,
-    class: 'icons icons-choice',
+    class: 'icons icons-move',
     setting: {
     }
   },

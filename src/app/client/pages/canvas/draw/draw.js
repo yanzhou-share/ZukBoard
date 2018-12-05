@@ -19,6 +19,8 @@ class Draw {
   constructor(vm, selector, width, height) {
     this.current = 'choose'
     const container = document.querySelector('.canvas-container')
+    container.style.width = width + 'px'
+    container.style.height = height + 'px'
     this.isPresenter = false
     this.presenterVp = {
       x: 0,
@@ -135,6 +137,7 @@ class Draw {
       this.resizeCanvas()
     })
     window.addEventListener('resize', () => {
+      this.resizeContainer()
       this.resizeCanvas()
     })
     this.container.addEventListener('gesturestart', (ev) => {
@@ -155,6 +158,14 @@ class Draw {
   setCursor(cursor) {
     this.layerDraw.setCursor(cursor)
   }
+
+  resizeContainer() {
+    const canvasHeight = document.body.offsetHeight <= document.body.offsetWidth ? document.body.offsetHeight : document.body.offsetWidth * 3 / 4
+    const canvaswidth = document.body.offsetWidth >= document.body.offsetHeight ? document.body.offsetHeight * 4 / 3 : document.body.offsetWidth
+    this.container.style.width = canvaswidth + 'px'
+    this.container.style.height = canvasHeight + 'px'
+  }
+
   resizeCanvas() {
     const canvas = this.layerDraw
     const canvasWidth = this.container.offsetWidth

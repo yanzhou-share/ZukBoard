@@ -1,6 +1,5 @@
 <template>
-    <div id="videoContent">
-        <div class="pic_wrap">
+    <div id="videoContent" class="pic_wrap">
             <video-item v-if="localParticipant" v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
                         v-bind:localItem="localParticipant">
             </video-item>
@@ -8,7 +7,6 @@
             <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants" :key="item.sid"
                         v-bind:index="index" v-bind:item="item" v-bind:tracks="item.tracks">
             </video-item>
-        </div>
     </div>
 </template>
 
@@ -234,6 +232,9 @@ export default {
         console.log(this.identity + 'Left')
         this.localParticipant = ''
         this.participants = []
+        // setTimeout(() => {
+        //   this.twilio.joinRoom(this.roomName)
+        // }, 25000)
       })
     },
 

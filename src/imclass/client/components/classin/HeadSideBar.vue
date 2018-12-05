@@ -1,42 +1,57 @@
 <template>
     <div id="headsidebar">
-        <aside class="toolbar top_bar" :class="[!getCreator ? 'noCreator': 'creator']">
-            <div class="toolbar-inner cf">
-                <div class="class_logo"><a href="javascript:;"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>
-
-                <div class="btn-tool cf">
-                    <div class="tool-item cf" v-if="getCreator">
-                        <span class="tool-note wd01">邀请成员</span>
-                        <i class="icons icons-add" @click="invitingAction"></i>
-                    </div>
-
-                    <div class="tool-item cf" style="display:none;">
-                        <span class="tool-note">直播</span>
-                        <i class="icons icons-live" @click="startLiveAction"></i>
-                    </div>
-
-                    <!--<div class="tool-item cf">-->
-                        <!--<span class="tool-note">设置</span>-->
-                        <!--<i class="icons icons-setting" @click="setupAction"></i>-->
-                    <!--</div>-->
-
-                    <div class="tool-item cf">
-                        <span class="tool-note">结束</span>
-                        <i class="icons icons-group" @click="leaveRoom"></i>
-                    </div>
-
-                    <!--<div class="tool-item cf">-->
-                        <!--<span class="tool-note">验证码</span>-->
-                        <!--<i class="icons icons-group" @click="sendCode"></i>-->
-                    <!--</div>-->
-
-                    <!--<div class="tool-item cf">-->
-                        <!--<span class="tool-note">登录</span>-->
-                        <!--<i class="icons icons-group" @click="login"></i>-->
-                    <!--</div>-->
-                </div>
+        <div class="tools-btn">
+            <div class="btn" v-if="getCreator">
+                <i class="icons icons-invite" @click="invitingAction"></i>
             </div>
-        </aside>
+            <div class="btn">
+                <i class="icons icons-live" @click="startLiveAction"></i>
+            </div>
+            <div class="btn" style="display: none;">
+                <i class="icons icons-setting"></i>
+            </div>
+            <div class="btn last">
+                <i class="icons icons-group" @click="leaveRoom"></i>
+            </div>
+        </div>
+
+        <!--<aside class="toolbar top_bar" :class="[!getCreator ? 'noCreator': 'creator']">-->
+            <!--<div class="toolbar-inner cf">-->
+                <!--<div class="class_logo"><a href="javascript:;"><img src="../../assets/images/logo_miniclass_top@2x.png"></a></div>-->
+
+                <!--<div class="btn-tool cf">-->
+                    <!--<div class="tool-item cf" v-if="getCreator">-->
+                        <!--<span class="tool-note wd01">邀请成员</span>-->
+                        <!--<i class="icons icons-add" @click="invitingAction"></i>-->
+                    <!--</div>-->
+
+                    <!--<div class="tool-item cf" style="display:none;">-->
+                        <!--<span class="tool-note">直播</span>-->
+                        <!--<i class="icons icons-live" @click="startLiveAction"></i>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;<div class="tool-item cf">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="tool-note">设置</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="icons icons-setting" @click="setupAction"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                    <!--<div class="tool-item cf">-->
+                        <!--<span class="tool-note">结束</span>-->
+                        <!--<i class="icons icons-group" @click="leaveRoom"></i>-->
+                    <!--</div>-->
+
+                    <!--&lt;!&ndash;<div class="tool-item cf">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="tool-note">验证码</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="icons icons-group" @click="sendCode"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                    <!--&lt;!&ndash;<div class="tool-item cf">&ndash;&gt;-->
+                        <!--&lt;!&ndash;<span class="tool-note">登录</span>&ndash;&gt;-->
+                        <!--&lt;!&ndash;<i class="icons icons-group" @click="login"></i>&ndash;&gt;-->
+                    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</aside>-->
         <!--<start-live></start-live>-->
         <template v-if="startLiveShow">
             <component

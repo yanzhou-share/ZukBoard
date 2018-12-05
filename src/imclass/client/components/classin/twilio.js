@@ -23,7 +23,8 @@ class Twilio {
     let connectOptions = {
       name: this.roomName,
       logLevel: 'debug',
-      dominantSpeaker: true
+      dominantSpeaker: true,
+      networkQuality: true
     }
 
     if (this.previewTracks) {

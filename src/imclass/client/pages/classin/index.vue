@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" class="full-srceen main-classin">
         <!--主内容区域-->
         <Board></Board>
 
@@ -12,13 +12,47 @@
 
         <!--顶部导航 Begin-->
 
-        <HeadSideBar v-if="getUserType"></HeadSideBar>
+        <!--<HeadSideBar v-if="getUserType"></HeadSideBar>-->
 
         <!--顶部导航 End-->
 
         <!---video Begin-->
-        <VideoContent></VideoContent>
+        <!--<VideoContent></VideoContent>-->
         <!---video end-->
+
+        <div class="right-content">
+            <div class="logo">
+                <img src="../../assets/images/logo.png">
+            </div>
+            <!--<div class="videos">-->
+                <!--<div class="pic-item close_off">-->
+                    <!--<div class="title ellipsis f-14 txt_color_white">妮娜西蒙斯...</div>-->
+                <!--</div>-->
+                <!--<div class="pic-item close_off">-->
+                    <!--<div class="title ellipsis f-14 txt_color_white">妮娜西蒙斯...</div>-->
+                <!--</div>-->
+            <!--</div>-->
+            <!---video Begin-->
+            <VideoContent></VideoContent>
+            <!---video end-->
+            <!--<div class="tools-btn">-->
+                <!--<div class="btn">-->
+                    <!--<i class="icons icons-invite"></i>-->
+                <!--</div>-->
+                <!--<div class="btn">-->
+                    <!--<i class="icons icons-live"></i>-->
+                <!--</div>-->
+                <!--<div class="btn">-->
+                    <!--<i class="icons icons-setting"></i>-->
+                <!--</div>-->
+                <!--<div class="btn last">-->
+                    <!--<i class="icons icons-group"></i>-->
+                <!--</div>-->
+            <!--</div>-->
+            <HeadSideBar v-if="getUserType"></HeadSideBar>
+        </div>
+
+
         <router-view/>
     </div>
 </template>

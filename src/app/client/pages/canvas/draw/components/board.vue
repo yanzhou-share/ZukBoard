@@ -1,83 +1,84 @@
 <template>
   <div class="full-srceen">
     <div class="screen-content">
-      <div id="canvas"  ref="canvas" class="canvas-container drawingboard mouse-eraser">
+      <div id="canvas"  ref="canvas" style="margin: 0 auto;background: #ffffff;" class="canvas-container">
         <canvas id="layer-draw"></canvas>
       </div>
       <div class="image-loading" v-show="isUploading">
         <span class="icons-loading"></span>
         <span class="loading-text">上传中...</span>
       </div>
-    </div>
 
-    <!--左边导航 Begin-->
-    <aside class="toolbar middle" v-show="role ? false : true" @click.stop>
-      <div class="toolbar-inner">
-        <div class="btn-tool cf">
-          <!--<div class="tool-item cf">-->
-            <!--<span class="tool-note">移动</span>-->
-            <!--<i class="icons icons-move"></i>-->
-          <!--</div>-->
-          <div class="tool-item cf"
-               v-for="(plugin, key) in plugins"
-               :key="plugin.name"
-               @click="choose(key)"
-            >
-            <span class="tool-note">{{plugin.title}}</span>
-            <i :class="[{'on': plugin.active},plugin.class]"></i>
-            <template v-if="plugin.hasAction">
-              <component
-                      v-show="plugin.showAction"
-                      :config="plugin"
-                      @change-current="choose"
-                      class="plugin-tools-item-action"
-                      @click.stop
-                      :is="key + '-action'" >
-              </component>
-            </template>
-          </div>
-
-          <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
-            <span class="tool-note">清除</span>
-            <i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>
-          </div>
-
+      <!--工具条 begin-->
+      <div class="wb-toolbar" v-show="role ? false : true" @click.stop>
+        <div class="tool-item cf"  v-for="(plugin, key) in plugins"
+             :key="plugin.name"
+             @click="choose(key)">
+          <!-- <span class="tool-note">移动</span> -->
+          <i :class="[{'on': plugin.active},plugin.class]"></i>
+          <template v-if="plugin.hasAction">
+            <component
+                    v-show="plugin.showAction"
+                    :config="plugin"
+                    @change-current="choose"
+                    class="plugin-tools-item-action"
+                    @click.stop
+                    :is="key + '-action'" >
+            </component>
+          </template>
         </div>
 
+        <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
+          <i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>
+        </div>
       </div>
+      <!--工具条 END -->
+    </div>
 
-    </aside>
+
+
+
+    <!--左边导航 Begin-->
+    <!--<aside class="toolbar middle" v-show="role ? false : true" @click.stop>-->
+      <!--<div class="toolbar-inner">-->
+        <!--<div class="btn-tool cf">-->
+          <!--&lt;!&ndash;<div class="tool-item cf">&ndash;&gt;-->
+            <!--&lt;!&ndash;<span class="tool-note">移动</span>&ndash;&gt;-->
+            <!--&lt;!&ndash;<i class="icons icons-move"></i>&ndash;&gt;-->
+          <!--&lt;!&ndash;</div>&ndash;&gt;-->
+          <!--<div class="tool-item cf"-->
+               <!--v-for="(plugin, key) in plugins"-->
+               <!--:key="plugin.name"-->
+               <!--@click="choose(key)"-->
+            <!--&gt;-->
+            <!--<span class="tool-note">{{plugin.title}}</span>-->
+            <!--<i :class="[{'on': plugin.active},plugin.class]"></i>-->
+            <!--<template v-if="plugin.hasAction">-->
+              <!--<component-->
+                      <!--v-show="plugin.showAction"-->
+                      <!--:config="plugin"-->
+                      <!--@change-current="choose"-->
+                      <!--class="plugin-tools-item-action"-->
+                      <!--@click.stop-->
+                      <!--:is="key + '-action'" >-->
+              <!--</component>-->
+            <!--</template>-->
+          <!--</div>-->
+
+          <!--<div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">-->
+            <!--<span class="tool-note">清除</span>-->
+            <!--<i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>-->
+          <!--</div>-->
+
+        <!--</div>-->
+
+      <!--</div>-->
+
+    <!--</aside>-->
     <!--左边导航 End-->
 
     <!--鼠标右键 Begin-->
-    <ul class="content-menu" v-show="contextMenu.show" :style="'top:' + contextMenu.y + 'px;left:' + contextMenu.x  + 'px;'">
-    <li
-    @click="(e) => { !notPresenter && undo(e)}"
-    title="撤销"
-    :class="{'disabled': renderList.length === 0 || notPresenter}"
-    >
-    <i class="iconfont" >&#xe822;</i>撤销
-    </li>
-    <li
-    @click="(e) => { !notPresenter && redo(e)}"
-    title="重做"
-    :class="{'disabled': redoList.length === 0 || notPresenter}"
-    >
-    <i class="iconfont">&#xe7cf;</i>重做
-    </li>
-    <li
-    @click="(e) => { !notPresenter && refresh(e)}"
-    title="清空画板"
-    :class="{'disabled': renderList.length === 0 || notPresenter}">
-    <i class="iconfont" >&#xe6a4;</i>清空画板
-    </li>
-    <li
-    @click="(e) => { !notPresenter && undeleteSelecteddo(e)}"
-    title="清空画板"
-    :class="{'disabled': !canDelete || notPresenter}">
-    <i class="iconfont" >&#xe603;</i>删除
-    </li>
-    </ul>
+
     <!--鼠标右键 End-->
 
   </div>
@@ -157,6 +158,13 @@ export default {
       get: function () {
         return this.drawer.isFollowingMode && !this.drawer.isPresenter
       }
+    },
+    getCanvasWh: {
+      get: function () {
+        this.drawer.canvasHeight = document.body.offsetHeight <= document.body.offsetWidth ? document.body.offsetHeight : document.body.offsetWidth * 3 / 4
+        this.drawer.canvaswidth = document.body.offsetWidth >= document.body.offsetHeight ? document.body.offsetHeight * 4 / 3 : document.body.offsetWidth
+        return this.drawer
+      }
     }
   },
   components: {
@@ -178,7 +186,10 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      this.drawer = new Draw(this, '#canvas', 1000, 500)
+      console.warn('width:' + document.body.offsetWidth, 'height:' + document.body.offsetHeight)
+      // const canvasHeight = document.body.offsetHeight
+      // const canvasWidth = document.body.offsetHeight * 4 / 3
+      this.drawer = new Draw(this, '#canvas', this.getCanvasWh.canvaswidth, this.getCanvasWh.canvasHeight)
       this.drawer.init()
       window.drawer = this.drawer
       this.toggleFollowing()
