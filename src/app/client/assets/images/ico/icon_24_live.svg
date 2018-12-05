@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>btn_直播</title>
+    <desc>Created with Sketch.</desc>
+    <g id="迷你教室2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1920*1080（实际1920*970）教师" transform="translate(-1556.000000, -401.000000)" fill-rule="nonzero">
+            <g id="分组-7" transform="translate(1500.000000, 401.000000)">
+                <g id="btn_直播" transform="translate(56.000000, 0.000000)">
+                    <g id="icon_live" transform="translate(4.000000, 4.000000)">
+                        <rect id="矩形-copy-6" x="0" y="0" width="24" height="24"></rect>
+                        <path d="M5,6 L19,6 C20.1045695,6 21,6.8954305 21,8 L21,18 C21,19.1045695 20.1045695,20 19,20 L5,20 C3.8954305,20 3,19.1045695 3,18 L3,8 C3,6.8954305 3.8954305,6 5,6 Z M6.75,9.75 L10,9.75 C10.4142136,9.75 10.75,9.41421356 10.75,9 C10.75,8.58578644 10.4142136,8.25 10,8.25 L6,8.25 C5.58578644,8.25 5.25,8.58578644 5.25,9 L5.25,12 C5.25,12.4142136 5.58578644,12.75 6,12.75 C6.41421356,12.75 6.75,12.4142136 6.75,12 L6.75,9.75 Z M17.25,16.25 L14,16.25 C13.5857864,16.25 13.25,16.5857864 13.25,17 C13.25,17.4142136 13.5857864,17.75 14,17.75 L18,17.75 C18.4142136,17.75 18.75,17.4142136 18.75,17 L18.75,14 C18.75,13.5857864 18.4142136,13.25 18,13.25 C17.5857864,13.25 17.25,13.5857864 17.25,14 L17.25,16.25 Z" id="合并形状" fill="#FFFFFF"></path>
+                        <g id="分组-copy" transform="translate(6.000000, 1.000000)" fill="#FFFFFF">
+                            <rect id="矩形" transform="translate(2.750000, 3.500000) rotate(-30.000000) translate(-2.750000, -3.500000) " x="2" y="1" width="1.5" height="5" rx="0.75"></rect>
+                            <rect id="矩形-copy" transform="translate(9.750000, 3.500000) scale(-1, 1) rotate(-30.000000) translate(-9.750000, -3.500000) " x="9" y="1" width="1.5" height="5" rx="0.75"></rect>
+                        </g>
+                    </g>
+                    <circle id="椭圆形" stroke="#FFFFFF" cx="16" cy="16" r="15.5"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_24_whole</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="主界面-激活态" transform="translate(-30.000000, -626.000000)">
+            <g id="bar_left-side" transform="translate(16.000000, 122.000000)">
+                <g id="icon_24_whole" transform="translate(14.000000, 504.000000)">
+                    <g id="Group-23" transform="translate(2.000000, 2.000000)">
+                        <circle id="Oval-5" fill="#FFFFFF" cx="10" cy="10" r="10"></circle>
+                        <path d="M10.602391,2.55811064 L12.8367428,8.99553626 C13.0544191,9.62268689 13.0544191,10.3773131 12.8367428,11.0044637 L10.602391,17.4418894 C10.4234236,17.9575153 10.0086421,18.1506559 9.67595073,17.8732809 C9.55790134,17.7748595 9.46111226,17.6248497 9.39760896,17.4418894 L7.16325724,11.0044637 C6.94558092,10.3773131 6.94558092,9.62268689 7.16325724,8.99553626 L9.39760896,2.55811064 C9.57657643,2.04248467 9.99135788,1.8493441 10.3240493,2.12671911 C10.4420987,2.2251405 10.5388877,2.37515028 10.602391,2.55811064 Z" id="Rectangle-21" fill="#A7A7A7" transform="translate(10.000000, 10.000000) rotate(-315.000000) translate(-10.000000, -10.000000) "></path>
+                        <circle id="Oval-6" fill="#FFFFFF" cx="10" cy="10" r="1"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
