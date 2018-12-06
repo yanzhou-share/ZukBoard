@@ -303,7 +303,7 @@ export default {
       // this.drawer.baseWidth = opt.width
       this.drawer.baseWidth = this.baseWidth
       this.drawer.baseHeight = this.baseHeight
-      this.choose('choose')
+      this.choose('brush')
       this.drawer.resizeCanvas()
       this.focusPresenter(opt.pan)
     },
