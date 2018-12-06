@@ -198,7 +198,7 @@
 @media only screen and (max-width: 1920px) {
 	.pic-item {
 		width: 200px;
-		height: 150px;
+		height: 164px;
 		margin: 8px;
 	}
 	.invite-container {
@@ -248,7 +248,7 @@
 @media only screen and (max-width: 1024px) {
 	.pic-item {
 		width: 144px;
-		height: 108px;
+		height: 118px;
 		margin: 8px;
 	}
 	.invite-container {

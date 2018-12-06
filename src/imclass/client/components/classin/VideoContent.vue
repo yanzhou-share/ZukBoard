@@ -15,7 +15,7 @@ import { mapState } from 'vuex'
 import VideoItem from './modules/VideoItem.vue'
 import { eventEmitter } from '../util'
 import Twilio from './twilio'
-const Video = require('twilio-video')
+// const Video = require('twilio-video')
 export default {
   name: 'Video',
   data() {
@@ -179,20 +179,24 @@ export default {
       //   this.joinRoom()
       // })
 
-      Video.createLocalTracks({
-        audio: this.userType === 1,
-        video: this.userType === 1 ? { width: 352, height: 288 } : false
-      }).then((localTracks) => {
-        this.previewTracks = localTracks
-        // this.joinRoom()
-        this.initTwilio()
-      })
+      // Video.createLocalTracks({
+      //   audio: this.userType === 1,
+      //   video: this.userType === 1 ? { width: 352, height: 288 } : false
+      // }).then((localTracks) => {
+      //   this.previewTracks = localTracks
+      //   // this.joinRoom()
+      //   this.initTwilio()
+      // })
     },
 
     initTwilio() {
       // this.roomName = this.$route.path.substring(1, this.$route.path.length)
       this.twilio = new Twilio(this.token)
-      this.twilio.joinRoom(this.roomName)
+
+      this.twilio.createLocalStream({ video: this.userType === 1, audio: this.userType === 1 }, (error, localTracks) => {
+        console.log('createLocalTracks localTracks' + localTracks, error)
+        this.twilio.joinRoom(this.roomName)
+      })
 
       this.twilio.event.on('joined', (localParticipant, participants) => {
         console.log(localParticipant, participants)
@@ -250,7 +254,7 @@ export default {
           this.token = data.data.twilioToken
           this.roomInfo = data.data.roomInfo
           this.setRoomInfo(that.roomInfo)
-          this.createLocalTracks()
+          this.initTwilio()
         } else if (code === '3001') {
           that.$toast('创建twilio房间错误')
         } else if (code === '3002') {
