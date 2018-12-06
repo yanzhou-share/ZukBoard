@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.4 (67378) - http://www.bohemiancoding.com/sketch -->
+    <title>icon_24_pen_selete</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M5.625,18.7436719 C4.86203995,18.2721308 3.96279975,18 3,18 C1.87439408,18 0.83566053,18.3719448 2.01239025e-12,18.9996338 L4.01080756e-12,2.54017805 C4.01080756e-12,1.13727645 0.839466094,1.52052846e-13 1.875,1.52052846e-13 L3.75,1.52052846e-13 C4.78553391,1.51770829e-13 5.625,1.13727645 5.625,2.54017805 L5.625,18.7436719 Z" id="path-1"></path>
+        <path d="M5.625,2.44232098 L5.625,19.3709396 C5.625,19.5069062 5.59542497,19.6412457 5.5383259,19.7646419 L3.66688457,23.8089937 C3.44944877,24.2788918 2.89225449,24.483553 2.42235632,24.2661172 C2.2210082,24.1729475 2.05922691,24.01139 1.96577855,23.810171 L0.0872198843,19.7651389 C0.0297657002,19.6414248 -9.63230528e-15,19.5066635 -9.1038288e-15,19.3702592 L5.70971841e-16,2.44232098 C5.70971841e-16,1.09346435 0.839466094,0 1.875,0 L3.75,0 C4.78553391,-2.71152099e-16 5.625,1.09346435 5.625,2.44232098 Z" id="path-3"></path>
+    </defs>
+    <g id="迷你教室2.0" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="1024*768（实际1024*658）教师" transform="translate(-400.000000, -598.000000)">
+            <g id="分组-copy-2" transform="translate(330.000000, 586.000000)">
+                <g id="icon_24_pen_selete" transform="translate(70.000000, 12.000000)">
+                    <g id="icon_24_pen-copy">
+                        <g id="icon_24_pen">
+                            <rect id="bbg" x="0" y="0" width="24" height="24"></rect>
+                            <g id="Group" transform="translate(14.032932, 10.232233) rotate(-315.000000) translate(-14.032932, -10.232233) translate(11.032932, 0.732233)">
+                                <mask id="mask-2" fill="white">
+                                    <use xlink:href="#path-1"></use>
+                                </mask>
+                                <use id="合并形状" fill="#D95043" xlink:href="#path-1"></use>
+                                <mask id="mask-4" fill="white">
+                                    <use xlink:href="#path-3"></use>
+                                </mask>
+                                <use id="Combined-Shape" stroke="#D95043" stroke-width="2" stroke-linejoin="round" xlink:href="#path-3"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

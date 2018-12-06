@@ -158,6 +158,7 @@ class Twilio {
     // Once the LocalParticipant leaves the room, detach the Tracks
     // of all Participants, including that of the LocalParticipant.
     room.on('disconnected', () => {
+      console.warn('disconnected')
       if (this.previewTracks) {
         this.previewTracks.forEach(function (track) {
           track.stop()

@@ -3,55 +3,15 @@
         <!--主内容区域-->
         <Board></Board>
 
-        <!--主内容区域 End-->
-
-        <!--左边导航 Begin-->
-
-        <!--<LeftSideBar></LeftSideBar>-->
-        <!--左边导航 End-->
-
-        <!--顶部导航 Begin-->
-
-        <!--<HeadSideBar v-if="getUserType"></HeadSideBar>-->
-
-        <!--顶部导航 End-->
-
-        <!---video Begin-->
-        <!--<VideoContent></VideoContent>-->
-        <!---video end-->
-
         <div class="right-content">
             <div class="logo">
                 <img src="../../assets/images/logo.png">
             </div>
-            <!--<div class="videos">-->
-                <!--<div class="pic-item close_off">-->
-                    <!--<div class="title ellipsis f-14 txt_color_white">妮娜西蒙斯...</div>-->
-                <!--</div>-->
-                <!--<div class="pic-item close_off">-->
-                    <!--<div class="title ellipsis f-14 txt_color_white">妮娜西蒙斯...</div>-->
-                <!--</div>-->
-            <!--</div>-->
-            <!---video Begin-->
+
             <VideoContent></VideoContent>
-            <!---video end-->
-            <!--<div class="tools-btn">-->
-                <!--<div class="btn">-->
-                    <!--<i class="icons icons-invite"></i>-->
-                <!--</div>-->
-                <!--<div class="btn">-->
-                    <!--<i class="icons icons-live"></i>-->
-                <!--</div>-->
-                <!--<div class="btn">-->
-                    <!--<i class="icons icons-setting"></i>-->
-                <!--</div>-->
-                <!--<div class="btn last">-->
-                    <!--<i class="icons icons-group"></i>-->
-                <!--</div>-->
-            <!--</div>-->
+
             <HeadSideBar v-if="getUserType"></HeadSideBar>
         </div>
-
 
         <router-view/>
     </div>
@@ -84,6 +44,31 @@ export default {
   computed: {
     getUserType: function () {
       return !this.$route.query.userType
+    }
+  },
+  created() {
+    // const rightWidth = document.querySelector('.right-content').offsetWidth
+    // const canvasWidth = window.canvas.width
+    // const marginWidth = (document.body.offsetWidth - canvasWidth - rightWidth) / 2 - rightWidth / 2
+    // // document.querySelector('.right-content').style.marginRight = marginWidth + 'px'
+    // console.warn('-------', rightWidth, canvasWidth, marginWidth)
+  },
+  mounted() {
+    this.$nextTick(() => {
+      this.resetMargin()
+    })
+    window.addEventListener('resize', () => {
+      setTimeout(() => {
+        this.resetMargin()
+      }, 500)
+    })
+  },
+  methods: {
+    resetMargin() {
+      const rightWidth = document.querySelector('.right-content').offsetWidth
+      const canvasWidth = window.canvas.width
+      const marginWidth = (document.body.offsetWidth - canvasWidth - rightWidth) / 2
+      document.querySelector('.right-content').style.marginRight = marginWidth + 'px'
     }
   }
 }

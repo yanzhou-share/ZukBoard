@@ -36,8 +36,6 @@
     </div>
 
 
-
-
     <!--左边导航 Begin-->
     <!--<aside class="toolbar middle" v-show="role ? false : true" @click.stop>-->
       <!--<div class="toolbar-inner">-->
@@ -193,6 +191,7 @@ export default {
       this.drawer.init()
       window.drawer = this.drawer
       this.toggleFollowing()
+      this.resetMargin()
     })
     document.body.addEventListener('click', () => {
       this.contextMenu.show = false
@@ -215,7 +214,9 @@ export default {
       }
     })
     window.addEventListener('resize', () => {
-
+      setTimeout(() => {
+        this.resetMargin()
+      }, 500)
     })
     eventEmitter.addListener('toggleLoading', (flag) => {
       this.isUploading = flag
@@ -225,6 +226,14 @@ export default {
     onZoomChange(value) {
       const percent = +value.substring(0, value.length - 1)
       this.drawer.zoomPercent = percent / 100
+    },
+
+    resetMargin() {
+      const rightWidth = document.querySelector('.right-content').offsetWidth
+      const canvasWidth = window.canvas.width
+      const marginWidth = (document.body.offsetWidth - canvasWidth - rightWidth) / 2
+      document.querySelector('.screen-content').style.marginLeft = marginWidth + 'px'
+      console.warn('-------', rightWidth, canvasWidth, marginWidth)
     },
     registerSocket() {
       var that = this
