@@ -1,14 +1,15 @@
 <template>
-    <div :class="itemClass" v-if="isRender" @mouseover="overClass" @mouseout="outClass">
+    <div :class="itemClass" v-if="isRender">
         <div class="img" ref='videoItem' :id="identity">
           <div class="bg"></div>
         </div>
+        <!--@mouseover="overClass" @mouseout="outClass"-->
         <!--<div class="close" @click="kickOut"></div>-->
         <!--<div class="pic-item-option">-->
             <!--<span :class="videoMutedState ? 'ico_camera_off' : 'ico_camera'" v-on:click="videoMuted"></span>-->
             <!--<span :class="audioMutedState ? 'ico_mic_off' : 'ico_mic'" v-on:click="audioMuted"></span>-->
         <!--</div>-->
-        <div class="title ellipsis f-14 txt_color_white">{{ userInfo ? userInfo.name : '' }}</div>
+        <!--<div class="title ellipsis f-14 txt_color_white">{{ userInfo ? userInfo.name : '' }}</div>-->
     </div>
 </template>
 

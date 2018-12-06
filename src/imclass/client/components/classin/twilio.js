@@ -71,6 +71,24 @@ class Twilio {
     })
   }
 
+  createLocalStream(options, callback) {
+    const videoDeviceId = options.videoDeviceId || ''
+    const video = options.video
+    const audio = options.audio
+    Video.createLocalTracks({
+      audio: audio,
+      video: video ? { deviceId: videoDeviceId, width: 352, height: 288 } : false
+    })
+      .then(localTracks => {
+        this.previewTracks = localTracks
+        callback && callback(null, localTracks)
+      })
+      .catch(error => {
+        console.error(error)
+        callback && callback(error)
+      })
+  }
+
   networkQualityLevelChanged(participant) {
     participant.on('networkQualityLevelChanged', function (
       networkQualityLevel,
