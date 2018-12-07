@@ -315,7 +315,7 @@ export default {
         height: container.offsetHeight,
         zoom: this.drawer.zoomPercent,
         pan: {
-          ...this.drawer.getVpPoint()
+          ...this.drawer.getLastVpPoint()
         }
       }
       this.initFollower(opt)

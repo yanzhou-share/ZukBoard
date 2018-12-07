@@ -119,7 +119,7 @@
 /****************right-content********************/
 .right-content { float: left; }
 .right-content .pic-item { position:relative; border-radius:8px; }
-.right-content .pic-item .img {position:relative;  border-radius:8px; background:url(../images/people_miniclass@2x.png) no-repeat center center; background-size:cover; }
+.right-content .pic-item .img {position:relative; height: 100%;  border-radius:8px; background:url(../images/people_miniclass@2x.png) no-repeat center center; background-size:cover; }
 .right-content .pic-item .img img { position:absolute; left:0px; top:0px; right:0px; bottom:0px; }
 .right-content .pic-item .img video {width: 100%; height: 100%;vertical-align: middle; border-radius:8px;}
 .right-content .pic-item .img .bg { position:absolute; display:none; z-index:2; background:rgba(0,0,0,0.6017); border-radius:8px; left:0px; top:0px; right:0px; bottom:0px; }

@@ -3,7 +3,7 @@ import * as Hammer from 'hammerjs'
 import { plugins } from './plugins'
 import {} from './plugins/fabricOverriding'
 import HandleImage from './plugins/upload-img/handleImage'
-import { genKey, eventEmitter, getSystem, browser } from './plugins/util'
+import { genKey, eventEmitter, getSystem, browser, setSessionStorage, getSessionStorage } from './plugins/util'
 
 const SYNC_TYPE = {
   INSERT: 'create',
@@ -302,6 +302,12 @@ class Draw {
       this.klassSetting(false)
     }, 500)
   }
+  getLastVpPoint() {
+    const getVpPoint = getSessionStorage('getVpPoint') ? JSON.parse(getSessionStorage('getVpPoint')) : null
+    // getVpPoint && this.moveToPoint(getVpPoint.x, getVpPoint.y, getVpPoint.width, getVpPoint.height)
+    return getVpPoint
+  }
+
   initBrush() {
     const canvas = this.layerDraw
     const setting = this._vm.plugins.brush.setting
@@ -514,6 +520,7 @@ class Draw {
     vpt[5] = y * (this.container.offsetHeight / height * this.presenterZoom)
     // console.warn('moveToPoint', x, vpt[4], this.layerDraw.getZoom())
     this.layerDraw.setViewportTransform(vpt)
+    setSessionStorage('getVpPoint', JSON.stringify(this.getVpPoint()))
   }
   setZoom(zoom) {
     const canvas = this.layerDraw
@@ -627,6 +634,7 @@ class Draw {
           let delta = new fabric.Point(e.e.movementX, e.e.movementY)
           canvas.relativePan(delta)
           if (that.isPresenter) {
+            setSessionStorage('getVpPoint', JSON.stringify(that.getVpPoint()))
             that._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { ...that.getVpPoint(), isMobile: false })
           }
         }

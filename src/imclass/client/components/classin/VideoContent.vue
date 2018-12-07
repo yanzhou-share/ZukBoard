@@ -1,5 +1,6 @@
 <template>
     <div id="videoContent" class="pic_wrap">
+            <div v-if="userType === 1" class="pic-item" ref="localLogo"><div id="localName" class="img" ></div></div>
             <video-item v-if="localTracks" v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
                         v-bind:localItem="localTracks">
             </video-item>
@@ -31,7 +32,8 @@ export default {
       activeRoom: undefined,
       leaveRoomShow: false,
       roomInfo: undefined,
-      twilio: undefined
+      twilio: undefined,
+      userType: 1
     }
   },
   props: ['fatherComponent'],
@@ -229,7 +231,11 @@ export default {
 
       this.twilio.createLocalStream({ video: this.userType === 1, audio: this.userType === 1 }, (error, localTracks) => {
         console.log('createLocalTracks localTracks' + localTracks, error)
-        this.localTracks = this.userType === 1 ? localTracks : ''
+        if (this.userType === 1) {
+          const localLogo = this.$refs.localLogo
+          localLogo.parentNode.removeChild(localLogo)
+          this.localTracks = localTracks
+        }
         this.twilio.joinRoom(this.roomName)
       })
 

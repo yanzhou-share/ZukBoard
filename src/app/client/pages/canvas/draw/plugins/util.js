@@ -29,6 +29,19 @@ export const LoadImageAsync = (url) => {
   })
 }
 
+export const setSessionStorage = (key, value) => {
+  if (key && value) {
+    sessionStorage.setItem(key, value)
+  }
+}
+
+export const getSessionStorage = (key) => {
+  if (key) {
+    return sessionStorage.getItem(key)
+  }
+  return false
+}
+
 export const browser = {
   versions: (function () {
     let u = navigator.userAgent
