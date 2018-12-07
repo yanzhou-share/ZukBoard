@@ -167,6 +167,7 @@ class Draw {
   }
 
   resizeCanvas() {
+    console.warn('----resizeCanvas')
     const canvas = this.layerDraw
     const canvasWidth = this.container.offsetWidth
     const canvasHeight = this.container.offsetHeight // 800 / 1080 * canvasWidth

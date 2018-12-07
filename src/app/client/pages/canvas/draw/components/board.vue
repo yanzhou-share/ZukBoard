@@ -229,14 +229,15 @@ export default {
     },
 
     resetMargin() {
-      const rightWidth = document.querySelector('.right-content').offsetWidth
+      const rightContent = document.querySelector('.right-content')
+      if (!rightContent) return
+      const rightWidth = rightContent.offsetWidth
       const canvasWidth = window.canvas.width
       const marginWidth = (document.body.offsetWidth - canvasWidth - rightWidth) / 2
       document.querySelector('.screen-content').style.marginLeft = marginWidth + 'px'
       console.warn('-------', rightWidth, canvasWidth, marginWidth)
     },
     registerSocket() {
-      var that = this
       this.socket.on('sync', (type, item) => {
         if (type === 'move_by_presenter') {
           this.focusPresenter(item.data)
@@ -251,8 +252,8 @@ export default {
         }
 
         // if (this.drawer.isFollowingMode) {
-        that.drawer.resizeCanvas()
-        that.focusPresenter()
+        // this.drawer.resizeCanvas()
+        // this.focusPresenter()
         // }
 
         if (type === 'undo') {

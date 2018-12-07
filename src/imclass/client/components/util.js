@@ -85,7 +85,7 @@ var dataURLtoFile = function (base64Data) {
   })
 }
 
-export const checkDevice = (callback) => {
+export const checkDevice = callback => {
   let MediaDevices = []
   let audioInputDevices = []
   let audioOutputDevices = []
@@ -95,9 +95,12 @@ export const checkDevice = (callback) => {
     // Firefox 38+ seems having support of enumerateDevices
     // Thanks @xdumaine/enumerateDevices
     navigator.enumerateDevices = function (callback) {
-      navigator.mediaDevices.enumerateDevices().then(callback).catch(function () {
-        callback && callback()
-      })
+      navigator.mediaDevices
+        .enumerateDevices()
+        .then(callback)
+        .catch(function () {
+          callback && callback()
+        })
     }
   }
 
@@ -108,8 +111,14 @@ export const checkDevice = (callback) => {
   let isWebsiteHasMicrophonePermissions = false
   let isWebsiteHasWebcamPermissions = false
 
-  if (!navigator.enumerateDevices && window.MediaStreamTrack && window.MediaStreamTrack.getSources) {
-    navigator.enumerateDevices = window.MediaStreamTrack.getSources.bind(window.MediaStreamTrack)
+  if (
+    !navigator.enumerateDevices &&
+    window.MediaStreamTrack &&
+    window.MediaStreamTrack.getSources
+  ) {
+    navigator.enumerateDevices = window.MediaStreamTrack.getSources.bind(
+      window.MediaStreamTrack
+    )
   }
 
   if (!navigator.enumerateDevices && navigator.enumerateDevices) {
@@ -130,6 +139,9 @@ export const checkDevice = (callback) => {
   videoInputDevices = [];
   (function (callback) {
     navigator.enumerateDevices(function (devices) {
+      if (!devices) {
+        return callback(null)
+      }
       devices.forEach(function (_device) {
         var device = {}
         for (var d in _device) {
@@ -167,8 +179,14 @@ export const checkDevice = (callback) => {
         if (!device.label) {
           device.label = 'Please invoke getUserMedia once.'
           if (location.protocol !== 'https:') {
-            if (document.domain.search && document.domain.search(/localhost|127.0./g) === -1) {
-              device.label = 'HTTPs is required to get label of this ' + device.kind + ' device.'
+            if (
+              document.domain.search &&
+              document.domain.search(/localhost|127.0./g) === -1
+            ) {
+              device.label =
+                'HTTPs is required to get label of this ' +
+                device.kind +
+                ' device.'
             }
           }
         } else {
@@ -176,7 +194,10 @@ export const checkDevice = (callback) => {
             isWebsiteHasWebcamPermissions = true
           }
 
-          if (device.kind === 'audioinput' && !isWebsiteHasMicrophonePermissions) {
+          if (
+            device.kind === 'audioinput' &&
+            !isWebsiteHasMicrophonePermissions
+          ) {
             isWebsiteHasMicrophonePermissions = true
           }
         }

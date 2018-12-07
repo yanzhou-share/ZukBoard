@@ -13,9 +13,8 @@
 <script>
 import { mapState } from 'vuex'
 import VideoItem from './modules/VideoItem.vue'
-import { eventEmitter } from '../util'
+import { eventEmitter, checkDevice } from '../util'
 import Twilio from './twilio'
-// const Video = require('twilio-video')
 export default {
   name: 'Video',
   data() {
@@ -25,6 +24,7 @@ export default {
       identity: '',
       participants: [],
       localParticipant: '',
+      localTracks: '',
       localName: 'localName',
       room: undefined,
       previewTracks: undefined,
@@ -48,40 +48,74 @@ export default {
       this.participants = []
     },
 
-    audioMuted(option) {
-      const identity = option.identity
-
-      const audioMutedState = option.audioMutedState
-      // audioTracks = option.audioTracks;
-      console.log(identity + 'audio muted...')
-      const tracks = Array.from(
-        this.room.localParticipant.audioTracks.values()
-      )
-      tracks.forEach(function (track) {
-        if (audioMutedState) {
-          !!track && track.disable()
-        } else {
-          !!track && track.enable()
-        }
-        // if (!!track) track.mediaStreamTrack.enabled = false;
+    switchVideo() {
+      checkDevice(devices => {
+        if (!devices) return
+        let options = {}
+        options.videoDeviceId = devices.videoInputDevices[1].id
+        this.twilio.createLocalStream(options, (error = null, localTracks) => {
+          console.log('createLocalTracks localTracks' + localTracks)
+          this.localParticipant.removeTracks(this.localTracks)
+          this.localParticipant.addTracks(localTracks)
+          this.localTracks = localTracks
+        })
       })
     },
 
-    videoMuted(option) {
-      const identity = option.identity
+    audioMuted(audioStatus) {
+      console.log('audio muted...', audioStatus)
+      // const identity = option.identity,
+      //   audioMutedState = option.audioMutedState,
+      //   audioTracks = option.audioTracks;
+      // const tracks = Array.from(
+      //   this.room.localParticipant.audioTracks.values()
+      // );
+      // this.localTracks.forEach(function(track) {
+      //   if (audioMutedState) {
+      //     !!track && track.disable();
+      //     // track.mediaStreamTrack.enabled = false;
+      //   } else {
+      //     !!track && track.enable();
+      //     // track.mediaStreamTrack.enabled = true;
+      //   }
+      //   //if (!!track) track.mediaStreamTrack.enabled = false;
+      // });
 
-      const videoMutedState = option.videoMutedState
-      // videoTracks = option.videoTracks;
-      console.log(identity + 'video muted...')
-      var tracks = Array.from(this.room.localParticipant.videoTracks.values())
-      tracks.forEach(function (track) {
-        if (videoMutedState) {
-          track.disable()
-        } else {
-          track.enable()
-        }
-        // if (!!track) track.mediaStreamTrack.enabled = false;
+      const track = this.localTracks.find(track => {
+        return track.kind === 'audio'
       })
+      if (audioStatus) {
+        !!track && track.enable()
+      } else {
+        !!track && track.disable()
+      }
+    },
+
+    videoMuted(videoStatus) {
+      console.log('video muted...', videoStatus)
+      // const identity = option.identity,
+      //   videoMutedState = option.videoMutedState,
+      //   videoTracks = option.videoTracks;
+      // var tracks = Array.from(this.room.localParticipant.videoTracks.values());
+      // videoTracks.forEach(function(track) {
+      //   if (videoMutedState) {
+      //     // track.mediaStreamTrack.enabled = false;
+      //     track.disable();
+      //   } else {
+      //     track.enable();
+      //     // track.mediaStreamTrack.enabled = true;
+      //   }
+      //   //if (!!track) track.mediaStreamTrack.enabled = false;
+      // });
+
+      const track = this.localTracks.find(track => {
+        return track.kind === 'video'
+      })
+      if (videoStatus) {
+        !!track && track.enable()
+      } else {
+        !!track && track.disable()
+      }
     },
 
     // Detach the Tracks from the DOM.
