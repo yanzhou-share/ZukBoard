@@ -20,19 +20,21 @@ class HandleImage {
     })
   }
   addImage(url) {
+    const that = this
     const canvas = this.globalCanvas.layerDraw
     const vpt = canvas.viewportTransform.slice(0)
     LoadImageAsync(url).then((attr) => {
       let scale = 1
       let left = 0
       let top = 150
-      if (attr.width >= this.globalCanvas.canvaswidth / 2) {
-        scale = (this.globalCanvas.canvaswidth / (2 * attr.width)).toFixed(1)
+      if (attr.width >= that.globalCanvas.canvaswidth / 2) {
+        scale = (that.globalCanvas.canvaswidth / (2 * attr.width)).toFixed(1)
       }
-      left = (this.globalCanvas.canvaswidth - attr.width * scale) / 2 - vpt[4]
+      const zoom = canvas.getZoom()
+      left = (that.globalCanvas.canvaswidth - attr.width * zoom * scale) / 2 - vpt[4]
       top -= vpt[5]
       fabric.Image.fromURL(url, (upImg) => {
-        const img = upImg.set({ left: left, top: top }).scale(scale)
+        const img = upImg.set({ left: left / zoom, top: top / zoom }).scale(scale)
         img.set('id', genKey())
         img.set('btype', this.globalCanvas.current)
         canvas.add(img)

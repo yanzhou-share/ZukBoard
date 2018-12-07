@@ -30,10 +30,7 @@ export default {
       if (!this.localItem && !this.item) {
         return ''
       }
-      const identity =
-        this.localItem && this.localItem.identity
-          ? this.localItem.identity
-          : this.item.identity
+      const identity = this.localName ? this.localName : this.item.identity
       return identity
     },
     isRender: function () {
@@ -41,8 +38,8 @@ export default {
         return ''
       }
       const identity =
-        this.localItem && this.localItem.identity
-          ? this.localItem.identity
+        this.localItem && this.localName
+          ? this.localName
           : this.item.identity
       return !(identity.indexOf('RecordUser') > -1 || identity.indexOf('WatchUser') > -1)
     }
@@ -84,9 +81,10 @@ export default {
   methods: {
     attachTracks(tracks, container) {
       tracks.forEach(function (track) {
-        if (typeof track.attach !== 'undefined' && container.querySelectorAll(track.kind).length === 0) {
-          container.appendChild(track.attach())
+        if (track && container.querySelectorAll(track.kind).length > 0) {
+          container.querySelectorAll(track.kind)[0].remove()
         }
+        container.appendChild(track.attach())
       })
     },
     videoMuted() {
@@ -139,7 +137,8 @@ export default {
     let item = this.localName ? this.localItem : this.item
     if (item) {
       let container = this.$refs.videoItem
-      var tracks = Array.from(item.tracks.values())
+      let tracks = this.localName ? item : item.tracks
+      tracks = Array.from(tracks.values())
       this.attachTracks(tracks, container)
       this.getUserInfo(item.identity)
     }

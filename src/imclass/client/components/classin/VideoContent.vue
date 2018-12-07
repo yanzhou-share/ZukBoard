@@ -1,7 +1,7 @@
 <template>
     <div id="videoContent" class="pic_wrap">
-            <video-item v-if="localParticipant" v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
-                        v-bind:localItem="localParticipant">
+            <video-item v-if="localTracks" v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-bind:localName="localName"
+                        v-bind:localItem="localTracks">
             </video-item>
 
             <video-item v-on:videoMuted="videoMuted" v-on:audioMuted="audioMuted" v-for = "(item, index) in participants" :key="item.sid"
@@ -229,6 +229,7 @@ export default {
 
       this.twilio.createLocalStream({ video: this.userType === 1, audio: this.userType === 1 }, (error, localTracks) => {
         console.log('createLocalTracks localTracks' + localTracks, error)
+        this.localTracks = this.userType === 1 ? localTracks : ''
         this.twilio.joinRoom(this.roomName)
       })
 
