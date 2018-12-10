@@ -31,9 +31,21 @@
         <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
           <i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>
         </div>
+
+        <!--<div class="tools props" style="margin-top: -60px;">-->
+          <!--<template v-for="(item, key) in plugins" >-->
+            <!--<component-->
+                    <!--v-show="item.active"-->
+                    <!--:config="item.setting"-->
+                    <!--:is="key"-->
+                    <!--:key="key">-->
+            <!--</component>-->
+          <!--</template>-->
+        <!--</div>-->
       </div>
       <!--工具条 END -->
     </div>
+
 
 
     <!--左边导航 Begin-->
@@ -184,7 +196,7 @@ export default {
   },
   mounted() {
     this.$nextTick(() => {
-      console.warn('width:' + document.body.offsetWidth, 'height:' + document.body.offsetHeight)
+      // console.warn('width:' + document.body.offsetWidth, 'height:' + document.body.offsetHeight)
       // const canvasHeight = document.body.offsetHeight
       // const canvasWidth = document.body.offsetHeight * 4 / 3
       this.drawer = new Draw(this, '#canvas', this.getCanvasWh.canvaswidth, this.getCanvasWh.canvasHeight)
@@ -235,7 +247,7 @@ export default {
       const canvasWidth = window.canvas.width
       const marginWidth = (document.body.offsetWidth - canvasWidth - rightWidth) / 2
       document.querySelector('.screen-content').style.marginLeft = marginWidth + 'px'
-      console.warn('-------', rightWidth, canvasWidth, marginWidth)
+      // console.warn('-------', rightWidth, canvasWidth, marginWidth)
     },
     registerSocket() {
       this.socket.on('sync', (type, item) => {
@@ -310,6 +322,8 @@ export default {
     },
     toggleFollowing() {
       const { container } = this.drawer
+      // alert(JSON.stringify(this.drawer.getLastVpPoint()))
+      // console.warn('----', this.drawer.getLastVpPoint(), this.drawer.getVpPoint())
       const opt = {
         width: container.offsetWidth,
         height: container.offsetHeight,
@@ -395,9 +409,8 @@ export default {
       this.$http.post('/api/httpForward', {
         url: 'https://dev.hoozha.com:8999/server/ip', params: { id: id }
       }).then(res => {
-        console.warn('-----', res)
         const { code, data } = res.data
-        console.warn(code, data)
+        console.log(code, data)
       })
     },
     initBoard() {

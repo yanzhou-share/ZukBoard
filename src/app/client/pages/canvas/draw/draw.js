@@ -167,7 +167,6 @@ class Draw {
   }
 
   resizeCanvas() {
-    console.warn('----resizeCanvas')
     const canvas = this.layerDraw
     const canvasWidth = this.container.offsetWidth
     const canvasHeight = this.container.offsetHeight // 800 / 1080 * canvasWidth
@@ -303,7 +302,7 @@ class Draw {
     }, 500)
   }
   getLastVpPoint() {
-    const getVpPoint = getSessionStorage('getVpPoint') ? JSON.parse(getSessionStorage('getVpPoint')) : null
+    const getVpPoint = getSessionStorage('getVpPoint') ? JSON.parse(getSessionStorage('getVpPoint')) : { x: 0, y: 0, width: this.canvaswidth, height: this.canvasHeight }
     // getVpPoint && this.moveToPoint(getVpPoint.x, getVpPoint.y, getVpPoint.width, getVpPoint.height)
     return getVpPoint
   }
@@ -314,6 +313,19 @@ class Draw {
     canvas.freeDrawingBrush.color = setting.color
     canvas.freeDrawingBrush.width = setting.width
   }
+
+  // 设置粗细
+  setLineBold(width) {
+    const canvas = this.layerDraw
+    canvas.freeDrawingBrush.width = width || 2
+  }
+
+  // 设置颜色
+  setLineColor(color) {
+    const canvas = this.layerDraw
+    canvas.freeDrawingBrush.color = color
+  }
+
   initSelect() {
     const canvas = this.layerDraw
     canvas.on('selection:created', (e) => {
