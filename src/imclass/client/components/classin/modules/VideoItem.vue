@@ -144,6 +144,10 @@ export default {
     }
   },
 
+  // mounted() {
+  //   alert(1111)
+  // },
+
   updated() {
 
     //        if(!!this.item){

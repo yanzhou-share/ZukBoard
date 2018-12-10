@@ -147,14 +147,14 @@ class Twilio {
       console.log(
         "Participant '" + participant.identity + "' trackDisabled" + track.kind
       )
-      this.event.emit('trackDisabled', participant, track)
+      // this.event.emit('trackDisabled', participant, track)
     })
 
     room.on('trackEnabled', function (track, participant) {
       console.log(
         "Participant '" + participant.identity + "' trackEnabled" + track.kind
       )
-      this.event.emit('trackEnabled', participant, track)
+      // this.event.emit('trackEnabled', participant, track)
     })
 
     room.on('networkQualityLevelChanged', function (

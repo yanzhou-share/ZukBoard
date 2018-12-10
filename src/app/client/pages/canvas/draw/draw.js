@@ -15,6 +15,7 @@ const SYNC_TYPE = {
   MOVE_BY_PRESENTER: 'move_by_presenter'
 }
 let instance = null
+
 class Draw {
   constructor(vm, selector, width, height) {
     this.current = 'choose'
@@ -61,6 +62,7 @@ class Draw {
     this.lastPosX = this.lastPosY = 0
     this.touchEvent = new Hammer(this.layerDraw.upperCanvasEl)
   }
+
   init() {
     this.initBrush()
     this.initSelect()
@@ -72,9 +74,11 @@ class Draw {
     this.initImage()
     this.registerCanvasEvents()
   }
+
   getInstance() {
     return instance
   }
+
   registerEvents() {
     const canvas = this.layerDraw
     canvas.on('path:created', (e) => {
@@ -149,12 +153,14 @@ class Draw {
       this.changeZoom(ev)
     }, false)
   }
+
   getModifiedObjects(target) {
     const jsons = this.layerDraw.toJSON(['id'])
     return target._objects.map(obj => {
       return jsons.objects.find(j => j.id === obj.id)
     })
   }
+
   setCursor(cursor) {
     this.layerDraw.setCursor(cursor)
   }
@@ -178,10 +184,12 @@ class Draw {
       this.setZoom(canvasWidth / this.baseWidth * this.presenterZoom)
     }
   }
+
   initImage() {
     const image = new HandleImage(this)
     image.log()
   }
+
   changeZoom(ev) {
     const canvas = this.layerDraw
     if (this.current !== 'pan') return
@@ -199,15 +207,18 @@ class Draw {
     ev.preventDefault()
     ev.stopPropagation()
   }
+
   clear() {
     this.layerDraw.clear()
     this.index = 0
   }
+
   callInit() {
     Object.keys(plugins).forEach(key => {
       plugins[key].init && plugins[key].init.call(this.vm, this.layerDraw, this.layerCover)
     })
   }
+
   syncBoard(type, opt) {
     const data = opt.data
     type === SYNC_TYPE.INSERT && this.handleSyncInsert(data)
@@ -215,6 +226,7 @@ class Draw {
     type === SYNC_TYPE.UPDATE && this.handleSyncUpdate(data)
     type === SYNC_TYPE.MOVE && this.handleSyncUpdate(data)
   }
+
   handleSyncUpdate(data) {
     if (Array.isArray(data)) {
       data.forEach(obj => this.handleSycnUpdateSingle(obj))
@@ -222,6 +234,7 @@ class Draw {
     }
     this.handleSycnUpdateSingle(data)
   }
+
   handleSycnUpdateSingle(data) {
     let obj = this.layerDraw.getObjectById(data.id)
     if (!obj) return
@@ -230,6 +243,7 @@ class Draw {
     this.layerDraw.calcOffset()
     obj.setCoords()
   }
+
   handleSyncRemove(data) {
     data.forEach(id => {
       let obj = this.layerDraw.getObjectById(id)
@@ -237,6 +251,7 @@ class Draw {
       this.layerDraw.remove(obj)
     })
   }
+
   handleSyncInsert(data) {
     const canvas = this.layerDraw
     data.zIndex = this.index++
@@ -247,6 +262,7 @@ class Draw {
       canvas.moveTo(o, o.zIndex)
     })
   }
+
   handleImageInsert(data, o) {
     let img = this.imgCache[data.id]
     if (img) {
@@ -267,9 +283,11 @@ class Draw {
       this.layerDraw.moveTo(o, o.zIndex)
     }
   }
+
   sort() {
     // const this.layerDraw.get
   }
+
   initBoard(list) {
     const canvas = this.layerDraw
     let deleteIds = []
@@ -301,8 +319,14 @@ class Draw {
       this.klassSetting(false)
     }, 500)
   }
+
   getLastVpPoint() {
-    const getVpPoint = getSessionStorage('getVpPoint') ? JSON.parse(getSessionStorage('getVpPoint')) : { x: 0, y: 0, width: this.canvaswidth, height: this.canvasHeight }
+    const getVpPoint = getSessionStorage('getVpPoint') ? JSON.parse(getSessionStorage('getVpPoint')) : {
+      x: 0,
+      y: 0,
+      width: this.canvaswidth,
+      height: this.canvasHeight
+    }
     // getVpPoint && this.moveToPoint(getVpPoint.x, getVpPoint.y, getVpPoint.width, getVpPoint.height)
     return getVpPoint
   }
@@ -332,7 +356,8 @@ class Draw {
       // this._vm.canDelete = true
       // Specify style of control, 'rect' or 'circle'
       this.setCornerStyle()
-      this.setControlsVisibility({ tl: true,
+      this.setControlsVisibility({
+        tl: true,
         tr: true,
         br: true,
         bl: true,
@@ -340,12 +365,14 @@ class Draw {
         mt: false,
         mr: false,
         mb: false,
-        mtr: true })
+        mtr: true
+      })
     })
 
     canvas.on('selection:updated', (e) => {
       this.setCornerStyle()
-      this.setControlsVisibility({ tl: true,
+      this.setControlsVisibility({
+        tl: true,
         tr: true,
         br: true,
         bl: true,
@@ -353,7 +380,8 @@ class Draw {
         mt: false,
         mr: false,
         mb: false,
-        mtr: true })
+        mtr: true
+      })
       this.setActiveObjControl(false, e.deselected, e.target)
       if (e.target && !e.target.hasControls) {
         this._vm.canDelete = false
@@ -410,6 +438,7 @@ class Draw {
     this.layerDraw.interactive = flag
     this.layerDraw.skipTargetFind = !flag
   }
+
   setCornerStyle() {
     const canvas = this.layerDraw
     let activeObject = canvas.getActiveObject()
@@ -418,11 +447,13 @@ class Draw {
     activeObject.cornerStyle = 'circle'
     activeObject.cornerColor = 'rgba(102,153,255,1)'
   }
+
   setControlsVisibility(opt) {
     const canvas = this.layerDraw
     let activeObject = canvas.getActiveObject()
     activeObject._controlsVisibility = opt
   }
+
   initPan() {
     const canvas = this.layerDraw
     let panning = false
@@ -460,7 +491,13 @@ class Draw {
         this.lastPosX = e.targetTouches[0].clientX
         this.lastPosY = e.targetTouches[0].clientY
         if (this.isPresenter) {
-          this._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { x: vpt[4], y: vpt[5], isMobile: true })
+          this._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, {
+            x: vpt[4],
+            y: vpt[5],
+            width: this.container.offsetWidth,
+            height: this.container.offsetHeight,
+            isMobile: true
+          })
         }
       } else {
         var delta = new fabric.Point(e.e.movementX, e.e.movementY)
@@ -471,6 +508,7 @@ class Draw {
       }
     })
   }
+
   initText() {
     const canvas = this.layerDraw
     let isTmpChangeState = false
@@ -497,6 +535,7 @@ class Draw {
       }
     })
   }
+
   initZoom() {
     const canvas = this.layerDraw
     const baseT = getSystem() === 'win' ? 1000 : 200
@@ -517,6 +556,7 @@ class Draw {
       opt.e.stopPropagation()
     })
   }
+
   getVpPoint() {
     var vpt = this.layerDraw.viewportTransform.slice(0)
     return {
@@ -526,6 +566,7 @@ class Draw {
       height: this.container.offsetHeight
     }
   }
+
   moveToPoint(x, y, width, height, isMobile) {
     var vpt = this.layerDraw.viewportTransform.slice(0)
     vpt[4] = x * (this.container.offsetWidth / width * this.presenterZoom)
@@ -534,6 +575,7 @@ class Draw {
     this.layerDraw.setViewportTransform(vpt)
     setSessionStorage('getVpPoint', JSON.stringify(this.getVpPoint()))
   }
+
   setZoom(zoom) {
     const canvas = this.layerDraw
     // const center = canvas.getCenter()
@@ -541,18 +583,22 @@ class Draw {
     canvas.zoomToPoint(transform, zoom)
     this.zoomPercent = zoom
   }
+
   initFollow() {
     const canvas = this.layerDraw
     canvas.on('mouse:move', (e) => {
       // this._vm.sync('follow', SYNC_TYPE.FOLLOW, { x: e.e.movementX, y: e.e.movementY })
     })
   }
+
   redo(opt) {
     // plugins[opt.key].redo.call(this.vm, opt, this.layerDraw)
   }
+
   undo(opt) {
     // plugins[opt.key].undo.call(this.vm, opt, this.layerDraw)
   }
+
   deleteSelected() {
     if (this.textEditing) return
     const canvas = this.layerDraw
@@ -563,6 +609,7 @@ class Draw {
     canvas.remove.apply(canvas, activeObjects)
     this._vm.sync('choose', SYNC_TYPE.DELETE, deleteIds)
   }
+
   addText(input) {
     const canvas = this.layerDraw
     const text = new fabric.IText(input)
@@ -573,6 +620,7 @@ class Draw {
     canvas.add(text)
     this._vm.sync('kbText', SYNC_TYPE.INSERT, text.toJSON(['id', 'btype']))
   }
+
   setKey(key) {
     const canvas = this.layerDraw
     if (key === this.current) {
@@ -599,6 +647,7 @@ class Draw {
     this.toggleSelection(true)
     this.layerDraw.isDrawingMode = false
   }
+
   registerCanvasEvents() {
     const canvas = this.layerDraw
     const that = this
@@ -640,7 +689,15 @@ class Draw {
           that.lastPosX = e.targetTouches[0].clientX
           that.lastPosY = e.targetTouches[0].clientY
           if (that.isPresenter) {
-            that._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { x: vpt[4], y: vpt[5], isMobile: true })
+            const vpPoint = {
+              x: vpt[4],
+              y: vpt[5],
+              width: this.container.offsetWidth,
+              height: this.container.offsetHeight,
+              isMobile: true
+            }
+            setSessionStorage('getVpPoint', JSON.stringify(vpPoint))
+            that._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, vpPoint)
           }
         } else {
           let delta = new fabric.Point(e.e.movementX, e.e.movementY)
@@ -683,6 +740,7 @@ class Draw {
       })
     })
   }
+
   clipImage() {
     let state = this
     let activeObject = this.layerDraw.getActiveObject()
@@ -740,6 +798,7 @@ class Draw {
     }
   }
 }
+
 Draw.getInstance = function () {
   return instance
 }
