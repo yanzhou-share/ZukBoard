@@ -33,10 +33,12 @@
         </div>
 
         <!--<div class="tools props" style="margin-top: -60px;">-->
-          <!--<template v-for="(item, key) in plugins" >-->
+          <!--<template v-for="(item, key) in plugins"  v-if="item.active">-->
             <!--<component-->
+                    <!--:ref="key"-->
                     <!--v-show="item.active"-->
                     <!--:config="item.setting"-->
+                    <!--:isShow="item.active"-->
                     <!--:is="key"-->
                     <!--:key="key">-->
             <!--</component>-->
@@ -497,6 +499,9 @@ export default {
     choose(chooseKey, hiddenAction) {
       if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {
         // return
+      }
+      if (chooseKey === 'brush' && this.drawer.current === 'brush') {
+        this.$refs.brush && this.$refs.brush[0].updateAction()
       }
       this.drawer.setKey(chooseKey)
       Object.keys(this.plugins).forEach(key => {

@@ -41,7 +41,7 @@ import { eventEmitter } from '../util'
 
 export default {
   name: 'brush',
-  props: ['config'],
+  props: ['config', 'isShow'],
   components: {
     'color-picker': Sketch
   },
@@ -49,7 +49,6 @@ export default {
     document.body.addEventListener('click', () => {
       this.isShowPicker = false
     })
-    this.isShowPicker = true
   },
   data() {
     return {
@@ -74,10 +73,15 @@ export default {
       colors: ''
     }
   },
+  computed: {
+    getconfig: function () {
+      return this.isShow
+    }
+  },
   watch: {
-    isShowPicker: {
+    isShow: {
       handler(newV, oldV) {
-        console.warn('----', newV, oldV)
+
       }
     }
   },
@@ -91,7 +95,13 @@ export default {
     },
     handleSelect(val) {
       eventEmitter.emitEvent('on-brush-update', [val, this.config.color])
+    },
+    updateAction() {
+      this.isShowPicker = true
     }
+  },
+  created() {
+
   }
 }
 </script>
