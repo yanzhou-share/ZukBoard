@@ -1,7 +1,7 @@
 <template>
   <div class="full-srceen">
     <div class="screen-content">
-      <div id="canvas"  ref="canvas" style="margin: 0 auto;background: #ffffff;" class="canvas-container">
+      <div id="canvas" ref="canvas" style="margin: 0 auto;background: #ffffff;" class="canvas-container">
         <canvas id="layer-draw"></canvas>
       </div>
       <div class="image-loading" v-show="isUploading">
@@ -156,7 +156,8 @@ export default {
       steps: [10, 15, 20, 33, 50, 75, 100, 125, 150],
       role: null,
       userType: 1,
-      isUploading: false
+      isUploading: false,
+      roomId: undefined
     }
   },
   watch: {
@@ -196,13 +197,13 @@ export default {
     ...actions
   },
   created() {
-    let id = this.$route.params.id
+    this.roomId = this.$route.params.id
     this.role = this.$route.query.role
     this.registerSocket()
-    if (id) {
+    if (this.roomId) {
       // this.test(id)
-      this.socket.emit('joinRoom', id)
-      this.getBoard(id)
+      this.socket.emit('joinRoom', this.roomId)
+      this.getBoard(this.roomId)
       return
     }
     this.createBoard()
@@ -212,7 +213,7 @@ export default {
       // console.warn('width:' + document.body.offsetWidth, 'height:' + document.body.offsetHeight)
       // const canvasHeight = document.body.offsetHeight
       // const canvasWidth = document.body.offsetHeight * 4 / 3
-      this.drawer = new Draw(this, '#canvas', this.getCanvasWh.canvaswidth, this.getCanvasWh.canvasHeight)
+      this.drawer = new Draw(this, '#canvas', this.getCanvasWh.canvaswidth, this.getCanvasWh.canvasHeight, this.roomId)
       this.drawer.init()
       window.drawer = this.drawer
       this.toggleFollowing()

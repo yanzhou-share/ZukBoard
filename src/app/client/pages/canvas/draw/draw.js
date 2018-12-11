@@ -17,7 +17,7 @@ const SYNC_TYPE = {
 let instance = null
 
 class Draw {
-  constructor(vm, selector, width, height) {
+  constructor(vm, selector, width, height, roomId) {
     this.current = 'choose'
     const container = document.querySelector('.canvas-container')
     container.style.width = width + 'px'
@@ -57,6 +57,7 @@ class Draw {
     this.canvasHeight = container.offsetHeight
     this.baseWidth = 1600
     this.baseHeight = 1200
+    this.roomId = roomId
     instance = this
     window.canvas = this.layerDraw
     this.lastPosX = this.lastPosY = 0
@@ -321,7 +322,7 @@ class Draw {
   }
 
   getLastVpPoint() {
-    const getVpPoint = getSessionStorage('getVpPoint') ? JSON.parse(getSessionStorage('getVpPoint')) : {
+    const getVpPoint = getSessionStorage('getVpPoint_' + this.roomId) ? JSON.parse(getSessionStorage('getVpPoint')) : {
       x: 0,
       y: 0,
       width: this.canvaswidth,
@@ -573,7 +574,7 @@ class Draw {
     vpt[5] = y * (this.container.offsetHeight / height * this.presenterZoom)
     // console.warn('moveToPoint', x, vpt[4], this.layerDraw.getZoom())
     this.layerDraw.setViewportTransform(vpt)
-    setSessionStorage('getVpPoint', JSON.stringify(this.getVpPoint()))
+    setSessionStorage('getVpPoint_' + this.roomId, JSON.stringify(this.getVpPoint()))
   }
 
   setZoom(zoom) {
@@ -716,14 +717,14 @@ class Draw {
               height: this.container.offsetHeight,
               isMobile: true
             }
-            setSessionStorage('getVpPoint', JSON.stringify(vpPoint))
+            setSessionStorage('getVpPoint_' + this.roomId, JSON.stringify(vpPoint))
             that._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, vpPoint)
           }
         } else {
           let delta = new fabric.Point(e.e.movementX, e.e.movementY)
           canvas.relativePan(delta)
           if (that.isPresenter) {
-            setSessionStorage('getVpPoint', JSON.stringify(that.getVpPoint()))
+            setSessionStorage('getVpPoint_' + this.roomId, JSON.stringify(that.getVpPoint()))
             that._vm.sync('sync', SYNC_TYPE.MOVE_BY_PRESENTER, { ...that.getVpPoint(), isMobile: false })
           }
         }
