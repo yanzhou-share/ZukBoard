@@ -42,6 +42,19 @@ export const getSessionStorage = (key) => {
   return false
 }
 
+export const setLocalStorage = (key, value) => {
+  if (key && value) {
+    localStorage.setItem(key, value)
+  }
+}
+
+export const getLocalStorage = (key) => {
+  if (key) {
+    return localStorage.getItem(key)
+  }
+  return false
+}
+
 export const browser = {
   versions: (function () {
     let u = navigator.userAgent
