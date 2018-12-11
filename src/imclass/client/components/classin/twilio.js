@@ -25,6 +25,8 @@ class Twilio {
       logLevel: 'debug',
       dominantSpeaker: true,
       networkQuality: true
+      // maxVideoBitrate: 512 * 1000,
+      // maxAudioBitrate: 72 * 1000
     }
 
     if (this.previewTracks) {

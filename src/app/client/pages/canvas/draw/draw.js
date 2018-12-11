@@ -584,6 +584,17 @@ class Draw {
     this.zoomPercent = zoom
   }
 
+  /**
+   * 橡皮
+   */
+  eraser() {
+    const canvas = this.layerDraw
+    canvas.isDrawingMode = false
+    canvas.selection = false
+    canvas.interactive = false
+    this.erasering = true
+  }
+
   initFollow() {
     const canvas = this.layerDraw
     canvas.on('mouse:move', (e) => {
@@ -676,6 +687,15 @@ class Draw {
         }
       }
     })
+
+    // canvas.on('mouse:over', (e) => {
+    //   const canvas = this.layerDraw
+    //   if (this.erasering && this.canDrag) {
+    //     canvas.remove(e.target)
+    //     canvas.renderAll()
+    //   }
+    // })
+
     canvas.on('mouse:move', (e) => {
       if (that.canDrag && (window.spaceDown || (!e.target && that.current === 'choose' && !window.shiftDown && !this.longpress))) {
         that.toggleSelection(false)

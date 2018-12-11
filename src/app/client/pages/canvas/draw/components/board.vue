@@ -10,7 +10,7 @@
       </div>
 
       <!--工具条 begin-->
-      <div class="wb-toolbar" v-show="role ? false : true" @click.stop>
+      <div class="wb-toolbar" v-show="getUserType === 1 ? true : false" @click.stop>
         <div class="tool-item cf"  v-for="(plugin, key) in plugins"
              :key="plugin.name"
              @click="choose(key)">
@@ -31,6 +31,10 @@
         <div class="tool-item cf" @click="(e) => {deleteSelected(e)}" title="删除">
           <i class="icons icons-eliminate" :class="{'del': !canDelete}"></i>
         </div>
+
+        <!--<div class="tool-item cf" @click="(e) => {eraserAction(e)}" title="删除">-->
+          <!--<i class="icons icons-eliminate"></i>-->
+        <!--</div>-->
 
         <!--<div class="tools props" style="margin-top: -60px;">-->
           <!--<template v-for="(item, key) in plugins"  v-if="item.active">-->
@@ -151,6 +155,7 @@ export default {
       pIndex: 6,
       steps: [10, 15, 20, 33, 50, 75, 100, 125, 150],
       role: null,
+      userType: 1,
       isUploading: false
     }
   },
@@ -176,6 +181,12 @@ export default {
         this.drawer.canvasHeight = document.body.offsetHeight <= document.body.offsetWidth ? document.body.offsetHeight : document.body.offsetWidth * 3 / 4
         this.drawer.canvaswidth = document.body.offsetWidth >= document.body.offsetHeight ? document.body.offsetHeight * 4 / 3 : document.body.offsetWidth
         return this.drawer
+      }
+    },
+    getUserType: {
+      get: function () {
+        this.userType = this.$route.query.userType || 1
+        return this.userType
       }
     }
   },
@@ -495,6 +506,9 @@ export default {
     },
     deleteSelected() {
       this.drawer.deleteSelected()
+    },
+    eraserAction() {
+      this.drawer.eraser()
     },
     choose(chooseKey, hiddenAction) {
       if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {
