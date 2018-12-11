@@ -322,7 +322,7 @@ class Draw {
   }
 
   getLastVpPoint() {
-    const getVpPoint = getSessionStorage('getVpPoint_' + this.roomId) ? JSON.parse(getSessionStorage('getVpPoint')) : {
+    const getVpPoint = getSessionStorage('getVpPoint_' + this.roomId) ? JSON.parse(getSessionStorage('getVpPoint_' + this.roomId)) : {
       x: 0,
       y: 0,
       width: this.canvaswidth,
