@@ -4,7 +4,7 @@
             <div class="btn" v-if="getCreator">
                 <i class="icons icons-invite" @click="invitingAction"></i>
             </div>
-            <div class="btn" v-if="getCreator">
+            <div class="btn" style="display: none;" v-if="getCreator">
                 <i class="icons icons-live" @click="startLiveAction"></i>
             </div>
             <div class="btn" style="display: none;">
