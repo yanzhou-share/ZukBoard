@@ -2,7 +2,7 @@ const CURRENT_PATH = process.cwd()
 const env = process.env.NODE_ENV || 'local'
 const Koa = require('koa')
 const app = new Koa()
-const cors = require('@koa/cors')
+const cors = require('koa2-cors')
 const server = require('http').createServer(app.callback())
 const io = require('socket.io')(server, {
   transports: [ 'websocket', 'polling' ]
@@ -50,6 +50,7 @@ app.use(async (ctx, next) => {
   ctx.state.WEBPACK_HASH_MAP = WEBPACK_HASH_MAP
   ctx.state.staticBaseUrl = renderConf.ENV_VAR[env].staticBaseUrl
   ctx.state.testApiUrl = renderConf.ENV_VAR[env].testApiUrl
+  ctx.set('Access-Control-Allow-Origin', '*')
   await next()
 })
 
