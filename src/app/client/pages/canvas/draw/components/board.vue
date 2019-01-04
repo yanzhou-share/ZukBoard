@@ -402,10 +402,8 @@ export default {
       })
     },
     getBoard(id) {
-      this.$http.get('/api/board/get', {
-        params: {
-          id: id
-        }
+      this.$http.post('/api/board/get', {
+        id: id
       }).then(res => {
         const { code, data } = res.data
         if (code !== 0 || !data) {
@@ -512,9 +510,9 @@ export default {
       this.drawer.eraser()
     },
     choose(chooseKey, hiddenAction) {
-      if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {
-        // return
-      }
+      // if (!this.plugins[chooseKey].useInFollowing && this.notPresenter) {
+      //   return
+      // }
       if (chooseKey === 'brush' && this.drawer.current === 'brush') {
         this.$refs.brush && this.$refs.brush[0].updateAction()
       }
@@ -532,6 +530,10 @@ export default {
 
       if (chooseKey === 'uploadImg') {
         eventEmitter.emit('uploadBtnClick')
+      }
+
+      if (chooseKey === 'eraser') {
+        this.drawer.eraser()
       }
     },
     beforeCloseTab() {

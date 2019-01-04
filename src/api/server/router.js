@@ -50,9 +50,10 @@ module.exports = {
       createResult(ctx, resCode.SEARCH_NOT_EXIST, '')
     }
   },
-  'get#board/get': async ctx => {
+  'post#board/get': async ctx => {
     try {
-      let id = ctx.query.id
+      // let id = ctx.query.id
+      const { id } = ctx.request.body
       // let model = await db.Board.findOne({_id: ObjectId(id)})
       let model = await db.Board.findOne({roomId: id})
       if(!model){
