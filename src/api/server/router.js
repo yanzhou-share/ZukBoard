@@ -90,7 +90,7 @@ module.exports = {
     // GenerateScript()
     createResult(ctx, resCode.OK, '', model)
   },
-  'get#image/sign': async ctx => {
+  'post#image/sign': async ctx => {
     let dirpath = 'zukboard'
     const filename = `${Date.now()}`
     createResult(ctx, resCode.OK, '', getUpyunParams(dirpath, filename))
