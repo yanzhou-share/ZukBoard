@@ -36,4 +36,12 @@ export default {
       maxCompress: 0.5 * 1024 * 1000
     }
   }
+  // 'eraser': {
+  //   title: '橡皮擦',
+  //   icon: '&#xe651;',
+  //   class: 'icons icons-move',
+  //   setting: {
+  //
+  //   }
+  // }
 }

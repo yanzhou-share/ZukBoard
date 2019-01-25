@@ -16,7 +16,7 @@ const methods = {
     update(id, '$push', { canvas: item })
   },
   [SYNC_TYPE.MOVE_BY_PRESENTER]: (item, id) => {
-    update(id, '$set', { 'follow.config.pan': item.data })
+    update(id, '$set', { 'follow.config.pan': item.data, pageIndex: item.data.pageIndex })
   },
   [SYNC_TYPE.ZOOM]: (item, id) => {
     update(id, '$set', { 'follow.config.zoom': item.data })

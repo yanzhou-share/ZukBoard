@@ -27,7 +27,8 @@ const boardSchema = new Schema({
   lastUpdate: {
     type: Date,
     default: Date.now
-  }
+  },
+  pageIndex: Object
 })
 
 const Board = mongoose.model('board', boardSchema)

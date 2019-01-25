@@ -691,6 +691,12 @@ class Draw {
 
     // canvas.on('mouse:over', (e) => {
     //   const canvas = this.layerDraw
+    //   if (this.erasering) {
+    //     e.target && (e.target.selectable = false)
+    //   } else {
+    //     e.target && (e.target.selectable = true)
+    //   }
+    //   // console.warn('------', this.erasering, this.canDrag)
     //   if (this.erasering && this.canDrag) {
     //     canvas.remove(e.target)
     //     canvas.renderAll()
@@ -746,6 +752,13 @@ class Draw {
         that.toggleSelection(true)
         that.setActiveObjControl(true)
         canvas.defaultCursor = 'default'
+      } else if (that.current === 'eraser') {
+        canvas.isDrawingMode = false
+        canvas.defaultCursor = 'default'
+        this.setActiveObjControl(false)
+        // canvas.forEachObject(item => {
+        //   item.evented = false
+        // })
       } else {
         that.toggleSelection(true)
         that.setActiveObjControl(true)
