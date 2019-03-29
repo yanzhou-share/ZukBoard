@@ -6,6 +6,9 @@ function register(io) {
     socket.on('joinRoom', async (id) => {
       socket.join(id)
     })
+    socket.on('leaveRoom', async (id) => {
+      socket.leave(id)
+    })
     registerSync(socket)
     registerFollow(socket)
     socket.on('disconnect', () => {})
