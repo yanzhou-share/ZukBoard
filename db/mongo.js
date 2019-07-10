@@ -28,7 +28,8 @@ const boardSchema = new Schema({
     type: Date,
     default: Date.now
   },
-  pageIndex: Object
+  pageIndex: Object,
+  tags: { roomId: [String], index: true }
 })
 
 const Board = mongoose.model('board', boardSchema)
