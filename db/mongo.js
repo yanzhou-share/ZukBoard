@@ -9,7 +9,7 @@ const {
 
 mongoose.connect(config.db, {
   useNewUrlParser: true,
-  autoIndex: false
+  useCreateIndex: true
   // useMongoClient: true
 })
 mongoose.connection.on('error', function () {
