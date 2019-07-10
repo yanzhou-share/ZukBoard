@@ -8,7 +8,8 @@ const {
 } = mongoose
 
 mongoose.connect(config.db, {
-  useNewUrlParser: true
+  useNewUrlParser: true,
+  autoIndex: false
   // useMongoClient: true
 })
 mongoose.connection.on('error', function () {
@@ -31,6 +32,8 @@ const boardSchema = new Schema({
   pageIndex: Object
   // tags: { roomId: [String], index: true }
 })
+
+boardSchema.index({ roomId: -1 }) // schema level
 
 const Board = mongoose.model('board', boardSchema)
 
