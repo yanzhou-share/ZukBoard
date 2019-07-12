@@ -53,8 +53,7 @@ module.exports = {
   'post#board/get': async ctx => {
     try {
       // let id = ctx.query.id
-      // const { id } = ctx.request.body
-      const id = "13312011";
+      const { id } = ctx.request.body
       // let model = await db.Board.findOne({_id: ObjectId(id)})
       let model = await db.Board.findOne({roomId: id})
       if(!model){
